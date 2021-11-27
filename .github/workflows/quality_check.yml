@@ -1,0 +1,23 @@
+name: Quality check (lint files and run e2e tests)
+
+on: [pull_request]
+
+jobs:
+    lint_files:
+        runs-on: 'ubuntu-latest'
+        defaults:
+            run:
+                working-directory: ./client
+        steps:
+            - uses: actions/checkout@v2
+            - name: Install dependencies
+              run: npm ci
+            - name: Run ESLint
+              run: npm run lint
+            - name: Cypress run
+              uses: cypress-io/github-action@v2
+              with:
+                  project: ./client
+                  # next build also checks for TypeScript errors
+                  build: npm run build
+                  start: npm start
