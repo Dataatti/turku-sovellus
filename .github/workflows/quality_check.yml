@@ -10,12 +10,10 @@ jobs:
                 working-directory: ./client
         steps:
             - uses: actions/checkout@v2
-            - name: Install dependencies
-              run: npm ci
             - name: Cypress run
               uses: cypress-io/github-action@v2
               with:
-                  project: ./client
+                  working-directory: ./client
                   # next build also checks for TypeScript errors and lints files
                   build: npm run build
                   start: npm start
