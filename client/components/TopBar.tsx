@@ -15,7 +15,10 @@ export const TopBar = () => {
   return (
     <AppBar position="static">
       <Container>
-        <Toolbar sx={{ justifyContent: 'space-between', py: { xs: '10px', md: '0px' } }}>
+        <Toolbar
+          sx={{ justifyContent: 'space-between', py: { xs: '10px', md: '0px' } }}
+          data-testid="top-bar"
+        >
           <TopBarLogo />
           <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold' }}>
             {title}
