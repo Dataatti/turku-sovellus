@@ -1,19 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import theme from 'theme';
-import { Box, Typography, List, ListItem, ListItemText, Divider } from '@mui/material';
+import { Box, Typography, List } from '@mui/material';
 import Link from 'next/link';
-import { ReactNode } from 'react';
-import LaunchIcon from '@mui/icons-material/Launch';
-import { shortenTextFromEnd } from 'utils/textUtils';
-
-// A singular list item, thumbnail is the component on the right side (image, icon etc)
-type ListItemType = {
-  description: string;
-  href: string;
-  thumbnail: ReactNode;
-  title: string;
-};
+import { ListWidgetItem, ListItemType } from './ListWidgetItem';
 
 type ListWidgetType = {
   className?: string;
@@ -29,26 +19,20 @@ const exampleData: ListItemType[] = [
     title: 'Tall Ships Races Turku 2022',
     description: 'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään.',
     href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: (
-      <img
-        css={css(`width: 100%; height: 100%; object-fit: cover;`)}
-        src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg"
-        alt="Turun linna"
-      />
-    ),
+    thumbnail: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
+      alt: 'Turun linna',
+    },
   },
   {
     title: 'Tall Ships Races Turku 2022',
     description:
       'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään. Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum  Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumTähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumv Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum',
     href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: (
-      <img
-        css={css(`width: 100%; height: 100%; object-fit: cover;`)}
-        src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg"
-        alt="Turun linna"
-      />
-    ),
+    thumbnail: {
+      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
+      alt: 'Turun linna',
+    },
   },
 ];
 
@@ -74,27 +58,6 @@ export const ListWidget: React.FC<ListWidgetType> = ({
     }
   `);
 
-  const listItemStyles = css(`
-    padding-left: 4px;
-    padding-right: 4px;  
-    @media (max-width: 899px) {
-      padding-left: 0px;
-      padding-right: 0px;
-    }
-  `);
-
-  const thumbnailWrapper = css(`
-    width: 110px; 
-    height: 110px;
-    @media (max-width: 899px) {
-      width: 70px;
-      height: 70px;
-    }
-    @media (max-width: 530px) {
-      display: none
-    }
-  `);
-
   return (
     <Box className={`${className ? className : ''}`} css={wrapperStyles} sx={{ boxShadow: 3 }}>
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
@@ -102,60 +65,8 @@ export const ListWidget: React.FC<ListWidgetType> = ({
       </Typography>
       <List sx={{ width: '100%' }}>
         {/* TODO: Remove example data when connected to actual data source */}
-        {exampleData.map((n) => (
-          <>
-            <ListItem alignItems="center" css={listItemStyles}>
-              <div
-                css={css(`    
-                  height: 110px; 
-                  width: 100%; 
-                  display: flex; 
-                  flex-direction: column;
-                  margin-right: 8px;
-                  `)}
-              >
-                <ListItemText
-                  css={css(`height: 100%; width: 100%`)}
-                  primary={
-                    <>
-                      <Link href={n.href} passHref>
-                        <a
-                          css={css(`
-                        color: ${textColor};
-                        text-decoration: none;
-                        &:hover {
-                          text-decoration: underline !important;
-                        }
-                      `)}
-                        >
-                          {n.title}
-                        </a>
-                      </Link>
-                      <LaunchIcon fontSize="inherit" css={css(`margin-left: 2px`)} />
-                    </>
-                  }
-                  secondary={
-                    <>
-                      <Typography
-                        sx={{ display: 'inline' }}
-                        component="span"
-                        variant="body2"
-                        color={textColor}
-                      >
-                        {shortenTextFromEnd(n.description, 200)}
-                      </Typography>
-                    </>
-                  }
-                />
-                <Divider
-                  variant="fullWidth"
-                  component="li"
-                  sx={{ borderColor: textColor, marginTop: 'auto', marginRight: '8px' }}
-                />
-              </div>
-              <div css={thumbnailWrapper}>{n.thumbnail}</div>
-            </ListItem>
-          </>
+        {exampleData.map((item) => (
+          <ListWidgetItem item={item} textColor={textColor} key={exampleData.indexOf(item)} />
         ))}
       </List>
       <div
