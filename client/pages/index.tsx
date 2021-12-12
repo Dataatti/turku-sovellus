@@ -21,10 +21,11 @@ const Home: NextPage = () => {
             </a>
           </Link>
 
-          <a href="https://nextjs.org/learn">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+          <Link href="/kerrokantasi" passHref>
+            <a>
+              <h3>Kerrokantasi &rarr;</h3>
+            </a>
+          </Link>
         </div>
       </main>
 
