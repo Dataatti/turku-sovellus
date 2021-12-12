@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { css } from '@emotion/react';
 
-export const TopBarLogo: React.FC = () => {
+export const TopBarLogo = () => {
   return (
     <Link href="/" passHref>
       <a

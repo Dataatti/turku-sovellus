@@ -3,7 +3,7 @@ import { MenuItem, TextField, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import theme from '../theme';
 
-export const LanguageSelect: React.FC = () => {
+export const LanguageSelect = () => {
   const [language, setLanguage] = useState<string>('fi');
 
   return (
