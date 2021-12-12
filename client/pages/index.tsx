@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import ListWidget from "components/ListWidget";
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,8 @@ const Home: NextPage = () => {
 
       <main>
         <h2>Welcome to Turku-Sovellus!</h2>
+
+        <ListWidget title="Nostot" readMoreText="Lue lisää" readMoreHref="https://google.com" items={[]} variant="primary"/>
 
         <div>
           <Link href="/liikennetiedotteet" passHref>
