@@ -4,9 +4,9 @@ import { AppBar, Container, Toolbar, Typography } from '@mui/material';
 import LanguageSelect from './LanguageSelect';
 import TopBarLogo from './TopBarLogo';
 
-export const TopBar = () => {
+export const TopBar: React.FC = () => {
   const router = useRouter();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     setTitle(router.pathname !== '/' ? document.title : '');
