@@ -1,9 +1,8 @@
 version: '3'
 services:
   strapi:
-    image: strapi/strapi
+    build: ./
     container_name: turku_strapi
-    restart: unless-stopped
     env_file:
       - .env
     environment:
@@ -14,7 +13,7 @@ services:
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-      - ./app:/srv/app
+      - .:/srv/app
     ports:
       - '1337:1337'
     depends_on:
