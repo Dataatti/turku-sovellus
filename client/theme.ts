@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
-    fontFamily: ['Arial'].join(','),
+    fontFamily: 'Arial',
     h1: {
       fontSize: 24,
     },
@@ -13,8 +13,8 @@ const theme = createTheme({
       fontSize: 18,
     },
     body1: {
-      fontSize: 16
-    }
+      fontSize: 16,
+    },
   },
   palette: {
     primary: {
