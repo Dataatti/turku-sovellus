@@ -32,7 +32,7 @@ export default function MyApp(props: MyAppProps) {
         <CssBaseline />
         <QueryClientProvider client={queryClient}>
           <TopBar />
-          <Container>
+          <Container sx={{ px: '0.5rem' }}>
             <Component {...pageProps} />
           </Container>
         </QueryClientProvider>
