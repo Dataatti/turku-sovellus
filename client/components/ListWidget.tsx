@@ -1,13 +1,13 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import theme from 'theme';
-import { Box, Typography, List } from '@mui/material';
+import { Box, Typography, List, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
 
 type ListWidgetType = {
   className?: string;
-  items: ListItemType[];
+  items?: ListItemType[];
   readMoreHref: string;
   readMoreText: string;
   title: string;
@@ -38,7 +38,7 @@ const exampleData: ListItemType[] = [
 
 export const ListWidget: React.FC<ListWidgetType> = ({
   className,
-  items,
+  items = exampleData,
   readMoreHref,
   readMoreText,
   title,
@@ -64,28 +64,18 @@ export const ListWidget: React.FC<ListWidgetType> = ({
         {title}
       </Typography>
       <List sx={{ width: '100%' }}>
-        {/* TODO: Remove example data when connected to actual data source */}
-        {exampleData.map((item) => (
-          <ListWidgetItem item={item} textColor={textColor} key={exampleData.indexOf(item)} />
+        {items.map((item) => (
+          <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
         ))}
       </List>
       <div
         css={css(`
-        width: 100%;
         display: flex;
-        align-items: center;
         justify-content: center;
-        color: ${textColor}
       `)}
       >
         <Link href={readMoreHref} passHref>
-          <a
-            css={css(`
-            color: ${textColor}
-          `)}
-          >
-            {readMoreText}
-          </a>
+          <MUILink color="inherit">{readMoreText}</MUILink>
         </Link>
       </div>
     </Box>
