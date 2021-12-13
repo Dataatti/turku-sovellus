@@ -43,7 +43,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
               </Typography>
             }
           />
-          <Divider variant="fullWidth" component="li" sx={{ borderColor: textColor }} />
+          <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
         </Grid>
         <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
           {thumbnail.src && (
