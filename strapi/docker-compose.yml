@@ -18,7 +18,7 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
     restart: unless-stopped
     volumes:
-      - .:/srv/app
+      - ./app:/srv/app
     ports:
       - '1337:1337'
     depends_on:
