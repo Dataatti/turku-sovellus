@@ -1,5 +1,10 @@
-import { Card, CardContent, CardMedia, Chip, Typography } from '@mui/material';
-import { ChatBubbleOutline, Launch } from '@mui/icons-material';
+/** @jsxImportSource @emotion/react */
+
+import { Typography } from '@mui/material';
+import { ChatBubbleOutline } from '@mui/icons-material';
+import ItemCard from 'components/ItemCard';
+import { css } from '@emotion/react';
+import { Box } from '@mui/system';
 
 export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale: Lang }) => {
   const openDate = new Date(hearing.open_at);
@@ -14,44 +19,23 @@ export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale
   const openedDaysAgo = Math.floor((Date.now() - openDate.getTime()) / (1000 * 60 * 60 * 24));
 
   return (
-    <Card>
-      <CardMedia
-        component="img"
-        image={hearing.main_image.url}
-        height="200"
-        width="400"
-        alt={hearing.main_image.alt_text[locale]}
-      ></CardMedia>
-
-      <CardContent>
-        <a href={`https://kerrokantasi.turku.fi/${hearing.slug}`}>
-          <Typography variant="h5" component="h3">
-            {hearing.title[locale]}
-            <Launch />
-          </Typography>
-        </a>
-
-        <Typography variant="caption" component="p">
-          {`Avautui ${openedDaysAgo} päivää sitten`}
+    <ItemCard
+      abstract={hearing.abstract[locale]}
+      captions={[`Avautui ${openedDaysAgo} päivää sitten`, `Sulkeutuu ${closeLocaleDate}`]}
+      href={`https://kerrokantasi.turku.fi/${hearing.slug}`}
+      image={{
+        url: hearing.main_image.url,
+        altText: hearing.main_image.alt_text[locale] as string,
+      }}
+      tags={(hearing?.labels?.map((n) => n.label[locale]) as string[]) || []}
+      title={hearing.title[locale] as string}
+      titleSuffix={
+        <Typography variant="body2" component="span" sx={{ display: 'flex', fontSize: '18px' }}>
+          <Box sx={{ display: 'inline', marginRight: '4px' }}>{hearing.n_comments}</Box>
+          <ChatBubbleOutline />
         </Typography>
-
-        <Typography variant="caption" component="p">
-          {`Sulkeutuu ${closeLocaleDate}`}
-        </Typography>
-
-        <Typography variant="body2" component="span">
-          <ChatBubbleOutline/>{hearing.n_comments}
-        </Typography>
-
-        <Typography variant="body2" component="p">
-          {hearing.abstract[locale]}
-        </Typography>
-
-        {hearing.labels.map((label) => (
-          <Chip key={label.id} label={label.label[locale]} color="secondary" />
-        ))}
-      </CardContent>
-    </Card>
+      }
+    />
   );
 };
 
