@@ -14,6 +14,6 @@ Docker is needed to run Strapi. It can be downloaded from here: https://www.dock
 
 Create `.env` file to `/strapi` and copy .env.example values, and then set the username and password to something secure.
 
-To run strapi run `docker-compose up --build -d`
+To run strapi run `docker-compose up -d`
 
 To stop strapi run `docker-compose down`
