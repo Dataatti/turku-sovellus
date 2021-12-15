@@ -1,9 +1,9 @@
 type Lang = 'fi' | 'en' | 'sv';
 
 interface MultiLangContent {
-  fi?: string;
-  en?: string;
-  sv?: string;
+  fi: string;
+  en: string;
+  sv: string;
 }
 
 // Kerrokantasi Hearing

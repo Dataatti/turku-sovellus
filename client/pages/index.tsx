@@ -1,10 +1,11 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { GetStaticProps } from 'next';
 import ListWidget from 'components/ListWidget';
+import KerroKantasiWidget from 'components/KerroKantasiWidget';
 
-const Home: NextPage = () => {
+const Home = ({ locale }: { locale: Lang }) => {
   return (
     <div>
       <Head>
@@ -21,6 +22,8 @@ const Home: NextPage = () => {
           readMoreHref="https://google.com"
           variant="primary"
         />
+
+        <KerroKantasiWidget locale={locale} />
 
         <div>
           <Link href="/liikennetiedotteet" passHref>
@@ -51,6 +54,14 @@ const Home: NextPage = () => {
       </footer>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      locale: locale || 'fi',
+    },
+  };
 };
 
 export default Home;
