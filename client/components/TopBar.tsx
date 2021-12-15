@@ -6,7 +6,7 @@ import TopBarLogo from './TopBarLogo';
 
 export const TopBar = () => {
   const router = useRouter();
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
     setTitle(router.pathname !== '/' ? document.title : '');

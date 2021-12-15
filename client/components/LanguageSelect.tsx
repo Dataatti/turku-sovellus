@@ -5,6 +5,7 @@ import LanguageIcon from '@mui/icons-material/Language';
 import theme from '../theme';
 
 export const LanguageSelect = () => {
+<<<<<<< HEAD
   const router = useRouter();
 
   const changeLanguage = (event: ChangeEvent<HTMLInputElement>) => {
@@ -12,6 +13,9 @@ export const LanguageSelect = () => {
     const { pathname, asPath, query } = router;
     router.push({ pathname, query }, asPath, { locale: newLanguage });
   };
+=======
+  const [language, setLanguage] = useState<string>('fi');
+>>>>>>> 39cce6f8db7e521cfe22195df17322e1befdee32
 
   return (
     <TextField
