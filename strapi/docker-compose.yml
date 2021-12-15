@@ -1,9 +1,12 @@
 version: '3'
 services:
   strapi:
-    image: strapi/strapi
+    build: 
+      context: ./docker
+      args:
+       - BASE_VERSION=latest
+       - STRAPI_VERSION=latest
     container_name: turku_strapi
-    restart: unless-stopped
     env_file:
       - .env
     environment:
@@ -13,6 +16,7 @@ services:
       DATABASE_PORT: ${DATABASE_PORT}
       DATABASE_USERNAME: ${DATABASE_USERNAME}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    restart: unless-stopped
     volumes:
       - ./app:/srv/app
     ports:
@@ -27,8 +31,8 @@ services:
     env_file:
       - .env
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./data:/var/lib/postgresql/data
