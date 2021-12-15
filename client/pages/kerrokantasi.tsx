@@ -1,8 +1,7 @@
 import KerroKantasiCard from 'components/KerroKantasiCard';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
-import useKerroKantasi from '../hooks/useKerroKantasi';
+import useKerroKantasi from 'hooks/useKerroKantasi';
 
 const Kerrokantasi = ({ locale }: { locale: Lang }) => {
   const { isLoading, data } = useKerroKantasi();
@@ -16,20 +15,11 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
       </Head>
 
       <main>
-        <h2>Welcome to Kerrokantasi!</h2>
-
-        <div>
-          <Link href="/" passHref>
-            <a>
-              <h3>Etusivu &rarr;</h3>
-            </a>
-          </Link>
-        </div>
-        {!isLoading &&
-          data &&
-          data.map((hearing) => (
-            <KerroKantasiCard hearing={hearing} locale={locale} key={hearing.id} />
-          ))}
+          {!isLoading &&
+            data &&
+            data.map((hearing) => (
+                <KerroKantasiCard hearing={hearing} locale={locale} key={hearing.id} />
+            ))}
       </main>
     </div>
   );
