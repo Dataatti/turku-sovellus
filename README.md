@@ -17,3 +17,4 @@ Create `.env` file to `/strapi` and copy .env.example values, and then set the u
 To run strapi run `docker-compose up -d`
 
 To stop strapi run `docker-compose down`
+

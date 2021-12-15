@@ -13,4 +13,4 @@ VOLUME /srv/app
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 ENTRYPOINT ["bash", "docker-entrypoint.sh"]
 
-CMD ["strapi", "start"]
+CMD ["strapi", "develop"]
