@@ -59,12 +59,12 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   `);
 
   return (
-    <Box className={`${className ? className : ''}`} css={wrapperStyles} sx={{ boxShadow: 3 }}>
+    <Box className={`${className ? className : ''}`} css={wrapperStyles} sx={{ boxShadow: 3, marginTop: '12px' }}>
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title}
       </Typography>
       <List sx={{ width: '100%' }}>
-        {items.map((item) => (
+        {items && items.map((item) => (
           <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
         ))}
       </List>

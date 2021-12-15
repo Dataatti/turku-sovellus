@@ -29,6 +29,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
         display: 'flex',
         justifyContent: 'space-between',
         flexDirection: { xs: 'column-reverse', md: 'row' },
+        marginTop: '12px',
       }}
     >
       <CardContent sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
