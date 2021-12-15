@@ -2,9 +2,10 @@ import { useState } from 'react';
 import { MenuItem, TextField, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import theme from '../theme';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 export const LanguageSelect = () => {
-  const [language, setLanguage] = useState<string>('fi');
+  const [language, setLanguage] = useLocalStorage<string>('locale', 'fi');
 
   return (
     <TextField
