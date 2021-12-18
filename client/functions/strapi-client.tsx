@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 
 interface StrapiClientTypes {
   titles: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title>>>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>>>;
     get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Title>>>;
   };
 }

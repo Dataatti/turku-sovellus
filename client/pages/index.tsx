@@ -5,14 +5,13 @@ import Link from 'next/link';
 import ListWidget from 'components/ListWidget';
 
 import strapiClient from 'functions/strapi-client';
+import { dehydrate, QueryClient } from 'react-query';
+import { useTitles } from 'hooks/useTitles';
 
-interface HomeProps {
-  titles: StrapiResponse<Title[]>;
-  error: string;
-}
+const Home: NextPage = () => {
+  const { data: titles } = useTitles();
 
-const Home: NextPage<HomeProps> = ({ titles, error }) => {
-  const nostot = titles?.data?.find((el) => el);
+  const nostot = titles?.data.data.find((el) => el.attributes.type === 'nostot');
   return (
     <div>
       <Head>
@@ -24,7 +23,7 @@ const Home: NextPage<HomeProps> = ({ titles, error }) => {
         <h2>Welcome to Turku-Sovellus!</h2>
 
         <ListWidget
-          title={nostot?.attributes?.text || ''}
+          title={nostot?.attributes.text || ''}
           readMoreText="Lue lisää"
           readMoreHref="https://google.com"
           variant="primary"
@@ -36,48 +35,26 @@ const Home: NextPage<HomeProps> = ({ titles, error }) => {
               <h3>Liikennetiedotteet &rarr;</h3>
             </a>
           </Link>
-
-          <a href="https://nextjs.org/learn">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const { locale } = context;
-  try {
-    const { data } = await strapiClient.titles.get('nostot', locale || 'fi');
+  const queryClient = new QueryClient();
 
-    return {
-      props: {
-        titles: data,
-      },
-    };
-  } catch (err) {
-    console.log(err);
-    return {
-      props: {
-        titles: {},
-        error: JSON.stringify(err),
-      },
-    };
-  }
+  const { locale } = context;
+  await queryClient.prefetchQuery(
+    ['getTitles', locale],
+    strapiClient.titles.list(locale || 'fi') as any
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
+
 export default Home;

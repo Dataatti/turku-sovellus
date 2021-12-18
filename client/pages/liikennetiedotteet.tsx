@@ -1,8 +1,13 @@
-import type { NextPage } from 'next';
+import strapiClient from 'functions/strapi-client';
+import { useTitle } from 'hooks/useTitles';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
+import { dehydrate, QueryClient } from 'react-query';
 
 const Liikennetiedotteet: NextPage = () => {
+  const { data: title } = useTitle('Liikennetiedotteet');
+  console.log(title?.data);
   return (
     <div>
       <Head>
@@ -23,6 +28,22 @@ const Liikennetiedotteet: NextPage = () => {
       </main>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient();
+
+  const { locale } = context;
+  await queryClient.prefetchQuery(
+    ['getTitle', 'liikennetiedotteet'],
+    strapiClient.titles.get('liikennetiedotteet', locale || 'fi') as any
+  );
+
+  return {
+    props: {
+      dehydratedState: dehydrate(queryClient),
+    },
+  };
 };
 
 export default Liikennetiedotteet;
