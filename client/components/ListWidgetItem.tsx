@@ -54,6 +54,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
               height="auto"
               css={css`
                 aspect-ratio: 1 / 1;
+                object-fit: cover;
               `}
             />
           )}
