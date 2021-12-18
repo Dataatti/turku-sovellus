@@ -6,8 +6,7 @@ const getTurkuEvents = async () => {
     `https://api.turku.fi/linkedevents/v1/event/?include=keywords,location&start=${date}&end=${date}`
   );
   const data = await response.json();
-  console.log(data);
-  const results: Hearing[] = data.results;
+  const results: Event[] = data.data;
   return results;
 };
 

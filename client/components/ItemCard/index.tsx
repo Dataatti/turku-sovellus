@@ -1,5 +1,6 @@
 import { Card, CardContent, CardMedia, Chip, Typography, Link, Box } from '@mui/material';
 import { Launch } from '@mui/icons-material';
+import { shortenTextFromEnd } from 'utils/textUtils';
 
 type ItemCardProps = {
   abstract?: string;
@@ -52,7 +53,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
         </Box>
 
         <Typography variant="body2" component="p">
-          {abstract}
+          {shortenTextFromEnd(abstract || '', 300)}
         </Typography>
         <Box sx={{ marginTop: 'auto' }}>
           {tags.map((n, i) => (
