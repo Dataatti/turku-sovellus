@@ -10,7 +10,7 @@ type ListWidgetType = {
   items?: ListItemType[];
   readMoreHref: string;
   readMoreText: string;
-  title: string;
+  title?: string;
   variant: 'primary' | 'secondary' | 'white';
 };
 
@@ -61,7 +61,7 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   return (
     <Box className={`${className ? className : ''}`} css={wrapperStyles} sx={{ boxShadow: 3, marginTop: '12px' }}>
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
-        {title}
+        {title || ""}
       </Typography>
       <List sx={{ width: '100%' }}>
         {items && items.map((item) => (

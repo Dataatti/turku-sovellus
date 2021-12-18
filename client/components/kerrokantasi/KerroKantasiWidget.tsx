@@ -3,8 +3,6 @@ import useKerroKantasi from 'hooks/useKerroKantasi';
 
 export const KerroKantasiWidget = ({ locale }: { locale: Lang }) => {
   const { isLoading, data } = useKerroKantasi();
-  console.log(data, isLoading, locale);
-  console.log(data && data[0].title[locale]);
 
   const mapData = (data: Hearing[]) => {
     const mappedHearings = data.map((hearing) => ({

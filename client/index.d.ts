@@ -1,9 +1,9 @@
 type Lang = 'fi' | 'en' | 'sv';
 
 interface MultiLangContent {
-  fi: string;
-  en: string;
-  sv: string;
+  fi?: string;
+  en?: string;
+  sv?: string;
 }
 
 // Kerrokantasi Hearing
@@ -27,4 +27,101 @@ interface Hearing {
     url: string;
   };
   labels: { id: number; label: MultiLangContent }[];
+}
+
+// Turussa tapahtuu Event
+interface EventMetadata {
+  '@context': string;
+  '@id': string;
+  '@type': string;
+  data_source: string;
+}
+
+interface EventImage extends EventMetadata {
+  created_time: string;
+  cropping: string;
+  id: number;
+  last_modified_time: string;
+  license: string;
+  name: string;
+  photographer_name?: string;
+  publisher: string;
+  url: string;
+}
+
+interface EventKeyword extends EventMetadata {
+  aggregate: boolean;
+  alt_labels: any[];
+  created_time: string;
+  deprecated: boolean;
+  id: string;
+  image?: any;
+  last_modified_time: string;
+  n_events: number;
+  name: MultiLangContent;
+  publisher: string;
+}
+
+interface EventLocation extends EventMetadata {
+  address_country?: string;
+  address_locality?: string;
+  address_region?: string;
+  contact_type?: string;
+  created_time: string;
+  custom_data?: any;
+  deleted: boolean;
+  description?: MultiLangContent;
+  divisons: any[];
+  email?: string;
+  id: string;
+  image: any;
+  info_url: MultiLangContent;
+  last_modified_time: string;
+  n_events: string;
+  name: MultiLangContent;
+  parent?: any;
+  position: {
+    type: string;
+    coordinates: number[];
+  };
+  post_office_box_num: string;
+  postal_code: string;
+  publisher: string;
+  replaced_by?: any;
+  street_address: MultiLangContent;
+  telephone?: string;
+}
+
+interface Event extends EventMetadata {
+  audience: { '@id': string }[];
+  created_time: string;
+  custom_data: any;
+  date_published: string;
+  id: string;
+  created_time: string;
+  end_time: string;
+  event_status: string;
+  external_links: string[];
+  description: MultiLangContent;
+  images: EventImage[];
+  in_language: string[];
+  info_url?: string;
+  keywords: EventKeyword[];
+  last_modified_time: string;
+  location: EventLocation;
+  location_extra_info: MultiLangContent;
+  name: MultiLangContent;
+  offers: {
+    description?: MultiLangContent;
+    info_url?: string;
+    is_free: boolean;
+    price?: any;
+  };
+  provider?: any;
+  publisher: string;
+  short_description: MultiLangContent;
+  start_time: string;
+  sub_events: { '@id': string }[];
+  super_event?: any;
+  super_event_type?: any;
 }
