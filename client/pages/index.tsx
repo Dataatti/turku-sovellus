@@ -1,10 +1,10 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import ListWidget from 'components/ListWidget';
+import type { GetStaticProps } from 'next';
+import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
+import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
+import { Grid } from '@mui/material';
 
-const Home: NextPage = () => {
+const Home = ({ locale }: { locale: Lang }) => {
   return (
     <div>
       <Head>
@@ -13,43 +13,30 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h2>Welcome to Turku-Sovellus!</h2>
-
-        <ListWidget
-          title="Nostot"
-          readMoreText="Lue lisää"
-          readMoreHref="https://google.com"
-          variant="primary"
-        />
-
-        <div>
-          <Link href="/liikennetiedotteet" passHref>
-            <a>
-              <h3>Liikennetiedotteet &rarr;</h3>
-            </a>
-          </Link>
-
-          <a href="https://nextjs.org/learn">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-        </div>
-      </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Grid
+          container
+          sx={{ marginBottom: '16px' }}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          rowSpacing={2}
         >
-          Powered by{' '}
-          <span>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+          <Grid item md={6}>
+            <TurussaTapahtuuWidget locale={locale} />
+          </Grid>
+          <Grid item md={6}>
+            <KerroKantasiWidget locale={locale} />
+          </Grid>
+        </Grid>
+      </main>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      locale: locale || 'fi',
+    },
+  };
 };
 
 export default Home;
