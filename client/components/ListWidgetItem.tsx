@@ -45,7 +45,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
           />
           <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
         </Grid>
-        <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
           {thumbnail.src && (
             <img
               src={thumbnail.src}
