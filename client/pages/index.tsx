@@ -1,10 +1,18 @@
-import type { NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import ListWidget from 'components/ListWidget';
 
-const Home: NextPage = () => {
+import strapiClient from 'functions/strapi-client';
+
+interface HomeProps {
+  titles: StrapiResponse<Title[]>;
+  error: string;
+}
+
+const Home: NextPage<HomeProps> = ({ titles, error }) => {
+  const nostot = titles?.data?.find((el) => el);
   return (
     <div>
       <Head>
@@ -16,7 +24,7 @@ const Home: NextPage = () => {
         <h2>Welcome to Turku-Sovellus!</h2>
 
         <ListWidget
-          title="Nostot"
+          title={nostot?.attributes?.text || ''}
           readMoreText="Lue lisää"
           readMoreHref="https://google.com"
           variant="primary"
@@ -52,4 +60,24 @@ const Home: NextPage = () => {
   );
 };
 
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { locale } = context;
+  try {
+    const { data } = await strapiClient.titles.get('nostot', locale || 'fi');
+
+    return {
+      props: {
+        titles: data,
+      },
+    };
+  } catch (err) {
+    console.log(err);
+    return {
+      props: {
+        titles: {},
+        error: JSON.stringify(err),
+      },
+    };
+  }
+};
 export default Home;

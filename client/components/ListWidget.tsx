@@ -4,6 +4,8 @@ import theme from 'theme';
 import { Box, Typography, List, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
+import { useStrapiClient } from 'hooks/useStrapiClient';
+import { useEffect } from 'react';
 
 type ListWidgetType = {
   className?: string;
