@@ -5,7 +5,6 @@ import useKerroKantasi from 'hooks/useKerroKantasi';
 
 const Kerrokantasi = ({ locale }: { locale: Lang }) => {
   const { isLoading, data } = useKerroKantasi();
-  console.log(data, isLoading);
 
   return (
     <div>
