@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { GetStaticProps } from 'next';
 import ListWidget from 'components/ListWidget';
-import KerroKantasiWidget from 'components/KerroKantasiWidget';
+import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 
 const Home = ({ locale }: { locale: Lang }) => {
   return (

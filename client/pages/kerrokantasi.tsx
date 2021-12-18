@@ -1,4 +1,4 @@
-import KerroKantasiCard from 'components/KerroKantasiCard';
+import KerroKantasiCard from 'components/kerrokantasi/KerroKantasiCard';
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import useKerroKantasi from 'hooks/useKerroKantasi';

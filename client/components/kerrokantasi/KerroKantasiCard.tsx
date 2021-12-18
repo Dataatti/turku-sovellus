@@ -30,7 +30,11 @@ export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale
       tags={(hearing?.labels?.map((n) => n.label[locale]) as string[]) || []}
       title={hearing.title[locale] as string}
       titleSuffix={
-        <Typography variant="body2" component="span" sx={{ display: 'flex', fontSize: '18px' }}>
+        <Typography
+          variant="body2"
+          component="span"
+          sx={{ display: 'flex', fontSize: '18px', marginLeft: '8px' }}
+        >
           <Box sx={{ display: 'inline', marginRight: '4px' }}>{hearing.n_comments}</Box>
           <ChatBubbleOutline />
         </Typography>
