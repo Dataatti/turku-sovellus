@@ -16,6 +16,7 @@ export const KerroKantasiWidget = ({ locale }: { locale: Lang }) => {
 
   return (
     <ListWidget
+      data-testid="kerro-kantasi-widget"
       title="Kerrokantasi"
       readMoreText="Lue lisää"
       readMoreHref="/kerrokantasi"

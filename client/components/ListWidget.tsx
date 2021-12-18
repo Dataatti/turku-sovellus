@@ -41,6 +41,7 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   readMoreText,
   title,
   variant,
+  ...props
 }) => {
   const textColor = variant === 'white' ? '#000' : '#fff';
 
@@ -56,6 +57,7 @@ export const ListWidget: React.FC<ListWidgetType> = ({
         borderRadius: '4px',
         padding: { xs: '12px', md: '16px' },
       }}
+      {...props}
     >
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}

@@ -22,6 +22,7 @@ export const TurussaTapahtuuWidget = ({ locale }: { locale: Lang }) => {
 
   return (
     <ListWidget
+      data-testid="turussa-tapahtuu-widget"
       title="Turussa tapahtuu"
       readMoreText="Lue lisää"
       readMoreHref="/turussatapahtuu"
