@@ -1,4 +1,4 @@
-export const IframeLink = ({ locale, height }: { locale: Lang }) => {
+export const IframeLink = ({ locale, height }: { locale: Lang, height?: number }) => {
 
   const heightAttribute = height ? {"data-height": `${height}px`} : {}
 
