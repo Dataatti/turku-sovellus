@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import ListWidget from 'components/ListWidget';
+import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 
 export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
 
@@ -15,9 +16,7 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
       readMoreHref="/liikennetiedotteet"
       variant="white"
       customContent={
-        <>
-          <a className="twitter-timeline" data-lang={locale} data-height="500px" data-theme="light" data-dtn="true" href="https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw">Loading...</a>
-        </>
+        <IframeLink locale={locale} height="500"/>
       }>
     </ListWidget>
   )
