@@ -6,6 +6,7 @@ import { ListWidgetItem, ListItemType } from './ListWidgetItem';
 type ListWidgetType = {
   className?: string;
   items?: ListItemType[];
+  customContent?: JSX.Element;
   readMoreHref: string;
   readMoreText: string;
   title?: string;
@@ -37,6 +38,7 @@ const exampleData: ListItemType[] = [
 export const ListWidget: React.FC<ListWidgetType> = ({
   className,
   items = exampleData,
+  customContent,
   readMoreHref,
   readMoreText,
   title,
@@ -62,12 +64,17 @@ export const ListWidget: React.FC<ListWidgetType> = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      <List sx={{ width: '100%' }}>
-        {items &&
-          items.map((item) => (
-            <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-          ))}
-      </List>
+      {customContent
+        ? customContent
+        : (
+          <List sx={{ width: '100%' }}>
+            {items &&
+              items.map((item) => (
+                <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
+              ))}
+          </List>
+        )
+      }
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
           <MUILink color="inherit">{readMoreText}</MUILink>
