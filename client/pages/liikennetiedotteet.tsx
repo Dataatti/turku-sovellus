@@ -1,8 +1,13 @@
-import type { NextPage } from 'next';
+import { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-const Liikennetiedotteet: NextPage = () => {
+const Liikennetiedotteet = ({ locale }: { locale: Lang }) => {
+
+  useEffect(() => {
+    window.twttr.widgets.load();
+  }, [])
+
   return (
     <div>
       <Head>
@@ -11,18 +16,18 @@ const Liikennetiedotteet: NextPage = () => {
       </Head>
 
       <main>
-        <h2>Welcome to Liikennetiedotteet!</h2>
-
-        <div>
-          <Link href="/" passHref>
-            <a>
-              <h3>Etusivu &rarr;</h3>
-            </a>
-          </Link>
-        </div>
+        <a className="twitter-timeline" data-lang={locale} data-theme="light" href="https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw">Tweets by Turunliikenne</a>
       </main>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  return {
+    props: {
+      locale: locale || 'fi',
+    },
+  };
 };
 
 export default Liikennetiedotteet;
