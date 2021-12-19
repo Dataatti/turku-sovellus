@@ -1,17 +1,21 @@
-import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import ListWidget from 'components/ListWidget';
+import type { GetStaticProps, NextPage } from 'next';
+import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
+import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
+import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
 import { dehydrate, QueryClient } from 'react-query';
 import { useTitles } from 'hooks/useTitles';
+import { NostotWidget } from 'components/nostot/NostotWidget';
 
-const Home: NextPage = () => {
+const Home: NextPage<{ locale: Lang }> = ({ locale }) => {
   const { data: titles } = useTitles();
 
+  const turussaTapahtuu = titles?.data.data.find((el) => el.attributes.type === 'tapahtumat');
+  const kerrokantasi = titles?.data.data.find((el) => el.attributes.type === 'kerrokantasi');
   const nostot = titles?.data.data.find((el) => el.attributes.type === 'nostot');
+
   return (
     <div>
       <Head>
@@ -20,22 +24,25 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <h2>Welcome to Turku-Sovellus!</h2>
-
-        <ListWidget
-          title={nostot?.attributes.text || ''}
-          readMoreText="Lue lisää"
-          readMoreHref="https://google.com"
-          variant="primary"
-        />
-
-        <div>
-          <Link href="/liikennetiedotteet" passHref>
-            <a>
-              <h3>Liikennetiedotteet &rarr;</h3>
-            </a>
-          </Link>
-        </div>
+        <Grid
+          container
+          sx={{ marginBottom: '16px' }}
+          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          rowSpacing={2}
+        >
+          <Grid item md={6} xs={12}>
+            <NostotWidget locale={locale} title={nostot?.attributes?.text || ''} />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <TurussaTapahtuuWidget
+              locale={locale}
+              title={turussaTapahtuu?.attributes?.text || ''}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || ''} />
+          </Grid>
+        </Grid>
       </main>
     </div>
   );
@@ -52,6 +59,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
+      locale: locale,
       dehydratedState: dehydrate(queryClient),
     },
   };

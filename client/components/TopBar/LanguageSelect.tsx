@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
 import { MenuItem, TextField, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
-import theme from '../theme';
+import theme from '../../theme';
 
 export const LanguageSelect = () => {
   const router = useRouter();

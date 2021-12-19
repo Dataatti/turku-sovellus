@@ -1,19 +1,17 @@
-/** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import theme from 'theme';
-import { Box, Typography, List, Link as MUILink } from '@mui/material';
+import { Box, Typography, List, Link as MUILink, Skeleton } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
-import { useStrapiClient } from 'hooks/useStrapiClient';
-import { useEffect } from 'react';
+import ListWidgetSkeletonItem from './ListSkeletonItem';
 
 type ListWidgetType = {
   className?: string;
   items?: ListItemType[];
   readMoreHref: string;
   readMoreText: string;
-  title: string;
+  title?: string;
   variant: 'primary' | 'secondary' | 'white';
+  isLoading: boolean;
 };
 
 const exampleData: ListItemType[] = [
@@ -45,41 +43,44 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   readMoreText,
   title,
   variant,
+  isLoading,
+  ...props
 }) => {
   const textColor = variant === 'white' ? '#000' : '#fff';
 
-  const wrapperStyles = css(`
-    max-width: 700px;
-    width: 100%;
-    background-color: ${variant === 'white' ? '#fff' : theme?.palette?.[variant]?.main};
-    color: ${textColor};
-    border-radius: 4px;
-    padding: 16px;
-    @media (max-width: 899px) {
-      padding: 12px;
-    }
-  `);
-
   return (
-    <Box className={`${className ? className : ''}`} css={wrapperStyles} sx={{ boxShadow: 3 }}>
+    <Box
+      className={`${className ? className : ''}`}
+      sx={{
+        boxShadow: 3,
+        marginTop: '12px',
+        width: '100%',
+        backgroundColor: variant === 'white' ? '#fff' : theme?.palette?.[variant]?.main,
+        color: textColor,
+        borderRadius: '4px',
+        padding: { xs: '12px', md: '16px' },
+      }}
+      {...props}
+    >
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
-        {title}
+        {title || ''}
       </Typography>
       <List sx={{ width: '100%' }}>
-        {items.map((item) => (
-          <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-        ))}
+        {isLoading &&
+          Array(3)
+            .fill(0)
+            .map((el, i) => <ListWidgetSkeletonItem key={`skeleton-${title}-${i}`} />)}
+        {!isLoading &&
+          items &&
+          items.map((item) => (
+            <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
+          ))}
       </List>
-      <div
-        css={css(`
-        display: flex;
-        justify-content: center;
-      `)}
-      >
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
           <MUILink color="inherit">{readMoreText}</MUILink>
         </Link>
-      </div>
+      </Box>
     </Box>
   );
 };

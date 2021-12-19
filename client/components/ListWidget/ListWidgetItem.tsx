@@ -7,10 +7,10 @@ import { shortenTextFromEnd } from 'utils/textUtils';
 
 // A singular list item, thumbnail is the component on the right side (image, icon etc)
 export type ListItemType = {
-  description: string;
+  description?: string;
   href: string;
   thumbnail: { src?: string; alt?: string };
-  title: string;
+  title?: string;
 };
 
 export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
@@ -32,20 +32,20 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
                     }
                   `}
                 >
-                  {title}
+                  {title || ''}
                   <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />
                 </a>
               </Link>
             }
             secondary={
               <Typography component="span" variant="body2">
-                {shortenTextFromEnd(description, 200)}
+                {shortenTextFromEnd(description || '', 200)}
               </Typography>
             }
           />
           <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
         </Grid>
-        <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'block' } }}>
+        <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
           {thumbnail.src && (
             <img
               src={thumbnail.src}
@@ -54,6 +54,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
               height="auto"
               css={css`
                 aspect-ratio: 1 / 1;
+                object-fit: cover;
               `}
             />
           )}
