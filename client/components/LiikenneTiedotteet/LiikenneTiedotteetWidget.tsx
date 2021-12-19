@@ -3,10 +3,11 @@ import ListWidget from 'components/ListWidget';
 import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 
 export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
-
   useEffect(() => {
-    window.twttr.widgets.load();
-  }, [])
+    if (typeof window !== 'undefined') {
+      (window as any).twttr.widgets.load();
+    }
+  }, []);
 
   return (
     <ListWidget
@@ -15,11 +16,9 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
       readMoreText="Lue lisää"
       readMoreHref="/liikennetiedotteet"
       variant="white"
-      customContent={
-        <IframeLink locale={locale} height={500}/>
-      }>
-    </ListWidget>
-  )
-}
+      customContent={<IframeLink locale={locale} height={500} />}
+    ></ListWidget>
+  );
+};
 
 export default LiikenneTiedotteetWidget;
