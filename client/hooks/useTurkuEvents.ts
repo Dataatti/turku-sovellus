@@ -10,13 +10,13 @@ const getTurkuEvents = async () => {
     const dateA = new Date(a.start_time);
     const dateB = new Date(b.start_time);
     if (dateA === dateB) {
-      return 0
+      return 0;
     } else if (dateA > dateB) {
-      return 1
+      return 1;
     } else {
-      return -1
-    };
-  })
+      return -1;
+    }
+  });
   return results;
 };
 

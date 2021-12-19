@@ -2,6 +2,7 @@ import Head from 'next/head';
 import type { GetStaticProps } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
+import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
 import { Grid } from '@mui/material';
 
 const Home = ({ locale }: { locale: Lang }) => {
@@ -19,11 +20,14 @@ const Home = ({ locale }: { locale: Lang }) => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           rowSpacing={2}
         >
-          <Grid item md={6}>
+          <Grid item xs={12} md={6}>
             <TurussaTapahtuuWidget locale={locale} />
           </Grid>
-          <Grid item md={6}>
+          <Grid item xs={12} md={6}>
             <KerroKantasiWidget locale={locale} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <LiikenneTiedotteetWidget locale={locale} />
           </Grid>
         </Grid>
       </main>

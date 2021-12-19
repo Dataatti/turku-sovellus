@@ -7,7 +7,6 @@ describe('turussatapahtuu', () => {
     cy.visit('/turussatapahtuu');
     cy.wait('@eventsData');
     cy.get('[data-testid=top-bar] h1').should('have.text', 'Turussa tapahtuu');
-    cy.get('[data-testid="item-card"]')
-    .should('have.length.greaterThan', 0);
+    cy.get('[data-testid="item-card"]').should('have.length.greaterThan', 0);
   });
 });

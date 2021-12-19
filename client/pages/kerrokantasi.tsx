@@ -14,11 +14,11 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
       </Head>
 
       <main>
-          {!isLoading &&
-            data &&
-            data.map((hearing) => (
-                <KerroKantasiCard hearing={hearing} locale={locale} key={hearing.id} />
-            ))}
+        {!isLoading &&
+          data &&
+          data.map((hearing) => (
+            <KerroKantasiCard hearing={hearing} locale={locale} key={hearing.id} />
+          ))}
       </main>
     </div>
   );
