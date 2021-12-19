@@ -2,6 +2,7 @@ import Head from 'next/head';
 import type { GetStaticProps, NextPage } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
+import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
 import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
@@ -41,6 +42,9 @@ const Home: NextPage<{ locale: Lang }> = ({ locale }) => {
           </Grid>
           <Grid item md={6} xs={12}>
             <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || ''} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <LiikenneTiedotteetWidget locale={locale} />
           </Grid>
         </Grid>
       </main>
