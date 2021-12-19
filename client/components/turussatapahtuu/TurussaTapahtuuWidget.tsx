@@ -6,10 +6,10 @@ export const TurussaTapahtuuWidget = ({ locale }: { locale: Lang }) => {
 
   const mapData = (data: Event[]) => {
     // Filter events that don't have correct translations for current locale
-    // Show only 5 events on widget
+    // Show only 3 events on widget
     const mappedHearings = data
       .filter((n) => n.name[locale])
-      .slice(0, 5)
+      .slice(0, 3)
       .map((event) => ({
         title: event.name[locale],
         description: event.description[locale]?.replace(/<[^>]*>?/gm, ''),
