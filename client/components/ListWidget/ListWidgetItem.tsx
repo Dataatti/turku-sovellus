@@ -14,7 +14,6 @@ export type ListItemType = {
 };
 
 export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
-
   const { href, title, description, thumbnail } = item;
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>

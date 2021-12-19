@@ -64,17 +64,16 @@ export const ListWidget: React.FC<ListWidgetType> = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      {customContent
-        ? customContent
-        : (
-          <List sx={{ width: '100%' }}>
-            {items &&
-              items.map((item) => (
-                <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-              ))}
-          </List>
-        )
-      }
+      {customContent ? (
+        customContent
+      ) : (
+        <List sx={{ width: '100%' }}>
+          {items &&
+            items.map((item) => (
+              <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
+            ))}
+        </List>
+      )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
           <MUILink color="inherit">{readMoreText}</MUILink>
