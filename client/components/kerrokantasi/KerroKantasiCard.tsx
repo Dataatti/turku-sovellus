@@ -1,9 +1,6 @@
-/** @jsxImportSource @emotion/react */
-
 import { Typography } from '@mui/material';
 import { ChatBubbleOutline } from '@mui/icons-material';
 import ItemCard from 'components/ItemCard';
-import { css } from '@emotion/react';
 import { Box } from '@mui/system';
 
 export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale: Lang }) => {
