@@ -12,9 +12,34 @@ WIP
 
 Docker is needed to run Strapi. It can be downloaded from here: https://www.docker.com/get-started
 
-Create `.env` file to `/strapi` and copy .env.example values, and then set the username and password to something secure.
+Change directory to `/strapi`
 
-To run strapi run `docker-compose up -d`
+```bash
+    cd strapi
+```
+
+Create `.env` file by copying `.env.example`
+
+```bash
+    cp .env.example .env
+```
+
+Build and run project with `docker compose`
+
+```bash
+    docker-compose up --build -d
+```
+
+---
+
+Navigate to `localhost:1337/admin` and create secure credentials
+
+After logging in navigate to Settings -> Internalization
+
+Create locale for `Finnish (fi)` and `Swedish (sv)`
+
+Now you're ready to manage content in Content manager and your Strapi server is available at `localhost:1337`.
+
+---
 
 To stop strapi run `docker-compose down`
-
