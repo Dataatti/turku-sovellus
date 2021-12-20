@@ -24,6 +24,7 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   tags,
   title,
 }) => {
+  const hasImage = Boolean(image.src);
   return (
     <Card
       sx={{
@@ -67,12 +68,12 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           ))}
         </Box>
       </CardContent>
-      <CardMedia
+      {hasImage && <CardMedia
         component="img"
         image={image.url}
         sx={{ width: { xs: '100%', md: '400px' }, height: { xs: '200px', sm: '300px' } }}
         alt={image.altText}
-      ></CardMedia>
+      ></CardMedia>}
     </Card>
   );
 };
