@@ -12,7 +12,7 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="liikenne-tiedotteet-widget"
-      title="Liikenne tiedotteet"
+      title="Liikennetiedotteet"
       readMoreText="Lue lisää"
       readMoreHref="/liikennetiedotteet"
       variant="white"
