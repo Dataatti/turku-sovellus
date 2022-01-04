@@ -25,8 +25,8 @@ const strapiClient: StrapiClientTypes = {
     get: (type, locale) => client.get(`/headers`, { params: { locale, 'filters[type]': type } }),
   },
   nostot: {
-    list: (locale) => client.get('/nostots?populate=header_image', { params: { locale } }),
-    get: (id, locale) => client.get(`/nostots/${id}?populate=header_image`, { params: { locale } }),
+    list: (locale) => client.get('/nostot?populate=header_image', { params: { locale } }),
+    get: (id, locale) => client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }),
   },
 };
 

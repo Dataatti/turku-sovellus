@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "nostots",
+  "collectionName": "nostot",
   "info": {
-    "singularName": "nostot",
-    "pluralName": "nostots",
-    "displayName": "nostot",
+    "singularName": "nosto",
+    "pluralName": "nostot",
+    "displayName": "Nosto",
     "description": ""
   },
   "options": {
