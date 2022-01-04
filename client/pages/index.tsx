@@ -32,7 +32,7 @@ const Home: NextPage<{ locale: Lang }> = ({ locale }) => {
           rowSpacing={2}
         >
           <Grid item md={6} xs={12}>
-            <NostotWidget locale={locale} title={nostot?.attributes?.text || ''} />
+            <NostotWidget title={nostot?.attributes?.text || ''} />
           </Grid>
           <Grid item md={6} xs={12}>
             <TurussaTapahtuuWidget

@@ -9,7 +9,7 @@ export const Nosto = () => {
 
   const item = data?.data?.data?.attributes;
   const media = data?.data?.data?.attributes?.header_image?.data?.attributes;
-  const mediaUrl = (process?.env?.NEXT_PUBLIC_STRAPI_URL || '') + media?.url;
+  const mediaUrl = media?.url ? processz.envz.NEXT_PUBLIC_STRAPI_URL + media.url : '';
   return (
     <Card
       sx={{
@@ -24,7 +24,7 @@ export const Nosto = () => {
     >
       <Typography variant="h1">{item?.title}</Typography>
       {!isLoading ? (
-        <CardMedia component="img" image={mediaUrl || ''} alt={media?.alternativeText} />
+        mediaUrl && <CardMedia component="img" image={mediaUrl} alt={media?.alternativeText} />
       ) : (
         <Skeleton />
       )}

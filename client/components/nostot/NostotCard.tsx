@@ -1,7 +1,7 @@
 import ItemCard from 'components/ItemCard';
 
 export const NostotCard = ({ nosto, locale }: { nosto: Nosto; locale: Lang }) => {
-  const media = nosto.attributes.header_image.data.attributes;
+  const media = nosto.attributes.header_image.data?.attributes;
   return (
     <ItemCard
       // Replace possible html tags from abstract
