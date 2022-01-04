@@ -68,10 +68,13 @@ export const ListWidget: React.FC<ListWidgetType> = ({
         {title || ''}
       </Typography>
       <List sx={{ width: '100%' }}>
-        {isLoading &&
-          Array(3)
-            .fill(0)
-            .map((el, i) => <ListWidgetSkeletonItem key={`skeleton-${title}-${i}`} />)}
+        {isLoading && (
+          <>
+            <ListWidgetSkeletonItem />
+            <ListWidgetSkeletonItem />
+            <ListWidgetSkeletonItem />
+          </>
+        )}
         {!isLoading &&
           items &&
           items.map((item) => (
