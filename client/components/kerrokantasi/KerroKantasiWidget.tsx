@@ -18,7 +18,7 @@ export const KerroKantasiWidget = ({ locale }: { locale: Lang }) => {
     <ListWidget
       data-testid="kerro-kantasi-widget"
       title="Kerrokantasi"
-      readMoreText="Lue lisää"
+      readMoreTexts={{ fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' }}
       readMoreHref="/kerrokantasi"
       variant="white"
       items={data && mapData(data)}

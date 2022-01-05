@@ -2,13 +2,14 @@ import theme from 'theme';
 import { Box, Typography, List, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
+import { useRouter } from 'next/router';
 
 type ListWidgetType = {
   className?: string;
   items?: ListItemType[];
   customContent?: JSX.Element;
   readMoreHref: string;
-  readMoreText: string;
+  readMoreTexts: { fi: string; en: string; sv: string };
   title?: string;
   variant: 'primary' | 'secondary' | 'white';
 };
@@ -40,11 +41,12 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   items = exampleData,
   customContent,
   readMoreHref,
-  readMoreText,
+  readMoreTexts,
   title,
   variant,
   ...props
 }) => {
+  const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
 
   return (
@@ -76,7 +78,7 @@ export const ListWidget: React.FC<ListWidgetType> = ({
       )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
-          <MUILink color="inherit">{readMoreText}</MUILink>
+          <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>
         </Link>
       </Box>
     </Box>
