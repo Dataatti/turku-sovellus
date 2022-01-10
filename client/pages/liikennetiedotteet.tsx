@@ -1,8 +1,9 @@
+/** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 import strapiClient from 'functions/strapi-client';
 import { useTitle } from 'hooks/useTitles';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
@@ -15,6 +16,7 @@ const Liikennetiedotteet = ({ locale }: { locale: Lang }) => {
       (window as any).twttr.widgets.load();
     }
   }, []);
+
   return (
     <div>
       <Head>

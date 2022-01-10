@@ -15,29 +15,7 @@ type ListWidgetType = {
   isLoading: boolean;
 };
 
-const exampleData: ListItemType[] = [
-  {
-    title: 'Tall Ships Races Turku 2022',
-    description: 'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään.',
-    href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
-      alt: 'Turun linna',
-    },
-  },
-  {
-    title: 'Tall Ships Races Turku 2022',
-    description:
-      'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään. Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum  Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumTähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumv Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum',
-    href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
-      alt: 'Turun linna',
-    },
-  },
-];
-
-export const ListWidget: React.FC<ListWidgetType> = ({
+export const ListWidget = ({
   className,
   items = [],
   customContent,
@@ -47,7 +25,7 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   variant,
   isLoading,
   ...props
-}) => {
+}: ListWidgetType) => {
   const textColor = variant === 'white' ? '#000' : '#fff';
 
   return (

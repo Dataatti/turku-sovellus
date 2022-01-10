@@ -9,7 +9,8 @@ export const Nosto = () => {
 
   const item = data?.data?.data?.attributes;
   const media = data?.data?.data?.attributes?.header_image?.data?.attributes;
-  const mediaUrl = media?.url ? processz.envz.NEXT_PUBLIC_STRAPI_URL + media.url : '';
+  const mediaUrl = media?.url ? process.env.NEXT_PUBLIC_STRAPI_URL + media.url : '';
+
   return (
     <Card
       sx={{

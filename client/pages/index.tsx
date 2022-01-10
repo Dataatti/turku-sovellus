@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import type { GetStaticProps, NextPage } from 'next';
+import type { GetStaticProps } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
@@ -10,7 +10,7 @@ import { dehydrate, QueryClient } from 'react-query';
 import { useTitles } from 'hooks/useTitles';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 
-const Home: NextPage<{ locale: Lang }> = ({ locale }) => {
+const Home = ({ locale }: { locale: Lang }) => {
   const { data: titles } = useTitles();
 
   const turussaTapahtuu = titles?.data.data.find((el) => el.attributes.type === 'tapahtumat');
