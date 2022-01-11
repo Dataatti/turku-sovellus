@@ -25,7 +25,6 @@ export const ListWidget = ({
   isLoading,
   ...props
 }: ListWidgetType) => {
-  
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
   const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
@@ -61,16 +60,6 @@ export const ListWidget = ({
             <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
           ))}
       </List>
-      {customContent ? (
-        customContent
-      ) : (
-        <List sx={{ width: '100%' }}>
-          {items &&
-            items.map((item) => (
-              <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-            ))}
-        </List>
-      )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
           <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>

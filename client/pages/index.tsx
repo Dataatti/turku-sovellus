@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
+import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
@@ -39,6 +40,9 @@ const Home = ({ locale }: { locale: Lang }) => {
               locale={locale}
               title={turussaTapahtuu?.attributes?.text || ''}
             />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <TiedotteetWidget locale={locale} />
           </Grid>
           <Grid item md={6} xs={12}>
             <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || ''} />
