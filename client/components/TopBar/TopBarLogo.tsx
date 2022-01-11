@@ -13,17 +13,17 @@ export const TopBarLogo = () => {
         <picture>
           <source
             media="(max-width: 899px)"
-            srcSet="/turku_logo_mobile.png"
+            srcSet="/turku_logo_mobile.svg"
             height="60"
             width="42,55"
           />
           <source
             media="(min-width: 900px)"
-            srcSet="/turku_logo_desktop.png"
+            srcSet="/turku_logo_desktop.svg"
             height="80"
             width="128"
           />
-          <img src="/turku_logo_mobile.png" height="60" width="42,55" alt="Turku logo" />
+          <img src="/turku_logo_mobile.svg" height="60" width="42,55" alt="Turku logo" />
         </picture>
       </a>
     </Link>
