@@ -23,7 +23,6 @@ export const TurussaTapahtuuWidget = ({ locale, title }: { locale: Lang; title: 
     <ListWidget
       data-testid="turussa-tapahtuu-widget"
       title={title}
-      readMoreText="Lue lisää"
       readMoreHref="/turussatapahtuu"
       variant="white"
       items={data && mapData(data)}

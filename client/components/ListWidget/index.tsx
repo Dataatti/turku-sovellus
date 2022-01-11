@@ -2,6 +2,7 @@ import theme from 'theme';
 import { Box, Typography, List, Link as MUILink, Skeleton } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
+import { useRouter } from 'next/router';
 import ListWidgetSkeletonItem from './ListSkeletonItem';
 
 type ListWidgetType = {
@@ -9,7 +10,6 @@ type ListWidgetType = {
   items?: ListItemType[];
   customContent?: JSX.Element;
   readMoreHref: string;
-  readMoreText: string;
   title?: string;
   variant: 'primary' | 'secondary' | 'white';
   isLoading: boolean;
@@ -20,13 +20,15 @@ export const ListWidget = ({
   items = [],
   customContent,
   readMoreHref,
-  readMoreText,
   title,
   variant,
   isLoading,
   ...props
 }: ListWidgetType) => {
+  
+  const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
+  const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
 
   return (
     <Box
@@ -71,7 +73,7 @@ export const ListWidget = ({
       )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
-          <MUILink color="inherit">{readMoreText}</MUILink>
+          <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>
         </Link>
       </Box>
     </Box>
