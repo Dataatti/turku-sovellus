@@ -5,7 +5,18 @@ import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWid
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
 import { Grid } from '@mui/material';
 
+import strapiClient from 'functions/strapi-client';
+import { dehydrate, QueryClient } from 'react-query';
+import { useTitles } from 'hooks/useTitles';
+import { NostotWidget } from 'components/nostot/NostotWidget';
+
 const Home = ({ locale }: { locale: Lang }) => {
+  const { data: titles } = useTitles();
+
+  const turussaTapahtuu = titles?.data.data.find((el) => el.attributes.type === 'tapahtumat');
+  const kerrokantasi = titles?.data.data.find((el) => el.attributes.type === 'kerrokantasi');
+  const nostot = titles?.data.data.find((el) => el.attributes.type === 'nostot');
+
   return (
     <div>
       <Head>
@@ -20,11 +31,17 @@ const Home = ({ locale }: { locale: Lang }) => {
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           rowSpacing={2}
         >
-          <Grid item xs={12} md={6}>
-            <TurussaTapahtuuWidget locale={locale} />
+          <Grid item md={6} xs={12}>
+            <NostotWidget title={nostot?.attributes?.text || ''} />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <KerroKantasiWidget locale={locale} />
+          <Grid item md={6} xs={12}>
+            <TurussaTapahtuuWidget
+              locale={locale}
+              title={turussaTapahtuu?.attributes?.text || ''}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || ''} />
           </Grid>
           <Grid item xs={12} md={6}>
             <LiikenneTiedotteetWidget locale={locale} />
@@ -35,10 +52,19 @@ const Home = ({ locale }: { locale: Lang }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient();
+
+  const { locale } = context;
+  await queryClient.prefetchQuery(
+    ['getTitles', locale],
+    strapiClient.titles.list(locale || 'fi') as any
+  );
+
   return {
     props: {
-      locale: locale || 'fi',
+      locale: locale,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

@@ -36,3 +36,15 @@ services:
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
       - ./data:/var/lib/postgresql/data
+
+  # Good tool to debug database
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   depends_on: 
+  #     - postgres
+  #   ports:
+  #     - "53603:53603"
+  #     - "80:80"
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@example.com
+  #     PGADMIN_DEFAULT_PASSWORD: root

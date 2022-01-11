@@ -125,3 +125,65 @@ interface Event extends EventMetadata {
   super_event?: any;
   super_event_type?: any;
 }
+
+interface StrapiMeta {
+  meta: {
+    pagination: {
+      page: number;
+      pageCount: number;
+      pageSize: number;
+      total: number;
+    };
+  };
+}
+
+interface StrapiResponse<T> {
+  data: T;
+  meta?: StrapiMeta;
+  error?: any;
+}
+
+interface StrapiImage {
+  id: number;
+  attributes: {
+    alternativeText: string;
+    caption: string;
+    createdAt: string;
+    ext: string;
+    formats: { [k: string]: any };
+    hash: string;
+    height: number;
+    mime: string;
+    name: string;
+    previewUrl: string;
+    provider: string;
+    provider_metadata: { [k: string]: any };
+    size: number;
+    updatedAt: string;
+    url: string;
+    width: number;
+  };
+}
+
+interface Title {
+  id: number;
+  attributes: {
+    createdAt: string;
+    locale: string;
+    publishedAt: string;
+    updatedAt: string;
+    text: string;
+    type: string;
+  };
+}
+
+interface Nosto {
+  id: number;
+  attributes: {
+    title: string;
+    description: string;
+    body: string;
+    publishedUntil: string;
+    header_image: StrapiResponse<StrapiImage>;
+  };
+}

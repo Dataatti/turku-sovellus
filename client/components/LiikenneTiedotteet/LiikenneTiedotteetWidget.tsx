@@ -12,11 +12,12 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="liikenne-tiedotteet-widget"
-      title="Liikenne tiedotteet"
+      title="Liikennetiedotteet"
       readMoreHref="/liikennetiedotteet"
       variant="white"
       customContent={<IframeLink locale={locale} height={500} />}
-    ></ListWidget>
+      isLoading={false}
+    />
   );
 };
 

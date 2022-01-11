@@ -4,22 +4,22 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { CacheProvider, EmotionCache } from '@emotion/react';
 import createCache from '@emotion/cache';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import theme from '../theme';
 
 import { TopBar } from '../components/TopBar';
 import { Container } from '@mui/material';
+import { useState } from 'react';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createCache({ key: 'css' });
-
-const queryClient = new QueryClient();
-
 interface MyAppProps extends AppProps {
   emotionCache?: EmotionCache;
 }
 
 export default function MyApp(props: MyAppProps) {
+  const [queryClient] = useState(() => new QueryClient());
+
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
   return (
     <CacheProvider value={emotionCache}>
@@ -31,10 +31,12 @@ export default function MyApp(props: MyAppProps) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <QueryClientProvider client={queryClient}>
-          <TopBar />
-          <Container sx={{ px: '0.5rem' }}>
-            <Component {...pageProps} />
-          </Container>
+          <Hydrate state={pageProps.dehydratedState}>
+            <TopBar />
+            <Container sx={{ px: '0.5rem' }}>
+              <Component {...pageProps} />
+            </Container>
+          </Hydrate>
         </QueryClientProvider>
       </ThemeProvider>
     </CacheProvider>

@@ -15,10 +15,11 @@ export type ListItemType = {
 
 export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
   const { href, title, description, thumbnail } = item;
+  const hasImage = Boolean(thumbnail.src);
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>
       <Grid container spacing={1}>
-        <Grid item xs={9} sm={10}>
+        <Grid item xs={hasImage ? 9 : 12} sm={hasImage ? 10 : 12}>
           <ListItemText
             sx={{ height: '100%', '& .MuiListItemText-primary': { mb: '5px' } }}
             primary={
@@ -45,7 +46,12 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
           />
           <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
         </Grid>
-        <Grid item xs={3} sm={2} sx={{ alignItems: 'center', paddingLeft: '0px !important' }}>
+        <Grid
+          item
+          xs={hasImage ? 3 : 0}
+          sm={hasImage ? 2 : 0}
+          sx={{ alignItems: 'center', paddingLeft: '0px !important' }}
+        >
           {thumbnail.src && (
             <img
               src={thumbnail.src}

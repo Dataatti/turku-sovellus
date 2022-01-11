@@ -8,4 +8,10 @@ module.exports = withPWA({
     dest: 'public',
     disable: process.env.NODE_ENV === 'development',
   },
+
+  i18n: {
+    locales: ['fi', 'en', 'sv'],
+    defaultLocale: 'fi',
+    localeDetection: false,
+  },
 });

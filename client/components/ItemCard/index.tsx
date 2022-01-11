@@ -15,7 +15,7 @@ type ItemCardProps = {
   title: string;
 };
 
-export const ItemCard: React.FC<ItemCardProps> = ({
+export const ItemCard = ({
   abstract,
   captions,
   href,
@@ -23,7 +23,8 @@ export const ItemCard: React.FC<ItemCardProps> = ({
   titleSuffix,
   tags,
   title,
-}) => {
+}: ItemCardProps) => {
+  const hasImage = Boolean(image.url);
   return (
     <Card
       sx={{
@@ -67,12 +68,14 @@ export const ItemCard: React.FC<ItemCardProps> = ({
           ))}
         </Box>
       </CardContent>
-      <CardMedia
-        component="img"
-        image={image.url}
-        sx={{ width: { xs: '100%', md: '400px' }, height: { xs: '200px', sm: '300px' } }}
-        alt={image.altText}
-      ></CardMedia>
+      {hasImage && (
+        <CardMedia
+          component="img"
+          image={image.url}
+          sx={{ width: { xs: '100%', md: '400px' }, height: { xs: '200px', sm: '300px' } }}
+          alt={image.altText}
+        ></CardMedia>
+      )}
     </Card>
   );
 };
