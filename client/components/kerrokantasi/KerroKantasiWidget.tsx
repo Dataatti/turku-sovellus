@@ -1,7 +1,7 @@
 import ListWidget from 'components/ListWidget';
 import useKerroKantasi from 'hooks/useKerroKantasi';
 
-export const KerroKantasiWidget = ({ locale }: { locale: Lang }) => {
+export const KerroKantasiWidget = ({ locale, title }: { locale: Lang; title: string }) => {
   const { isLoading, data } = useKerroKantasi();
 
   const mapData = (data: Hearing[]) => {
@@ -17,11 +17,12 @@ export const KerroKantasiWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="kerro-kantasi-widget"
-      title="Kerrokantasi"
+      title={title}
       readMoreText="Lue lisää"
       readMoreHref="/kerrokantasi"
       variant="white"
       items={data && mapData(data)}
+      isLoading={isLoading}
     />
   );
 };

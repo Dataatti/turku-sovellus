@@ -1,17 +1,24 @@
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { ChangeEvent } from 'react';
 import { MenuItem, TextField, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import theme from '../../theme';
 
 export const LanguageSelect = () => {
-  const [language, setLanguage] = useState<string>('fi');
+  const router = useRouter();
 
+  const changeLanguage = (event: ChangeEvent<HTMLInputElement>) => {
+    const newLanguage = event.target.value;
+    const { pathname, asPath, query } = router;
+    router.push({ pathname, query }, asPath, { locale: newLanguage });
+  };
   return (
     <TextField
       select
       variant="standard"
-      value={language}
-      onChange={(event) => setLanguage(event.target.value)}
+      data-testid="language-select"
+      value={router.locale}
+      onChange={changeLanguage}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">

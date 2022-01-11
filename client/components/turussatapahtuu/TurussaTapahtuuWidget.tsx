@@ -1,7 +1,7 @@
 import ListWidget from 'components/ListWidget';
 import useTurkuEvents from 'hooks/useTurkuEvents';
 
-export const TurussaTapahtuuWidget = ({ locale }: { locale: Lang }) => {
+export const TurussaTapahtuuWidget = ({ locale, title }: { locale: Lang; title: string }) => {
   const { isLoading, data } = useTurkuEvents();
 
   const mapData = (data: Event[]) => {
@@ -22,11 +22,12 @@ export const TurussaTapahtuuWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="turussa-tapahtuu-widget"
-      title="Turussa tapahtuu"
+      title={title}
       readMoreText="Lue lisää"
       readMoreHref="/turussatapahtuu"
       variant="white"
       items={data && mapData(data)}
+      isLoading={isLoading}
     />
   );
 };

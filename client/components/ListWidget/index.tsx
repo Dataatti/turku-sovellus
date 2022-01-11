@@ -1,7 +1,8 @@
 import theme from 'theme';
-import { Box, Typography, List, Link as MUILink } from '@mui/material';
+import { Box, Typography, List, Link as MUILink, Skeleton } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
+import ListWidgetSkeletonItem from './ListSkeletonItem';
 
 type ListWidgetType = {
   className?: string;
@@ -11,40 +12,20 @@ type ListWidgetType = {
   readMoreText: string;
   title?: string;
   variant: 'primary' | 'secondary' | 'white';
+  isLoading: boolean;
 };
 
-const exampleData: ListItemType[] = [
-  {
-    title: 'Tall Ships Races Turku 2022',
-    description: 'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään.',
-    href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
-      alt: 'Turun linna',
-    },
-  },
-  {
-    title: 'Tall Ships Races Turku 2022',
-    description:
-      'Pidempi selite, josta selviää paremmin, mitä kyseinen kohta pitää sisällään. Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum  Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumTähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsumv Tähän mahtuu enemmänkin tekstiä. Lorem ipsum lorem ipsum lorem ipsum',
-    href: 'https://sailtraininginternational.org/event/the-tall-ships-races-2022/',
-    thumbnail: {
-      src: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Turku_Castle.jpg',
-      alt: 'Turun linna',
-    },
-  },
-];
-
-export const ListWidget: React.FC<ListWidgetType> = ({
+export const ListWidget = ({
   className,
-  items = exampleData,
+  items = [],
   customContent,
   readMoreHref,
   readMoreText,
   title,
   variant,
+  isLoading,
   ...props
-}) => {
+}: ListWidgetType) => {
   const textColor = variant === 'white' ? '#000' : '#fff';
 
   return (
@@ -64,6 +45,20 @@ export const ListWidget: React.FC<ListWidgetType> = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
+      <List sx={{ width: '100%' }}>
+        {isLoading && (
+          <>
+            <ListWidgetSkeletonItem />
+            <ListWidgetSkeletonItem />
+            <ListWidgetSkeletonItem />
+          </>
+        )}
+        {!isLoading &&
+          items &&
+          items.map((item) => (
+            <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
+          ))}
+      </List>
       {customContent ? (
         customContent
       ) : (
