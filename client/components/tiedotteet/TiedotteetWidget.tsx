@@ -12,11 +12,8 @@ export const TiedotteetWidget = ({ locale }: { locale: Lang }) => {
       thumbnail: { src: news?.enclosure?.url, alt: news?.contentSnippet },
       href: news?.link,
     }));
-    console.log(mappedNews);
     return mappedNews;
   };
-
-  console.log(data && mapData(data));
 
   return (
     <ListWidget
