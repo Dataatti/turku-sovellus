@@ -9,7 +9,6 @@ type ListWidgetType = {
   items?: ListItemType[];
   customContent?: JSX.Element;
   readMoreHref: string;
-  readMoreTexts: { fi: string; en: string; sv: string };
   title?: string;
   variant: 'primary' | 'secondary' | 'white';
 };
@@ -41,13 +40,13 @@ export const ListWidget: React.FC<ListWidgetType> = ({
   items = exampleData,
   customContent,
   readMoreHref,
-  readMoreTexts,
   title,
   variant,
   ...props
 }) => {
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
+  const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
 
   return (
     <Box

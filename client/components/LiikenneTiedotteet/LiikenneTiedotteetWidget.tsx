@@ -13,7 +13,6 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
     <ListWidget
       data-testid="liikenne-tiedotteet-widget"
       title="Liikenne tiedotteet"
-      readMoreTexts={{ fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' }}
       readMoreHref="/liikennetiedotteet"
       variant="white"
       customContent={<IframeLink locale={locale} height={500} />}
