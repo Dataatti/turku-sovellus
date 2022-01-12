@@ -46,20 +46,23 @@ export const ListWidget = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      <List sx={{ width: '100%' }}>
-        {isLoading && (
-          <>
-            <ListWidgetSkeletonItem />
-            <ListWidgetSkeletonItem />
-            <ListWidgetSkeletonItem />
-          </>
-        )}
-        {!isLoading &&
-          items &&
-          items.map((item) => (
-            <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-          ))}
-      </List>
+      {customContent ? (
+        customContent
+      ) : (
+        <List sx={{ width: '100%' }}>
+          {isLoading ? (
+            <>
+              <ListWidgetSkeletonItem />
+              <ListWidgetSkeletonItem />
+              <ListWidgetSkeletonItem />
+            </>
+          ) : (
+            items.map((item) => (
+              <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
+            ))
+          )}
+        </List>
+      )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Link href={readMoreHref} passHref>
           <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>
