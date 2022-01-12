@@ -1,7 +1,7 @@
 import ListWidget from 'components/ListWidget';
 import useTiedotteet from 'hooks/useTiedotteet';
 
-export const TiedotteetWidget = ({ locale }: { locale: Lang }) => {
+export const TiedotteetWidget = ({ locale, title }: { locale: Lang; title: string }) => {
   const { isLoading, data } = useTiedotteet(locale);
 
   const mapData = (data: News[]) => {
@@ -18,7 +18,7 @@ export const TiedotteetWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="tiedotteet-widget"
-      title="Tiedotteet"
+      title={title}
       readMoreHref="/tiedotteet"
       variant="primary"
       items={data && mapData(data)}
