@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
 import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
+import { Titles } from 'enums/titles';
 import strapiClient from 'functions/strapi-client';
 import { useTitle } from 'hooks/useTitles';
 import type { GetStaticProps } from 'next';
@@ -9,7 +10,7 @@ import { useEffect } from 'react';
 import { dehydrate, QueryClient } from 'react-query';
 
 const Liikennetiedotteet = ({ locale }: { locale: Lang }) => {
-  const { data: title } = useTitle('Liikennetiedotteet');
+  const { data: title } = useTitle(Titles.Liikennetiedotteet);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
