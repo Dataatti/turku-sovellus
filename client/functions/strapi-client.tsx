@@ -9,6 +9,10 @@ interface StrapiClientTypes {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>>>;
     get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>>>;
   };
+  ulkoisetLinkit: {
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
+    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>>>;
+  };
 }
 
 const client = axios.create({
@@ -27,6 +31,10 @@ const strapiClient: StrapiClientTypes = {
   nostot: {
     list: (locale) => client.get('/nostot?populate=header_image', { params: { locale } }),
     get: (id, locale) => client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }),
+  },
+  ulkoisetLinkit: {
+    list: (locale) => client.get('/ulkoinen-linkkis', { params: { locale } }),
+    get: (id, locale) => client.get(`/ulkoinen-linkki`, { params: { locale } }),
   },
 };
 
