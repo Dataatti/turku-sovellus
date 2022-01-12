@@ -24,7 +24,6 @@ export const NostotWidget = ({ title }: { title: string }) => {
     <ListWidget
       data-testid="nostot-widget"
       title={title}
-      readMoreText="Lue lisää"
       readMoreHref="/nostot"
       variant="primary"
       items={data && mapData(data.data.data)}
