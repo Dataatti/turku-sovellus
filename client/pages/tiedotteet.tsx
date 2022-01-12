@@ -4,6 +4,8 @@ import Head from 'next/head';
 import useTiedotteet from 'hooks/useTiedotteet';
 import { useTitle } from 'hooks/useTitles';
 import { Titles } from 'enums/titles';
+import { dehydrate, QueryClient } from 'react-query';
+import strapiClient from 'functions/strapi-client';
 
 const Tiedotteet = ({ locale }: { locale: Lang }) => {
   const { data: title } = useTitle(Titles.Tiedotteet);
@@ -27,9 +29,15 @@ const Tiedotteet = ({ locale }: { locale: Lang }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(
+    ['getTitle', Titles.Tiedotteet],
+    strapiClient.titles.get(Titles.Tiedotteet, locale || 'fi') as any
+  );
   return {
     props: {
       locale: locale || 'fi',
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

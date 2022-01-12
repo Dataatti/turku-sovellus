@@ -4,6 +4,8 @@ import Head from 'next/head';
 import useKerroKantasi from 'hooks/useKerroKantasi';
 import { useTitle } from 'hooks/useTitles';
 import { Titles } from 'enums/titles';
+import strapiClient from 'functions/strapi-client';
+import { dehydrate, QueryClient } from 'react-query';
 
 const Kerrokantasi = ({ locale }: { locale: Lang }) => {
   const { data: title } = useTitle(Titles.Kerrokantasi);
@@ -28,11 +30,16 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(
+    ['getTitle', Titles.Kerrokantasi],
+    strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi') as any
+  );
   return {
     props: {
       locale: locale || 'fi',
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
-
 export default Kerrokantasi;

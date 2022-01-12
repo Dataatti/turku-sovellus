@@ -26,7 +26,10 @@ const client = axios.create({
 const strapiClient: StrapiClientTypes = {
   titles: {
     list: (locale) => client.get('/headers', { params: { locale } }),
-    get: (type, locale) => client.get(`/headers`, { params: { locale, 'filters[type]': type } }),
+    get: (type, locale) =>
+      client
+        .get(`/headers`, { params: { locale, 'filters[type]': type } })
+        .then((n) => n?.data?.data?.[0]?.attributes?.text),
   },
   nostot: {
     list: (locale) => client.get('/nostot?populate=header_image', { params: { locale } }),
