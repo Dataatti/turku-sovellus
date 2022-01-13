@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from 'axios';
 interface StrapiClientTypes {
   titles: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>>>;
-    get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Title>>>;
+    get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<string>>>;
   };
   nostot: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>>>;
@@ -11,7 +11,6 @@ interface StrapiClientTypes {
   };
   ulkoisetLinkit: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
-    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>>>;
   };
 }
 
@@ -37,7 +36,6 @@ const strapiClient: StrapiClientTypes = {
   },
   ulkoisetLinkit: {
     list: (locale) => client.get('/ulkoinen-linkkis', { params: { locale } }),
-    get: (id, locale) => client.get(`/ulkoinen-linkki`, { params: { locale } }),
   },
 };
 

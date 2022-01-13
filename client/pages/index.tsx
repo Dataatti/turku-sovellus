@@ -4,7 +4,7 @@ import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
 import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
-import WidgetContainer from 'components/UlkoinenLinkki/WidgetContainer';
+import UlkoisetLinkitWidget from 'components/UlkoisetLinkit/UlkoisetLinkitWidget';
 import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
@@ -49,7 +49,7 @@ const Home = ({ locale }: { locale: Lang }) => {
             <NostotWidget title={nostot?.attributes?.text || 'Nostot'} />
           </Grid>
           <Grid item md={6} xs={12}>
-            <WidgetContainer locale={locale} />
+            <UlkoisetLinkitWidget />
           </Grid>
           <Grid item md={6} xs={12}>
             <TurussaTapahtuuWidget
