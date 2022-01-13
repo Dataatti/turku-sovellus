@@ -1,0 +1,145 @@
+{
+  "nostot": {
+    "data": [
+      {
+        "id": 2,
+        "attributes": {
+          "title": "Nosto 1",
+          "body": "Tämä on nosto, tärkeä sellainen",
+          "publishedUntil": "2022-01-30T22:00:00.000Z",
+          "description": "Tässä kuvaillaan nostoa",
+          "createdAt": "2022-01-13T17:49:33.470Z",
+          "updatedAt": "2022-01-13T20:05:03.912Z",
+          "publishedAt": "2022-01-13T17:49:34.352Z",
+          "locale": "fi",
+          "header_image": {
+            "data": null
+          }
+        }
+      },
+      {
+        "id": 3,
+        "attributes": {
+          "title": "Turku-sovellus on nyt julkaistu!",
+          "body": "Sovelluksessa voit nähdä sinulle tärkeitä palveluita ja seurata kaupungissa tapahtuvaa toimintaa.",
+          "publishedUntil": "2022-04-27T21:00:00.000Z",
+          "description": "Sovelluksessa voit nähdä sinulle tärkeitä palveluita ja seurata kaupungissa tapahtuvaa toimintaa.",
+          "createdAt": "2022-01-13T20:06:05.078Z",
+          "updatedAt": "2022-01-13T20:06:22.151Z",
+          "publishedAt": "2022-01-13T20:06:05.870Z",
+          "locale": "fi",
+          "header_image": {
+            "data": null
+          }
+        }
+      }
+    ],
+    "meta": {
+      "pagination": {
+        "page": 1,
+        "pageSize": 25,
+        "pageCount": 1,
+        "total": 2
+      }
+    }
+  },
+  "headers": {
+    "data": [
+      {
+        "id": 1,
+        "attributes": {
+          "text": "Turussa tapahtuu",
+          "type": "tapahtumat",
+          "createdAt": "2022-01-12T16:50:17.140Z",
+          "updatedAt": "2022-01-12T16:54:50.403Z",
+          "publishedAt": "2022-01-12T16:54:50.400Z",
+          "locale": "fi"
+        }
+      },
+      {
+        "id": 4,
+        "attributes": {
+          "text": "Tiedotteet",
+          "type": "tiedotteet",
+          "createdAt": "2022-01-12T17:01:08.089Z",
+          "updatedAt": "2022-01-12T18:19:55.950Z",
+          "publishedAt": "2022-01-12T18:19:55.946Z",
+          "locale": "fi"
+        }
+      },
+      {
+        "id": 7,
+        "attributes": {
+          "text": "Liikennetiedotteet",
+          "type": "liikennetiedotteet",
+          "createdAt": "2022-01-12T18:20:08.004Z",
+          "updatedAt": "2022-01-12T18:20:09.173Z",
+          "publishedAt": "2022-01-12T18:20:09.170Z",
+          "locale": "fi"
+        }
+      }
+    ],
+    "meta": {
+      "pagination": {
+        "page": 1,
+        "pageSize": 25,
+        "pageCount": 1,
+        "total": 3
+      }
+    }
+  },
+  "ulkoisetLinkit": {
+    "data": [
+      {
+        "id": 1,
+        "attributes": {
+          "createdAt": "2022-01-12T17:22:23.104Z",
+          "updatedAt": "2022-01-12T17:38:09.735Z",
+          "publishedAt": "2022-01-12T17:23:06.916Z",
+          "locale": "fi",
+          "Title": "Aluevaalien äänestyspaikat",
+          "Description": "Aluevaalien äänestyspaikat Turussa",
+          "Url": "https://tulospalvelu.vaalit.fi/AV-2022/fi/kupaik_853.html",
+          "LinkText": "Lue lisää",
+          "Color": "primary"
+        }
+      },
+      {
+        "id": 3,
+        "attributes": {
+          "createdAt": "2022-01-12T17:56:27.638Z",
+          "updatedAt": "2022-01-12T17:56:28.730Z",
+          "publishedAt": "2022-01-12T17:56:28.727Z",
+          "locale": "fi",
+          "Title": "Testi",
+          "Description": "Aluevaalien äänestyspaikat Turussa",
+          "Url": "https://tulospalvelu.vaalit.fi/AV-2022/fi/kupaik_853.html",
+          "LinkText": "Siirry palveluun",
+          "Color": "secondary"
+        }
+      },
+      {
+        "id": 4,
+        "attributes": {
+          "createdAt": "2022-01-12T17:57:46.160Z",
+          "updatedAt": "2022-01-12T17:57:46.770Z",
+          "publishedAt": "2022-01-12T17:57:46.766Z",
+          "locale": "fi",
+          "Title": "Lisää testiä testiä",
+          "Description": "Places to vote in Turku Places to vote in Turku Places to vote in Turku Places to vote in Turku",
+          "Url": "https://tulospalvelu.vaalit.fi/AV-2022/fi/kupaik_853.html",
+          "LinkText": "Read more",
+          "Color": "primary"
+        }
+      }
+    ],
+    "meta": {
+      "pagination": {
+        "page": 1,
+        "pageSize": 25,
+        "pageCount": 1,
+        "total": 3
+      }
+    }
+  }
+}

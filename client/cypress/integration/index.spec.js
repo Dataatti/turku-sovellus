@@ -12,10 +12,6 @@ describe('index', () => {
     cy.visit('/');
     cy.wait(['@kerrokantasiData', '@eventsData']);
 
-    cy.get('[data-testid="nostot-widget"]')
-      .find('li')
-      .should('have.length.greaterThan', 0);
-
     cy.get('[data-testid="turussa-tapahtuu-widget"]')
       .find('li')
       .should('have.length.greaterThan', 0);
