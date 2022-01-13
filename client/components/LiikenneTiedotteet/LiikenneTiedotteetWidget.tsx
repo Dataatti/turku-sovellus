@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import ListWidget from 'components/ListWidget';
 import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 
-export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
+export const LiikenneTiedotteetWidget = ({ locale, title }: { locale: Lang; title: string }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       (window as any).twttr.widgets.load();
@@ -12,7 +12,7 @@ export const LiikenneTiedotteetWidget = ({ locale }: { locale: Lang }) => {
   return (
     <ListWidget
       data-testid="liikenne-tiedotteet-widget"
-      title="Liikennetiedotteet"
+      title={title}
       readMoreHref="/liikennetiedotteet"
       variant="white"
       customContent={<IframeLink locale={locale} height={500} />}

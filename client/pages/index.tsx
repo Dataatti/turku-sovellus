@@ -3,6 +3,7 @@ import type { GetStaticProps } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
+import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
@@ -16,6 +17,8 @@ const Home = ({ locale }: { locale: Lang }) => {
   const turussaTapahtuu = titles?.data.data.find((el) => el.attributes.type === 'tapahtumat');
   const kerrokantasi = titles?.data.data.find((el) => el.attributes.type === 'kerrokantasi');
   const nostot = titles?.data.data.find((el) => el.attributes.type === 'nostot');
+  const tiedotteet = titles?.data.data.find((el) => el.attributes.type === 'tiedotteet');
+  const liikennetiedotteet = titles?.data.data.find((el) => el.attributes.type === 'liikennetiedotteet');
 
   return (
     <div>
@@ -32,19 +35,25 @@ const Home = ({ locale }: { locale: Lang }) => {
           rowSpacing={2}
         >
           <Grid item md={6} xs={12}>
-            <NostotWidget title={nostot?.attributes?.text || ''} />
+            <NostotWidget title={nostot?.attributes?.text || 'Nostot'} />
           </Grid>
           <Grid item md={6} xs={12}>
             <TurussaTapahtuuWidget
               locale={locale}
-              title={turussaTapahtuu?.attributes?.text || ''}
+              title={turussaTapahtuu?.attributes?.text || 'Turussa tapahtuu'}
             />
           </Grid>
           <Grid item md={6} xs={12}>
-            <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || ''} />
+            <TiedotteetWidget
+              locale={locale}
+              title={tiedotteet?.attributes?.text || 'Tiedotteet'}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <KerroKantasiWidget locale={locale} title={kerrokantasi?.attributes?.text || 'Kerrokantasi'} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <LiikenneTiedotteetWidget locale={locale} />
+            <LiikenneTiedotteetWidget locale={locale} title={liikennetiedotteet?.attributes?.text || 'Liikennetiedotteet'}/>
           </Grid>
         </Grid>
       </main>

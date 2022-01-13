@@ -11,7 +11,7 @@ type ItemCardProps = {
     altText: string;
   };
   titleSuffix?: JSX.Element;
-  tags: string[];
+  tags?: string[];
   title: string;
 };
 
@@ -21,7 +21,7 @@ export const ItemCard = ({
   href,
   image,
   titleSuffix,
-  tags,
+  tags = [],
   title,
 }: ItemCardProps) => {
   const hasImage = Boolean(image.url);

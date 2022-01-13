@@ -25,7 +25,6 @@ export const ListWidget = ({
   isLoading,
   ...props
 }: ListWidgetType) => {
-  
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
   const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
@@ -47,28 +46,21 @@ export const ListWidget = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      <List sx={{ width: '100%' }}>
-        {isLoading && (
-          <>
-            <ListWidgetSkeletonItem />
-            <ListWidgetSkeletonItem />
-            <ListWidgetSkeletonItem />
-          </>
-        )}
-        {!isLoading &&
-          items &&
-          items.map((item) => (
-            <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-          ))}
-      </List>
       {customContent ? (
         customContent
       ) : (
         <List sx={{ width: '100%' }}>
-          {items &&
+          {isLoading ? (
+            <>
+              <ListWidgetSkeletonItem />
+              <ListWidgetSkeletonItem />
+              <ListWidgetSkeletonItem />
+            </>
+          ) : (
             items.map((item) => (
               <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-            ))}
+            ))
+          )}
         </List>
       )}
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>

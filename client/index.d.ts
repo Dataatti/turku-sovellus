@@ -187,3 +187,13 @@ interface Nosto {
     header_image: StrapiResponse<StrapiImage>;
   };
 }
+interface News {
+  content: string;
+  contentSnippet: string;
+  enclosure: { url: string; length: string; type: string };
+  guid: string;
+  isoDate: string;
+  link: string;
+  pubDate: string;
+  title: string;
+}
