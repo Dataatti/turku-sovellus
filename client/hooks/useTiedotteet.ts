@@ -19,5 +19,5 @@ const getTiedotteet = async (locale: string) => {
 };
 
 export default function useTiedotteet(locale: string) {
-  return useQuery('tiedotteet', () => getTiedotteet(locale));
+  return useQuery([ 'tiedotteet', locale ],  () => getTiedotteet(locale));
 }
