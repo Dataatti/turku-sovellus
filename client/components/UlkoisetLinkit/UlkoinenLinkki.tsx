@@ -19,6 +19,7 @@ export const UlkoinenLinkki = ({
   url,
 }: UlkoinenLinkkiAttributes) => (
   <Box
+    data-testid="ulkoinen-linkki"
     sx={{
       display: 'flex',
       flexDirection: 'column',
