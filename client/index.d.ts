@@ -187,6 +187,18 @@ interface Nosto {
     header_image: StrapiResponse<StrapiImage>;
   };
 }
+
+interface UlkoinenLinkki {
+  id: number;
+  attributes: {
+    [key: string]: any;
+    Title: string;
+    Description: string;
+    Url: string;
+    LinkText: string;
+    Color: 'primary' | 'secondary';
+  };
+}
 interface News {
   content: string;
   contentSnippet: string;

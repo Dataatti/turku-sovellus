@@ -5,7 +5,7 @@ import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 export const LiikenneTiedotteetWidget = ({ locale, title }: { locale: Lang; title: string }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      (window as any).twttr.widgets.load();
+      (window as any)?.twttr?.widgets?.load();
     }
   }, []);
 

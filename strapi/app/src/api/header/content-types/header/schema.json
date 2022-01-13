@@ -30,7 +30,16 @@
           "localized": false
         }
       },
-      "type": "string"
+      "type": "enumeration",
+      "enum": [
+        "sovellus",
+        "tapahtumat",
+        "kerrokantasi",
+        "nostot",
+        "tiedotteet",
+        "liikennetiedotteet"
+      ],
+      "required": true
     }
   }
 }
