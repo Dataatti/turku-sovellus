@@ -16,7 +16,7 @@ const Nostot = ({ locale }: { locale: Lang }) => {
       <main>
         {!isLoading &&
           data &&
-          data.data.data.map((nosto) => (
+          data?.data?.data?.map((nosto) => (
             <NostotCard nosto={nosto} locale={locale} key={nosto.id} />
           ))}
       </main>

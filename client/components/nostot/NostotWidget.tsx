@@ -26,7 +26,7 @@ export const NostotWidget = ({ title }: { title: string }) => {
       title={title}
       readMoreHref="/nostot"
       variant="primary"
-      items={data && mapData(data.data.data)}
+      items={data && mapData(data?.data?.data)}
       isLoading={isLoading}
     />
   );
