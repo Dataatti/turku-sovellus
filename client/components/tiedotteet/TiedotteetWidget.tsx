@@ -6,7 +6,7 @@ export const TiedotteetWidget = ({ locale, title }: { locale: Lang; title: strin
 
   const mapData = (data: News[]) => {
     // Show only 3 news on widget
-    const mappedNews = data.slice(0, 3).map((news) => ({
+    const mappedNews = data?.slice(0, 3)?.map((news) => ({
       title: news?.title,
       description: news.content?.replace(/<[^>]*>?/gm, ''),
       thumbnail: { src: news?.enclosure?.url, alt: news?.contentSnippet },

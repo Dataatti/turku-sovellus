@@ -5,7 +5,7 @@ export const KerroKantasiWidget = ({ locale, title }: { locale: Lang; title: str
   const { isLoading, data } = useKerroKantasi();
 
   const mapData = (data: Hearing[]) => {
-    const mappedHearings = data.map((hearing) => ({
+    const mappedHearings = data?.map((hearing) => ({
       title: hearing.title[locale],
       description: hearing.abstract[locale],
       thumbnail: { src: hearing.main_image.url, alt: hearing.main_image.alt_text[locale] },

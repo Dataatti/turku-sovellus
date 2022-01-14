@@ -47,7 +47,7 @@ export const ItemCard = ({
         </Box>
 
         <Box sx={{ margin: '8px 0' }}>
-          {captions.map((n, i) => (
+          {captions?.map((n, i) => (
             <Typography key={i} variant="caption" component="p">
               {n}
             </Typography>
@@ -58,7 +58,7 @@ export const ItemCard = ({
           {shortenTextFromEnd(abstract || '', 300)}
         </Typography>
         <Box sx={{ marginTop: 'auto' }}>
-          {tags.map((n, i) => (
+          {tags?.map((n, i) => (
             <Chip
               key={i}
               label={n}

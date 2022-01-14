@@ -57,7 +57,7 @@ export const ListWidget = ({
               <ListWidgetSkeletonItem />
             </>
           ) : (
-            items.map((item) => (
+            items?.map((item) => (
               <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
             ))
           )}
