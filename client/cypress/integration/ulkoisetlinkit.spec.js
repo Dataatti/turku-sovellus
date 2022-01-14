@@ -1,6 +1,5 @@
 describe('ulkoisetlinkit', () => {
   it('should load ulkoiset linkit to frontpage', () => {
-    // TODO: Should be replaced with env variables in the future, currently working locally
     cy.fixture('fixtureStubData').then(({ulkoisetLinkit}) => {
       cy.intercept(
         Cypress.env('NEXT_PUBLIC_STRAPI_URL') + '/api/ulkoinen-linkkis?locale=fi',
