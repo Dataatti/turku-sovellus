@@ -14,7 +14,7 @@ export const TurussaTapahtuuWidget = ({ locale, title }: { locale: Lang; title: 
         title: event.name[locale],
         description: event.description[locale]?.replace(/<[^>]*>?/gm, ''),
         thumbnail: { src: event?.images?.[0]?.url, alt: event?.images?.[0]?.name },
-        href: `https://kalenteri.turku.fi/events/node/${event.id}`,
+        href: event?.info_url?.[locale] || `https://kalenteri.turku.fi/events/node/${event.id?.replace("turku:", "")}`,
       }));
     return mappedHearings;
   };

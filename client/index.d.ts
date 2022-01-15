@@ -105,7 +105,7 @@ interface Event extends EventMetadata {
   description: MultiLangContent;
   images: EventImage[];
   in_language: string[];
-  info_url?: string;
+  info_url?: MultiLangContent;
   keywords: EventKeyword[];
   last_modified_time: string;
   location: EventLocation;

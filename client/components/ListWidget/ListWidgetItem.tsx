@@ -8,7 +8,7 @@ import { shortenTextFromEnd } from 'utils/textUtils';
 // A singular list item, thumbnail is the component on the right side (image, icon etc)
 export type ListItemType = {
   description?: string;
-  href: string;
+  href?: string;
   thumbnail: { src?: string; alt?: string };
   title?: string;
 };
@@ -23,20 +23,24 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
           <ListItemText
             sx={{ height: '100%', '& .MuiListItemText-primary': { mb: '5px' } }}
             primary={
-              <Link href={href} passHref>
-                <a
-                  css={css`
-                    color: ${textColor};
-                    text-decoration: none;
-                    &:hover {
-                      text-decoration: underline;
-                    }
-                  `}
-                >
-                  {title || ''}
-                  <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />
-                </a>
-              </Link>
+              href ? (
+                <Link href={href} passHref>
+                  <a
+                    css={css`
+                      color: ${textColor};
+                      text-decoration: none;
+                      &:hover {
+                        text-decoration: underline;
+                      }
+                    `}
+                  >
+                    {title || ''}
+                    <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />
+                  </a>
+                </Link>
+              ) : (
+                title
+              )
             }
             secondary={
               <Typography component="span" variant="body2">
