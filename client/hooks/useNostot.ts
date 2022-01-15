@@ -9,5 +9,5 @@ export const useNostot = () => {
 
 export const useNosto = (id: string) => {
   const { locale } = useRouter();
-  return useQuery(['getNostot', id], () => strapiClient.nostot.get(id, locale || 'fi'));
+  return useQuery(['getNosto', id, locale], () => strapiClient.nostot.get(id, locale || 'fi'));
 };
