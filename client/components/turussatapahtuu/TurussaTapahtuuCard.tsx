@@ -23,13 +23,16 @@ export const TurussaTapahtuuCard = ({ event, locale }: { event: Event; locale: L
       // Replace possible html tags from abstract
       abstract={event.description[locale]?.replace(/<[^>]*>?/gm, '')}
       captions={[`Alkaa ${startLocaleDate}`, `Päättyy ${endLocaleDate}`]}
-      href={`https://kalenteri.turku.fi/events/node/${event.id}`}
+      href={
+        event?.info_url?.[locale] ||
+        `https://kalenteri.turku.fi/events/node/${event.id?.replace('turku:', '')}`
+      }
       image={{
         url: event?.images?.[0]?.url,
         altText: event?.images?.[0]?.name as string,
       }}
-      tags={(event?.keywords?.map((n) => n.name[locale]) as string[]) || []}
-      title={event.name[locale] as string}
+      tags={(event?.keywords?.map((n) => n?.name?.[locale]) as string[]) || []}
+      title={event?.name?.[locale] as string}
     />
   );
 };

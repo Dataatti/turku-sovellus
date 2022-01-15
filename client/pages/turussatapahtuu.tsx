@@ -23,7 +23,7 @@ const TurussaTapahtuu = ({ locale }: { locale: Lang }) => {
         {!isLoading &&
           data &&
           data
-            .filter((n) => n.name[locale])
+            ?.filter((n) => n.name[locale])
             ?.map((event, i) => <TurussaTapahtuuCard event={event} locale={locale} key={i} />)}
       </main>
     </div>

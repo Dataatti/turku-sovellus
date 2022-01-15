@@ -4,13 +4,10 @@ import { useQuery } from 'react-query';
 
 export const useNostot = () => {
   const { locale } = useRouter();
-  return useQuery(
-    ['getNostot', locale],
-    async () => await strapiClient.nostot.list(locale || 'fi')
-  );
+  return useQuery(['getNostot', locale], () => strapiClient.nostot.list(locale || 'fi'));
 };
 
 export const useNosto = (id: string) => {
   const { locale } = useRouter();
-  return useQuery(['getNostot', id], () => strapiClient.nostot.get(id, locale || 'fi'));
+  return useQuery(['getNosto', id, locale], () => strapiClient.nostot.get(id, locale || 'fi'));
 };

@@ -6,7 +6,7 @@ describe('index', () => {
     }).as('kerrokantasiData');
     cy.intercept({
       method: 'GET',
-      url: 'https://api.turku.fi/linkedevents/v1/**',
+      url: 'https://linkedevents-api.turku.fi/v1/**',
     }).as('eventsData');
 
     cy.visit('/');

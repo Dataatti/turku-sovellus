@@ -2,15 +2,18 @@ import axios, { AxiosResponse } from 'axios';
 
 interface StrapiClientTypes {
   titles: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>>>;
-    get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<string>>>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>> | undefined>;
+    get: (
+      type: string,
+      locale: string
+    ) => Promise<AxiosResponse<StrapiResponse<string>> | undefined>;
   };
   nostot: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>>>;
-    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>>>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
+    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
   };
   ulkoisetLinkit: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>> | undefined>;
   };
 }
 
@@ -24,18 +27,33 @@ const client = axios.create({
 
 const strapiClient: StrapiClientTypes = {
   titles: {
-    list: (locale) => client.get('/headers', { params: { locale } }),
+    list: (locale) =>
+      client.get('/headers', { params: { locale } }).catch((error) => {
+        return undefined;
+      }),
     get: (type, locale) =>
       client
         .get(`/headers`, { params: { locale, 'filters[type]': type } })
-        .then((n) => n?.data?.data?.[0]?.attributes?.text),
+        .then((n) => n?.data?.data?.[0]?.attributes?.text)
+        .catch((error) => {
+          return undefined;
+        }),
   },
   nostot: {
-    list: (locale) => client.get('/nostot?populate=header_image', { params: { locale } }),
-    get: (id, locale) => client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }),
+    list: (locale) =>
+      client.get('/nostot?populate=header_image', { params: { locale } }).catch((error) => {
+        return undefined;
+      }),
+    get: (id, locale) =>
+      client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }).catch((error) => {
+        return undefined;
+      }),
   },
   ulkoisetLinkit: {
-    list: (locale) => client.get('/ulkoinen-linkkis', { params: { locale } }),
+    list: (locale) =>
+      client.get('/ulkoinen-linkkis', { params: { locale } }).catch((error) => {
+        return undefined;
+      }),
   },
 };
 

@@ -5,7 +5,7 @@ import { shortenTextFromEnd } from 'utils/textUtils';
 type ItemCardProps = {
   abstract?: string;
   captions: string[];
-  href: string;
+  href?: string;
   image: {
     url: string;
     altText: string;
@@ -37,17 +37,23 @@ export const ItemCard = ({
     >
       <CardContent sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <Link href={href} underline="hover">
+          {href ? (
+            <Link href={href} underline="hover">
+              <Typography variant="h3" component="h2" sx={{ display: 'flex', fontWeight: 'bold' }}>
+                {title}
+                <Launch fontSize="small" sx={{ marginLeft: '4px' }} />
+              </Typography>
+            </Link>
+          ) : (
             <Typography variant="h3" component="h2" sx={{ display: 'flex', fontWeight: 'bold' }}>
               {title}
-              <Launch fontSize="small" sx={{ marginLeft: '4px' }} />
             </Typography>
-          </Link>
+          )}
           {titleSuffix && titleSuffix}
         </Box>
 
         <Box sx={{ margin: '8px 0' }}>
-          {captions.map((n, i) => (
+          {captions?.map((n, i) => (
             <Typography key={i} variant="caption" component="p">
               {n}
             </Typography>
@@ -58,7 +64,7 @@ export const ItemCard = ({
           {shortenTextFromEnd(abstract || '', 300)}
         </Typography>
         <Box sx={{ marginTop: 'auto' }}>
-          {tags.map((n, i) => (
+          {tags?.map((n, i) => (
             <Chip
               key={i}
               label={n}

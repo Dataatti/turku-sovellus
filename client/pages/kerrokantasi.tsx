@@ -21,7 +21,7 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
       <main>
         {!isLoading &&
           data &&
-          data.map((hearing) => (
+          data?.map((hearing) => (
             <KerroKantasiCard hearing={hearing} locale={locale} key={hearing.id} />
           ))}
       </main>

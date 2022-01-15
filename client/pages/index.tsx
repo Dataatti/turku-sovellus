@@ -16,12 +16,14 @@ import { Titles } from 'enums/titles';
 const Home = ({ locale }: { locale: Lang }) => {
   const { data: titles } = useTitles();
 
-  const sovellus = titles?.data.data.find((el) => el.attributes.type === Titles.Sovellus);
-  const turussaTapahtuu = titles?.data.data.find((el) => el.attributes.type === Titles.Tapahtumat);
-  const kerrokantasi = titles?.data.data.find((el) => el.attributes.type === Titles.Kerrokantasi);
-  const nostot = titles?.data.data.find((el) => el.attributes.type === Titles.Nostot);
-  const tiedotteet = titles?.data.data.find((el) => el.attributes.type === Titles.Tiedotteet);
-  const liikennetiedotteet = titles?.data.data.find(
+  const sovellus = titles?.data?.data?.find((el) => el.attributes.type === Titles.Sovellus);
+  const turussaTapahtuu = titles?.data?.data?.find(
+    (el) => el.attributes.type === Titles.Tapahtumat
+  );
+  const kerrokantasi = titles?.data?.data?.find((el) => el.attributes.type === Titles.Kerrokantasi);
+  const nostot = titles?.data?.data?.find((el) => el.attributes.type === Titles.Nostot);
+  const tiedotteet = titles?.data?.data?.find((el) => el.attributes.type === Titles.Tiedotteet);
+  const liikennetiedotteet = titles?.data?.data?.find(
     (el) => el.attributes.type === Titles.Liikennetiedotteet
   );
 

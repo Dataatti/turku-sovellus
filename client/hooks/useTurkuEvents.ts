@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 
 const getTurkuEvents = async () => {
   const response = await fetch(
-    `https://api.turku.fi/linkedevents/v1/event/?include=keywords,location&keyword=festivalsandmajorevents&start=today`
+    `https://linkedevents-api.turku.fi/v1/event/?format=json&include=location,keywords&start=today`
   );
   const data = await response.json();
   const results: Event[] = data.data;

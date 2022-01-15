@@ -5,7 +5,7 @@ export const NostotWidget = ({ title }: { title: string }) => {
   const { isLoading, data } = useNostot();
 
   const mapData = (data: Nosto[]) => {
-    const mappedNostot = data.map((nosto) => {
+    const mappedNostot = data?.map((nosto) => {
       const thumbnail = nosto.attributes.header_image.data?.attributes.formats.thumbnail;
       return {
         title: nosto.attributes.title,
@@ -26,7 +26,7 @@ export const NostotWidget = ({ title }: { title: string }) => {
       title={title}
       readMoreHref="/nostot"
       variant="primary"
-      items={data && mapData(data.data.data)}
+      items={data && mapData(data?.data?.data)}
       isLoading={isLoading}
     />
   );
