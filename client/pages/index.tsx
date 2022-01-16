@@ -13,16 +13,20 @@ import { Titles } from 'enums/titles';
 
 const Home = ({ locale, initialTitles }: { locale: Lang; initialTitles: any }) => {
   const { data: titles } = useTitles(initialTitles);
-
-  const sovellus = titles?.data?.data?.find((el) => el.attributes.type === Titles.Sovellus);
+  console.log(titles);
+  const sovellus = titles?.data?.data?.find((el: any) => el.attributes.type === Titles.Sovellus);
   const turussaTapahtuu = titles?.data?.data?.find(
-    (el) => el.attributes.type === Titles.Tapahtumat
+    (el: any) => el.attributes.type === Titles.Tapahtumat
   );
-  const kerrokantasi = titles?.data?.data?.find((el) => el.attributes.type === Titles.Kerrokantasi);
-  const nostot = titles?.data?.data?.find((el) => el.attributes.type === Titles.Nostot);
-  const tiedotteet = titles?.data?.data?.find((el) => el.attributes.type === Titles.Tiedotteet);
+  const kerrokantasi = titles?.data?.data?.find(
+    (el: any) => el.attributes.type === Titles.Kerrokantasi
+  );
+  const nostot = titles?.data?.data?.find((el: any) => el.attributes.type === Titles.Nostot);
+  const tiedotteet = titles?.data?.data?.find(
+    (el: any) => el.attributes.type === Titles.Tiedotteet
+  );
   const liikennetiedotteet = titles?.data?.data?.find(
-    (el) => el.attributes.type === Titles.Liikennetiedotteet
+    (el: any) => el.attributes.type === Titles.Liikennetiedotteet
   );
 
   const metaDescription = {
@@ -93,7 +97,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       locale: locale,
-      initialTitltes: titles?.data,
+      initialTitles: titles?.data,
     },
   };
 };
