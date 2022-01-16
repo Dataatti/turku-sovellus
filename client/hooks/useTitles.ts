@@ -6,11 +6,9 @@ export const listTitles = async (locale: string) => {
   return strapiClient.titles.list(locale || 'fi');
 };
 
-export const useTitles = (initial: any) => {
+export const useTitles = () => {
   const { locale } = useRouter();
-  return useQuery(['getTitles', locale], async () => await listTitles(locale || 'fi'), {
-    initialData: initial,
-  });
+  return useQuery(['getTitles', locale], async () => await listTitles(locale || 'fi'));
 };
 
 export const useTitle = (type: string) => {

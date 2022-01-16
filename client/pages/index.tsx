@@ -7,26 +7,24 @@ import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import UlkoisetLinkitWidget from 'components/UlkoisetLinkit/UlkoisetLinkitWidget';
 import { Grid } from '@mui/material';
 
+import strapiClient from 'functions/strapi-client';
+import { dehydrate, QueryClient } from 'react-query';
 import { listTitles, useTitles } from 'hooks/useTitles';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 import { Titles } from 'enums/titles';
 
-const Home = ({ locale, initialTitles }: { locale: Lang; initialTitles: any }) => {
-  const { data: titles } = useTitles(initialTitles);
-  console.log(titles);
-  const sovellus = titles?.data?.data?.find((el: any) => el.attributes.type === Titles.Sovellus);
+const Home = ({ locale }: { locale: Lang }) => {
+  const { data: titles } = useTitles();
+
+  const sovellus = titles?.data?.data?.find((el) => el.attributes.type === Titles.Sovellus);
   const turussaTapahtuu = titles?.data?.data?.find(
-    (el: any) => el.attributes.type === Titles.Tapahtumat
+    (el) => el.attributes.type === Titles.Tapahtumat
   );
-  const kerrokantasi = titles?.data?.data?.find(
-    (el: any) => el.attributes.type === Titles.Kerrokantasi
-  );
-  const nostot = titles?.data?.data?.find((el: any) => el.attributes.type === Titles.Nostot);
-  const tiedotteet = titles?.data?.data?.find(
-    (el: any) => el.attributes.type === Titles.Tiedotteet
-  );
+  const kerrokantasi = titles?.data?.data?.find((el) => el.attributes.type === Titles.Kerrokantasi);
+  const nostot = titles?.data?.data?.find((el) => el.attributes.type === Titles.Nostot);
+  const tiedotteet = titles?.data?.data?.find((el) => el.attributes.type === Titles.Tiedotteet);
   const liikennetiedotteet = titles?.data?.data?.find(
-    (el: any) => el.attributes.type === Titles.Liikennetiedotteet
+    (el) => el.attributes.type === Titles.Liikennetiedotteet
   );
 
   const metaDescription = {
@@ -86,18 +84,15 @@ const Home = ({ locale, initialTitles }: { locale: Lang; initialTitles: any }) =
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
+  const queryClient = new QueryClient();
+
   const { locale } = context;
-  let titles;
-  try {
-    titles = await listTitles(locale || 'fi');
-  } catch (err) {
-    // ignore
-  }
+  queryClient.prefetchQuery(['getTitles', locale], () => listTitles(locale || 'fi'));
 
   return {
     props: {
       locale: locale,
-      initialTitles: titles?.data,
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };
