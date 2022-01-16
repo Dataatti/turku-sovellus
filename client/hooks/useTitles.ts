@@ -8,7 +8,7 @@ export const listTitles = async (locale: string) => {
 
 export const useTitles = (initial: any) => {
   const { locale } = useRouter();
-  return useQuery(['getTitles', locale], () => listTitles(locale || 'fi'), {
+  return useQuery(['getTitles', locale], async () => await listTitles(locale || 'fi'), {
     initialData: initial,
   });
 };
