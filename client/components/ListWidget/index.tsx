@@ -1,5 +1,6 @@
+import { useMemo } from 'react';
 import theme from 'theme';
-import { Box, Typography, List, Link as MUILink } from '@mui/material';
+import { Box, Typography, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
 import { useRouter } from 'next/router';
@@ -30,7 +31,7 @@ export const ListWidget = ({
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
   const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
-  const renderListItems = () => {
+  const renderListItems = useMemo(() => {
     if (error) {
       return <ListWidgetItem item={error} textColor={textColor} />;
     }
@@ -48,7 +49,7 @@ export const ListWidget = ({
     return items?.map((item) => (
       <ListWidgetItem key={items.indexOf(item)} item={item} textColor={textColor} />
     ));
-  };
+  }, [error, isLoading, items, textColor]);
 
   return (
     <Box
@@ -67,7 +68,7 @@ export const ListWidget = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      {customContent ? customContent : renderListItems()}
+      {customContent ? customContent : renderListItems}
       {!error && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Link href={readMoreHref} passHref>
