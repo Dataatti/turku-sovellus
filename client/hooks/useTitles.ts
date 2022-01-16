@@ -2,12 +2,15 @@ import strapiClient from 'functions/strapi-client';
 import { useRouter } from 'next/router';
 import { useQuery } from 'react-query';
 
-export const useTitles = () => {
+export const listTitles = async (locale: string) => {
+  return strapiClient.titles.list(locale || 'fi');
+};
+
+export const useTitles = (initial: any) => {
   const { locale } = useRouter();
-  return useQuery(
-    ['getTitles', locale],
-    async () => await strapiClient.titles.list(locale || 'fi')
-  );
+  return useQuery(['getTitles', locale], async () => await listTitles(locale || 'fi'), {
+    initialData: initial,
+  });
 };
 
 export const useTitle = (type: string) => {

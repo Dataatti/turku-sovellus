@@ -7,14 +7,12 @@ import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import UlkoisetLinkitWidget from 'components/UlkoisetLinkit/UlkoisetLinkitWidget';
 import { Grid } from '@mui/material';
 
-import strapiClient from 'functions/strapi-client';
-import { dehydrate, QueryClient } from 'react-query';
-import { useTitles } from 'hooks/useTitles';
+import { listTitles, useTitles } from 'hooks/useTitles';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 import { Titles } from 'enums/titles';
 
-const Home = ({ locale }: { locale: Lang }) => {
-  const { data: titles } = useTitles();
+const Home = ({ locale, initialTitles }: { locale: Lang; initialTitles: any }) => {
+  const { data: titles } = useTitles(initialTitles);
 
   const sovellus = titles?.data?.data?.find((el) => el.attributes.type === Titles.Sovellus);
   const turussaTapahtuu = titles?.data?.data?.find(
@@ -84,18 +82,18 @@ const Home = ({ locale }: { locale: Lang }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient = new QueryClient();
-
   const { locale } = context;
-  await queryClient.prefetchQuery(
-    ['getTitles', locale],
-    strapiClient.titles.list(locale || 'fi') as any
-  );
+  let titles;
+  try {
+    titles = await listTitles(locale || 'fi');
+  } catch (err) {
+    // ignore
+  }
 
   return {
     props: {
       locale: locale,
-      dehydratedState: dehydrate(queryClient),
+      initialTitltes: titles?.data,
     },
   };
 };
