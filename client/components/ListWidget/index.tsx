@@ -1,5 +1,5 @@
 import theme from 'theme';
-import { Box, Typography, List, Link as MUILink, Skeleton } from '@mui/material';
+import { Box, Typography, List, Link as MUILink } from '@mui/material';
 import Link from 'next/link';
 import { ListWidgetItem, ListItemType } from './ListWidgetItem';
 import { useRouter } from 'next/router';
@@ -13,6 +13,7 @@ type ListWidgetType = {
   title?: string;
   variant: 'primary' | 'secondary' | 'white';
   isLoading: boolean;
+  error?: ListItemType;
 };
 
 export const ListWidget = ({
@@ -23,11 +24,32 @@ export const ListWidget = ({
   title,
   variant,
   isLoading,
+  error,
   ...props
 }: ListWidgetType) => {
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
   const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
+
+  const renderListItems = () => {
+    if (error) {
+      return <ListWidgetItem item={error} textColor={textColor} />;
+    }
+
+    if (isLoading && !error) {
+      return (
+        <>
+          <ListWidgetSkeletonItem />
+          <ListWidgetSkeletonItem />
+          <ListWidgetSkeletonItem />
+        </>
+      );
+    }
+
+    return items?.map((item) => (
+      <ListWidgetItem key={items.indexOf(item)} item={item} textColor={textColor} />
+    ));
+  };
 
   return (
     <Box
@@ -46,28 +68,14 @@ export const ListWidget = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      {customContent ? (
-        customContent
-      ) : (
-        <List sx={{ width: '100%' }}>
-          {isLoading ? (
-            <>
-              <ListWidgetSkeletonItem />
-              <ListWidgetSkeletonItem />
-              <ListWidgetSkeletonItem />
-            </>
-          ) : (
-            items?.map((item) => (
-              <ListWidgetItem item={item} textColor={textColor} key={items.indexOf(item)} />
-            ))
-          )}
-        </List>
+      {customContent ? customContent : renderListItems()}
+      {!error && (
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Link href={readMoreHref} passHref>
+            <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>
+          </Link>
+        </Box>
       )}
-      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Link href={readMoreHref} passHref>
-          <MUILink color="inherit">{readMoreTexts[(locale as Lang) || 'fi']}</MUILink>
-        </Link>
-      </Box>
     </Box>
   );
 };
