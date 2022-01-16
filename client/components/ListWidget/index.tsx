@@ -30,7 +30,7 @@ export const ListWidget = ({
   const { locale } = useRouter();
   const textColor = variant === 'white' ? '#000' : '#fff';
   const readMoreTexts = { fi: 'Lue lisää', en: 'Read more', sv: 'Läs mer' };
-
+  console.log(error);
   const renderListItems = () => {
     if (error) {
       return <ListWidgetItem item={error} textColor={textColor} />;

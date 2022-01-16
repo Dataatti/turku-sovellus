@@ -29,11 +29,14 @@ export const NostotWidget = ({ title }: { title: string }) => {
     return mappedNostot;
   };
 
-  const errorData = (locale: 'fi' | 'en' | 'sv'): ListItemType => {
-    return {
-      title: errorMessages[locale],
-      thumbnail: { src: undefined },
-    };
+  const errorData = (locale: 'fi' | 'en' | 'sv'): ListItemType | undefined => {
+    if (error || data?.data?.data.length === 0) {
+      return {
+        title: errorMessages[locale],
+        thumbnail: { src: undefined },
+      };
+    }
+    return undefined;
   };
 
   return (
@@ -44,7 +47,7 @@ export const NostotWidget = ({ title }: { title: string }) => {
       variant="primary"
       items={data && mapData(data?.data?.data)}
       isLoading={isLoading}
-      error={(error as any) && errorData((locale || 'fi') as Lang)}
+      error={errorData((locale || 'fi') as Lang)}
     />
   );
 };
