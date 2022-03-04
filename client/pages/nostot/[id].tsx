@@ -53,8 +53,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const media = item?.attributes?.header_image?.data?.attributes || null;
   const mediaUrl = media?.url ? process.env.NEXT_PUBLIC_STRAPI_URL + media.url : '';
 
-  console.log(data?.data);
-
   return {
     props: {
       locale: locale || 'fi',

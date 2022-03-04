@@ -4,7 +4,6 @@ import UlkoinenLinkki from './UlkoinenLinkki';
 
 export const UlkoisetLinkitWidget = () => {
   const { data } = useUlkoisetLinkit();
-  console.log(data);
   const ulkoisetLinkit = data?.data?.data || [];
 
   return (
