@@ -31,9 +31,8 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
-    ['getTitle', Titles.Kerrokantasi],
-    strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi') as any
+  queryClient.prefetchQuery(['getTitle', Titles.Kerrokantasi], () =>
+    strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi')
   );
   return {
     props: {
