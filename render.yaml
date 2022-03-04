@@ -9,7 +9,7 @@ services:
   - key: NODE_ENV
     value: production
   - key: NODE_VERSION
-      value: 16.14.0
+    value: 16.14.0
 
 - type: web
   name: turku-sovellus-strapi
