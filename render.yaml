@@ -14,8 +14,8 @@ services:
     name: turku-sovellus-strapi
     env: node
     plan: starter
-    buildCommand: cd strapi/app && yarn install && yarn build
-    startCommand: cd strapi/app && yarn start
+    buildCommand: cd strapi/app && npm install && npm run build
+    startCommand: cd strapi/app && npm run start
     healthCheckPath: /_health
     disk:
       name: turku-sovellus-strapi-uploads
