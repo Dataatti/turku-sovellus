@@ -3,8 +3,8 @@ services:
     name: strapi
     env: node
     plan: starter
-    buildCommand: yarn install && yarn build
-    startCommand: yarn start
+    buildCommand: cd strapi && yarn install && yarn build
+    startCommand: cd strapi && yarn start
     healthCheckPath: /_health
     disk:
       name: strapi-uploads
@@ -27,3 +27,4 @@ services:
 databases:
   - name: strapi
     plan: starter
+    postgresMajorVersion: 14
