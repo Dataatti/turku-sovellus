@@ -2,6 +2,7 @@ module.exports = ({ env }) => {
   return {
     connection: {
       client: "postgres",
+      debug: false,
       connection: {
         host: env("DATABASE_HOST"),
         port: env.int("DATABASE_PORT"),
