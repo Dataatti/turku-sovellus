@@ -10,7 +10,11 @@ interface StrapiClientTypes {
   };
   nostot: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
-    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
+    get: (
+      id: string,
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
   };
   ulkoisetLinkit: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>> | undefined>;
@@ -44,10 +48,14 @@ const strapiClient: StrapiClientTypes = {
       client.get('/nostot?populate=header_image', { params: { locale } }).catch((error) => {
         return undefined;
       }),
-    get: (id, locale) =>
-      client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }).catch((error) => {
-        return undefined;
-      }),
+    get: (id, locale, preview = false) =>
+      client
+        .get(`/nostot/${id}?populate=header_image&publicationState=${preview ? 'draft' : 'live'}`, {
+          params: { locale },
+        })
+        .catch((error) => {
+          return undefined;
+        }),
   },
   ulkoisetLinkit: {
     list: (locale) =>
