@@ -1,13 +1,22 @@
 services:
   - type: web
-    name: strapi
+    name: turku-sovellus-client
+    env: node
+    plan: starter
+    buildCommand: cd client && yarn install && yarn build
+    startCommand: cd client && yarn start
+    envVars:
+    - key: NODE_ENV
+      value: production
+  - type: web
+    name: turku-sovellus-strapi
     env: node
     plan: starter
     buildCommand: cd strapi && yarn install && yarn build
     startCommand: cd strapi && yarn start
     healthCheckPath: /_health
     disk:
-      name: strapi-uploads
+      name: turku-sovellus-strapi-uploads
       mountPath: /opt/render/project/src/public/uploads
       sizeGB: 1
     envVars:
@@ -17,7 +26,7 @@ services:
         value: production
       - key: DATABASE_URL
         fromDatabase:
-          name: strapi
+          name: turku-sovellus-database
           property: connectionString
       - key: JWT_SECRET
         generateValue: true
@@ -25,6 +34,6 @@ services:
         generateValue: true
 
 databases:
-  - name: strapi
+  - name: turku-sovellus-database
     plan: starter
     postgresMajorVersion: 14
