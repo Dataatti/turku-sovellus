@@ -2,11 +2,8 @@ import axios, { AxiosResponse } from 'axios';
 
 interface StrapiClientTypes {
   titles: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>> | undefined>;
-    get: (
-      type: string,
-      locale: string
-    ) => Promise<AxiosResponse<StrapiResponse<string>> | undefined>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Title[]>>>;
+    get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<string>>>;
   };
   nostot: {
     list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
@@ -17,7 +14,7 @@ interface StrapiClientTypes {
     ) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
   };
   ulkoisetLinkit: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>> | undefined>;
+    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
   };
 }
 
@@ -25,23 +22,15 @@ const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_STRAPI_URL + '/api',
   method: 'GET',
   headers: {
+    'Content-type': 'application/json',
     Authorization: `bearer ${process.env.NEXT_PUBLIC_STRAPI_KEY}`,
   },
 });
 
 const strapiClient: StrapiClientTypes = {
   titles: {
-    list: (locale) =>
-      client.get('/headers', { params: { locale } }).catch((error) => {
-        return undefined;
-      }),
-    get: (type, locale) =>
-      client
-        .get(`/headers`, { params: { locale, 'filters[type]': type } })
-        .then((n) => n?.data?.data?.[0]?.attributes?.text)
-        .catch((error) => {
-          return undefined;
-        }),
+    list: (locale) => client.get('/headers', { params: { locale } }),
+    get: (type, locale) => client.get(`/headers`, { params: { locale, 'filters[type]': type } }),
   },
   nostot: {
     list: (locale) =>
@@ -58,10 +47,7 @@ const strapiClient: StrapiClientTypes = {
         }),
   },
   ulkoisetLinkit: {
-    list: (locale) =>
-      client.get('/ulkoinen-linkkis', { params: { locale } }).catch((error) => {
-        return undefined;
-      }),
+    list: (locale) => client.get('/ulkoiset-linkit', { params: { locale } }),
   },
 };
 

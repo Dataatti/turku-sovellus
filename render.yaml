@@ -1,0 +1,57 @@
+services:
+- type: web
+  name: turku-sovellus-client
+  env: node
+  plan: starter
+  buildCommand: cd client && yarn install --production=false && yarn build
+  startCommand: cd client && yarn start
+  envVars:
+  - key: NODE_ENV
+    value: production
+  - key: NODE_VERSION
+    value: 16.14.0
+
+- type: web
+  name: turku-sovellus-strapi
+  env: node
+  plan: starter
+  buildCommand: cd strapi/app && yarn install && yarn build
+  startCommand: cd strapi/app && yarn start
+  healthCheckPath: /_health
+  disk:
+    name: turku-sovellus-strapi-uploads
+    mountPath: /opt/render/project/src/public/uploads
+    sizeGB: 1
+  envVars:
+    - key: NODE_VERSION
+      value: 16.14.0
+    - key: NODE_ENV
+      value: production
+    - key: DATABASE_HOST
+      fromDatabase:
+        name: turku-sovellus-database
+        property: host
+    - key: DATABASE_PORT
+      fromDatabase:
+        name: turku-sovellus-database
+        property: port
+    - key: DATABASE_NAME
+      fromDatabase:
+        name: turku-sovellus-database
+        property: database
+    - key: DATABASE_USERNAME
+      fromDatabase:
+        name: turku-sovellus-database
+        property: user
+    - key: DATABASE_PASSWORD
+      fromDatabase:
+        name: turku-sovellus-database
+        property: password
+    - key: JWT_SECRET
+      generateValue: true
+    - key: ADMIN_JWT_SECRET
+      generateValue: true
+
+databases:
+- name: turku-sovellus-database
+  plan: starter

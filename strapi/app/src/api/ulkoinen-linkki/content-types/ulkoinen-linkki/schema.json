@@ -1,9 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "ulkoinen_linkkis",
+  "collectionName": "ulkoiset_linkit",
   "info": {
     "singularName": "ulkoinen-linkki",
-    "pluralName": "ulkoinen-linkkis",
+    "pluralName": "ulkoiset-linkit",
     "displayName": "Ulkoinen linkki",
     "description": ""
   },
