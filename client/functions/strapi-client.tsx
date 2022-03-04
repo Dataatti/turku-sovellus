@@ -42,6 +42,10 @@ const strapiClient: StrapiClientTypes = {
         .get(`/nostot/${id}?populate=header_image&publicationState=${preview ? 'draft' : 'live'}`, {
           params: { locale },
         })
+        .then((data) => {
+          if (!data?.data?.data?.attributes?.publishedAt && !preview) return undefined;
+          return data;
+        })
         .catch((error) => {
           return undefined;
         }),
