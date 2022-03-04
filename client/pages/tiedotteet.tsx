@@ -30,9 +30,9 @@ const Tiedotteet = ({ locale }: { locale: Lang }) => {
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery(
+  queryClient.prefetchQuery(
     ['getTitle', Titles.Tiedotteet],
-    strapiClient.titles.get(Titles.Tiedotteet, locale || 'fi') as any
+    () => strapiClient.titles.get(Titles.Tiedotteet, locale || 'fi') as any
   );
   return {
     props: {

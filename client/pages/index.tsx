@@ -9,7 +9,7 @@ import { Grid } from '@mui/material';
 
 import strapiClient from 'functions/strapi-client';
 import { dehydrate, QueryClient } from 'react-query';
-import { useTitles } from 'hooks/useTitles';
+import { listTitles, useTitles } from 'hooks/useTitles';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 import { Titles } from 'enums/titles';
 
@@ -87,10 +87,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const queryClient = new QueryClient();
 
   const { locale } = context;
-  await queryClient.prefetchQuery(
-    ['getTitles', locale],
-    strapiClient.titles.list(locale || 'fi') as any
-  );
+  queryClient.prefetchQuery(['getTitles', locale], () => listTitles(locale || 'fi'));
 
   return {
     props: {
