@@ -1,41 +1,41 @@
 services:
-  - type: web
-    name: turku-sovellus-client
-    env: node
-    plan: starter
-    buildCommand: cd client && npm install && npm run build
-    startCommand: cd client && npm run start
-    envVars:
+- type: web
+  name: turku-sovellus-client
+  env: node
+  plan: starter
+  buildCommand: cd client && yarn install --production=false && yarn build
+  startCommand: cd client && yarn start
+  envVars:
+  - key: NODE_ENV
+    value: production
+  - key: NODE_VERSION
+      value: 16.14.0
+
+- type: web
+  name: turku-sovellus-strapi
+  env: node
+  plan: starter
+  buildCommand: cd strapi/app && yarn install && yarn build
+  startCommand: cd strapi/app && yarn start
+  healthCheckPath: /_health
+  disk:
+    name: turku-sovellus-strapi-uploads
+    mountPath: /opt/render/project/src/public/uploads
+    sizeGB: 1
+  envVars:
+    - key: NODE_VERSION
+      value: 16.14.0
     - key: NODE_ENV
       value: production
-    - key: NODE_VERSION
-        value: 16.14.0
-  - type: web
-    name: turku-sovellus-strapi
-    env: node
-    plan: starter
-    buildCommand: cd strapi/app && npm install && npm run build
-    startCommand: cd strapi/app && npm run start
-    healthCheckPath: /_health
-    disk:
-      name: turku-sovellus-strapi-uploads
-      mountPath: /opt/render/project/src/public/uploads
-      sizeGB: 1
-    envVars:
-      - key: NODE_VERSION
-        value: 16.14.0
-      - key: NODE_ENV
-        value: production
-      - key: DATABASE_URL
-        fromDatabase:
-          name: turku-sovellus-database
-          property: connectionString
-      - key: JWT_SECRET
-        generateValue: true
-      - key: ADMIN_JWT_SECRET
-        generateValue: true
+    - key: DATABASE_URL
+      fromDatabase:
+        name: turku-sovellus-database
+        property: connectionString
+    - key: JWT_SECRET
+      generateValue: true
+    - key: ADMIN_JWT_SECRET
+      generateValue: true
 
 databases:
-  - name: turku-sovellus-database
-    plan: starter
-    postgresMajorVersion: 14
+- name: turku-sovellus-database
+  plan: starter
