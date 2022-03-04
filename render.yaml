@@ -3,11 +3,13 @@ services:
     name: turku-sovellus-client
     env: node
     plan: starter
-    buildCommand: cd client && yarn install && yarn build
-    startCommand: cd client && yarn start
+    buildCommand: cd client && npm install && npm run build
+    startCommand: cd client && npm run start
     envVars:
     - key: NODE_ENV
       value: production
+    - key: NODE_VERSION
+        value: 16.14.0
   - type: web
     name: turku-sovellus-strapi
     env: node
