@@ -27,10 +27,26 @@ services:
       value: 16.14.0
     - key: NODE_ENV
       value: production
-    - key: DATABASE_URL
+    - key: DATABASE_HOST
       fromDatabase:
         name: turku-sovellus-database
-        property: connectionString
+        property: host
+    - key: DATABASE_PORT
+      fromDatabase:
+        name: turku-sovellus-database
+        property: port
+    - key: DATABASE_NAME
+      fromDatabase:
+        name: turku-sovellus-database
+        property: database
+    - key: DATABASE_USERNAME
+      fromDatabase:
+        name: turku-sovellus-database
+        property: user
+    - key: DATABASE_PASSWORD
+      fromDatabase:
+        name: turku-sovellus-database
+        property: password
     - key: JWT_SECRET
       generateValue: true
     - key: ADMIN_JWT_SECRET
