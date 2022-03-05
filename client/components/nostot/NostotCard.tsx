@@ -9,7 +9,7 @@ export const NostotCard = ({ nosto, locale }: { nosto: Nosto; locale: Lang }) =>
       captions={[]}
       href={`/nostot/${nosto.id}`}
       image={{
-        url: process.env.NEXT_PUBLIC_STRAPI_URL + media?.url,
+        url: media?.url ? process.env.NEXT_PUBLIC_STRAPI_URL + media?.url : "",
         altText: media?.alternativeText,
       }}
       tags={[]}
