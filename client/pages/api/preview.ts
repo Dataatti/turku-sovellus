@@ -12,5 +12,8 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<any>) 
   res.setPreviewData({});
 
   // Redirect to the path from the fetched post
-  res.redirect(307, `/${req.query.path}${req.query.id ? `/${req.query.id}` : ''}`);
+  res.redirect(
+    307,
+    `/${req.query.path}${req.query.id && !req.query.ignoreId ? `/${req.query.id}` : ''}`
+  );
 }

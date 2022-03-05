@@ -14,7 +14,10 @@ interface StrapiClientTypes {
     ) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
   };
   ulkoisetLinkit: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
+    list: (
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
   };
 }
 
@@ -39,8 +42,12 @@ const strapiClient: StrapiClientTypes = {
       }),
     get: (id, locale, preview = false) =>
       client
-        .get(`/nostot/${id}?populate=header_image&publicationState=${preview ? 'draft' : 'live'}`, {
-          params: { locale },
+        .get(`/nostot/${id}`, {
+          params: {
+            locale,
+            populate: 'header_image',
+            publicationState: preview ? 'preview' : 'live',
+          },
         })
         .then((data) => {
           if (!data?.data?.data?.attributes?.publishedAt && !preview) return undefined;
@@ -51,7 +58,10 @@ const strapiClient: StrapiClientTypes = {
         }),
   },
   ulkoisetLinkit: {
-    list: (locale) => client.get('/ulkoiset-linkit', { params: { locale } }),
+    list: (locale, preview) =>
+      client.get(`/ulkoiset-linkit`, {
+        params: { locale, publicationState: preview ? 'preview' : 'live' },
+      }),
   },
 };
 

@@ -6,26 +6,29 @@ import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTied
 import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import UlkoisetLinkitWidget from 'components/UlkoisetLinkit/UlkoisetLinkitWidget';
 import { Grid } from '@mui/material';
+import PreviewAlert from 'components/PreviewAlert';
 
 import strapiClient from 'functions/strapi-client';
-import { dehydrate, QueryClient } from 'react-query';
-import { listTitles, useTitles } from 'hooks/useTitles';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 import { Titles } from 'enums/titles';
 
-const Home = ({ locale }: { locale: Lang }) => {
-  const { data: titles } = useTitles();
-
-  const sovellus = titles?.data?.data?.find((el) => el.attributes.type === Titles.Sovellus);
-  const turussaTapahtuu = titles?.data?.data?.find(
-    (el) => el.attributes.type === Titles.Tapahtumat
-  );
-  const kerrokantasi = titles?.data?.data?.find((el) => el.attributes.type === Titles.Kerrokantasi);
-  const nostot = titles?.data?.data?.find((el) => el.attributes.type === Titles.Nostot);
-  const tiedotteet = titles?.data?.data?.find((el) => el.attributes.type === Titles.Tiedotteet);
-  const liikennetiedotteet = titles?.data?.data?.find(
-    (el) => el.attributes.type === Titles.Liikennetiedotteet
-  );
+const Home = ({
+  locale,
+  ulkoisetLinkit,
+  titles,
+  preview = false,
+}: {
+  locale: Lang;
+  ulkoisetLinkit: UlkoinenLinkki[];
+  titles: Title[];
+  preview: boolean;
+}) => {
+  const sovellus = titles?.find((el) => el.attributes.type === Titles.Sovellus);
+  const turussaTapahtuu = titles?.find((el) => el.attributes.type === Titles.Tapahtumat);
+  const kerrokantasi = titles?.find((el) => el.attributes.type === Titles.Kerrokantasi);
+  const nostot = titles?.find((el) => el.attributes.type === Titles.Nostot);
+  const tiedotteet = titles?.find((el) => el.attributes.type === Titles.Tiedotteet);
+  const liikennetiedotteet = titles?.find((el) => el.attributes.type === Titles.Liikennetiedotteet);
 
   const metaDescription = {
     fi: 'Turun kaupungin virallinen sovellus',
@@ -51,7 +54,7 @@ const Home = ({ locale }: { locale: Lang }) => {
             <NostotWidget title={nostot?.attributes?.text || 'Nostot'} />
           </Grid>
           <Grid item md={6} xs={12}>
-            <UlkoisetLinkitWidget />
+            <UlkoisetLinkitWidget ulkoisetLinkit={ulkoisetLinkit} />
           </Grid>
           <Grid item md={6} xs={12}>
             <TurussaTapahtuuWidget
@@ -78,23 +81,44 @@ const Home = ({ locale }: { locale: Lang }) => {
             />
           </Grid>
         </Grid>
+        {preview && <PreviewAlert />}
       </main>
     </div>
   );
 };
 
-export const getStaticProps: GetStaticProps = async (context) => {
-  const queryClient = new QueryClient();
+export const getServerSideProps: GetStaticProps = async (context) => {
+  const { locale, preview } = context;
 
-  const { locale } = context;
-  queryClient.prefetchQuery(['getTitles', locale], () => listTitles(locale || 'fi'));
+  try {
+    const ulkoisetLinkitData = (await strapiClient.ulkoisetLinkit.list(
+      locale || 'fi',
+      preview
+    )) as any;
+    const ulkoisetLinkit = ulkoisetLinkitData?.data?.data || [];
 
-  return {
-    props: {
-      locale: locale,
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+    const titlesData = (await strapiClient.titles.list(locale || 'fi')) as any;
+    const titles = titlesData?.data?.data || [];
+
+    return {
+      props: {
+        locale: locale,
+        preview: preview || null,
+        ulkoisetLinkit,
+        titles,
+      },
+    };
+  } catch (err) {
+    // Fallback if Strapi is down
+    return {
+      props: {
+        locale: 'fi',
+        preview: preview || null,
+        ulkoisetLinkit: [],
+        titles: [],
+      },
+    };
+  }
 };
 
 export default Home;

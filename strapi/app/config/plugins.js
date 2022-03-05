@@ -15,6 +15,19 @@ module.exports = {
             basePath: "nostot",
           },
         },
+        {
+          uid: "api::ulkoinen-linkki.ulkoinen-linkki",
+          targetField: "id",
+          draft: {
+            query: {
+              ignoreId: "true",
+              path: "",
+            },
+          },
+          published: {
+            basePath: "ulkoinenLinkki",
+          },
+        },
       ],
     },
   },
