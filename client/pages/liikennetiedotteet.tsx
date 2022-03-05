@@ -3,15 +3,11 @@ import { css } from '@emotion/react';
 import IframeLink from 'components/LiikenneTiedotteet/IframeLink';
 import { Titles } from 'enums/titles';
 import strapiClient from 'functions/strapi-client';
-import { useTitle } from 'hooks/useTitles';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { dehydrate, QueryClient } from 'react-query';
 
-const Liikennetiedotteet = ({ locale }: { locale: Lang }) => {
-  const { data: title } = useTitle(Titles.Liikennetiedotteet);
-
+const Liikennetiedotteet = ({ locale, title }: { locale: Lang; title: string }) => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       (window as any)?.twttr?.widgets?.load();
@@ -36,18 +32,26 @@ const Liikennetiedotteet = ({ locale }: { locale: Lang }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-  queryClient.prefetchQuery(
-    ['getTitle', Titles.Liikennetiedotteet],
-    () => strapiClient.titles.get(Titles.Liikennetiedotteet, locale || 'fi') as any
-  );
-  return {
-    props: {
-      locale: locale || 'fi',
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
+
+  try {
+    const title = (await strapiClient.titles.get(Titles.Liikennetiedotteet, locale || 'fi')) as any;
+    return {
+      props: {
+        locale: locale,
+        title: title?.data?.data?.[0]?.attributes?.text || 'Liikennetiedotteet',
+      },
+    };
+  } catch (err) {
+    // Fallback if Strapi is down
+    return {
+      props: {
+        locale: 'fi',
+        title: 'Liikennetiedotteet',
+      },
+    };
+  }
 };
 
 export default Liikennetiedotteet;

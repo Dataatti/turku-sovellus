@@ -38,13 +38,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const nostotData = (await strapiClient.nostot.list(locale || 'fi', preview)) as any;
-    const title = (await strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi')) as any;
+    const title = (await strapiClient.titles.get(Titles.Nostot, locale || 'fi')) as any;
     return {
       props: {
         locale: locale,
         preview: preview || null,
         nostot: nostotData?.data?.data || [],
-        title: title?.data?.data || 'Nostot',
+        title: title?.data?.data?.[0]?.attributes?.text || 'Nostot',
       },
     };
   } catch (err) {

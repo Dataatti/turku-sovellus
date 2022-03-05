@@ -1,14 +1,11 @@
 import TiedotteetCard from 'components/tiedotteet/TiedotteetCard';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import useTiedotteet from 'hooks/useTiedotteet';
-import { useTitle } from 'hooks/useTitles';
 import { Titles } from 'enums/titles';
-import { dehydrate, QueryClient } from 'react-query';
 import strapiClient from 'functions/strapi-client';
 
-const Tiedotteet = ({ locale }: { locale: Lang }) => {
-  const { data: title } = useTitle(Titles.Tiedotteet);
+const Tiedotteet = ({ locale, title }: { locale: Lang; title: string }) => {
   // Pass locale to useTiedotteet to fetch from correct source
   const { isLoading, data } = useTiedotteet(locale);
 
@@ -28,18 +25,26 @@ const Tiedotteet = ({ locale }: { locale: Lang }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-  queryClient.prefetchQuery(
-    ['getTitle', Titles.Tiedotteet],
-    () => strapiClient.titles.get(Titles.Tiedotteet, locale || 'fi') as any
-  );
-  return {
-    props: {
-      locale: locale || 'fi',
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
+
+  try {
+    const title = (await strapiClient.titles.get(Titles.Tiedotteet, locale || 'fi')) as any;
+    return {
+      props: {
+        locale: locale,
+        title: title?.data?.data?.[0]?.attributes?.text || 'Tiedotteet',
+      },
+    };
+  } catch (err) {
+    // Fallback if Strapi is down
+    return {
+      props: {
+        locale: 'fi',
+        title: 'Tiedotteet',
+      },
+    };
+  }
 };
 
 export default Tiedotteet;
