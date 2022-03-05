@@ -48,7 +48,7 @@
       {
         "id": 1,
         "attributes": {
-          "text": "Turussa tapahtuu",
+          "text": "Turussa tapahtuu -sivu",
           "type": "tapahtumat",
           "createdAt": "2022-01-12T16:50:17.140Z",
           "updatedAt": "2022-01-12T16:54:50.403Z",
@@ -72,6 +72,17 @@
         "attributes": {
           "text": "Liikennetiedotteet",
           "type": "liikennetiedotteet",
+          "createdAt": "2022-01-12T18:20:08.004Z",
+          "updatedAt": "2022-01-12T18:20:09.173Z",
+          "publishedAt": "2022-01-12T18:20:09.170Z",
+          "locale": "fi"
+        }
+      },
+      {
+        "id": 8,
+        "attributes": {
+          "text": "Nostot-sivu",
+          "type": "nostot",
           "createdAt": "2022-01-12T18:20:08.004Z",
           "updatedAt": "2022-01-12T18:20:09.173Z",
           "publishedAt": "2022-01-12T18:20:09.170Z",
