@@ -31,7 +31,7 @@ export const Nosto = ({
           flexDirection: { xs: 'column' },
           marginTop: '12px',
           marginBottom: '12px',
-          padding: '12px',
+          padding: '16px',
         }}
         data-testid="item-card"
       >
