@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
@@ -89,7 +89,7 @@ const Home = ({
   );
 };
 
-export const getServerSideProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale, preview } = context;
 
   try {

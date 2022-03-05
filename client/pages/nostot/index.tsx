@@ -1,5 +1,5 @@
 import NostotCard from 'components/nostot/NostotCard';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import strapiClient from 'functions/strapi-client';
 import PreviewAlert from 'components/PreviewAlert';
@@ -33,7 +33,7 @@ const Nostot = ({
   );
 };
 
-export const getServerSideProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { locale, preview } = context;
 
   try {
