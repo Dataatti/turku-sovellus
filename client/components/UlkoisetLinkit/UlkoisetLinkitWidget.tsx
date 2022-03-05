@@ -1,12 +1,7 @@
-import { useUlkoisetLinkit } from 'hooks/useUlkoisetLinkit';
 import { Grid } from '@mui/material';
 import UlkoinenLinkki from './UlkoinenLinkki';
 
-export const UlkoisetLinkitWidget = () => {
-  const { data } = useUlkoisetLinkit();
-  console.log(data);
-  const ulkoisetLinkit = data?.data?.data || [];
-
+export const UlkoisetLinkitWidget = ({ ulkoisetLinkit }: { ulkoisetLinkit: UlkoinenLinkki[] }) => {
   return (
     <Grid container columnSpacing={1} rowSpacing={1} sx={{ marginTop: '4px' }}>
       {ulkoisetLinkit?.map((ulkoinenLinkki, i) => {

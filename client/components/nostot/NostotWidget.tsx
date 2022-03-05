@@ -1,10 +1,8 @@
 import ListWidget from 'components/ListWidget';
 import { ListItemType } from 'components/ListWidget/ListWidgetItem';
-import { useNostot } from 'hooks/useNostot';
 import { useRouter } from 'next/router';
 
-export const NostotWidget = ({ title }: { title: string }) => {
-  const { isLoading, data, error } = useNostot();
+export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[] }) => {
   const { locale } = useRouter();
 
   const errorMessages: { fi: string; en: string; sv: string } = {
@@ -30,7 +28,7 @@ export const NostotWidget = ({ title }: { title: string }) => {
   };
 
   const errorData = (locale: 'fi' | 'en' | 'sv'): ListItemType | undefined => {
-    if (error || data?.data?.data.length === 0) {
+    if (nostot?.length === 0) {
       return {
         title: errorMessages[locale],
         thumbnail: { src: undefined },
@@ -45,8 +43,8 @@ export const NostotWidget = ({ title }: { title: string }) => {
       title={title}
       readMoreHref="/nostot"
       variant="primary"
-      items={data && mapData(data?.data?.data)}
-      isLoading={isLoading}
+      items={nostot && mapData(nostot)}
+      isLoading={false}
       error={errorData((locale || 'fi') as Lang)}
     />
   );

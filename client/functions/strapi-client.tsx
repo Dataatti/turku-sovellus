@@ -6,11 +6,21 @@ interface StrapiClientTypes {
     get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<string>>>;
   };
   nostot: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>>>;
-    get: (id: string, locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto>>>;
+    list: (
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
+    get: (
+      id: string,
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<Nosto>> | undefined>;
   };
   ulkoisetLinkit: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
+    list: (
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<UlkoinenLinkki[]>>>;
   };
 }
 
@@ -29,11 +39,40 @@ const strapiClient: StrapiClientTypes = {
     get: (type, locale) => client.get(`/headers`, { params: { locale, 'filters[type]': type } }),
   },
   nostot: {
-    list: (locale) => client.get('/nostot?populate=header_image', { params: { locale } }),
-    get: (id, locale) => client.get(`/nostot/${id}?populate=header_image`, { params: { locale } }),
+    list: (locale, preview = false) =>
+      client
+        .get('/nostot', {
+          params: {
+            locale,
+            populate: 'header_image',
+            publicationState: preview ? 'preview' : 'live',
+          },
+        })
+        .catch((error) => {
+          return undefined;
+        }),
+    get: (id, locale, preview = false) =>
+      client
+        .get(`/nostot/${id}`, {
+          params: {
+            locale,
+            populate: 'header_image',
+            publicationState: preview ? 'preview' : 'live',
+          },
+        })
+        .then((data) => {
+          if (!data?.data?.data?.attributes?.publishedAt && !preview) return undefined;
+          return data;
+        })
+        .catch((error) => {
+          return undefined;
+        }),
   },
   ulkoisetLinkit: {
-    list: (locale) => client.get('/ulkoiset-linkit', { params: { locale } }),
+    list: (locale, preview) =>
+      client.get(`/ulkoiset-linkit`, {
+        params: { locale, publicationState: preview ? 'preview' : 'live' },
+      }),
   },
 };
 

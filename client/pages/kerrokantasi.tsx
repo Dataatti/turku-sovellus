@@ -1,14 +1,11 @@
 import KerroKantasiCard from 'components/kerrokantasi/KerroKantasiCard';
-import type { GetStaticProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import useKerroKantasi from 'hooks/useKerroKantasi';
-import { useTitle } from 'hooks/useTitles';
 import { Titles } from 'enums/titles';
 import strapiClient from 'functions/strapi-client';
-import { dehydrate, QueryClient } from 'react-query';
 
-const Kerrokantasi = ({ locale }: { locale: Lang }) => {
-  const { data: title } = useTitle(Titles.Kerrokantasi);
+const Kerrokantasi = ({ locale, title }: { locale: Lang; title: string }) => {
   const { isLoading, data } = useKerroKantasi();
 
   return (
@@ -29,16 +26,26 @@ const Kerrokantasi = ({ locale }: { locale: Lang }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps = async ({ locale }) => {
-  const queryClient = new QueryClient();
-  queryClient.prefetchQuery(['getTitle', Titles.Kerrokantasi], () =>
-    strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi')
-  );
-  return {
-    props: {
-      locale: locale || 'fi',
-      dehydratedState: dehydrate(queryClient),
-    },
-  };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { locale } = context;
+
+  try {
+    const title = (await strapiClient.titles.get(Titles.Kerrokantasi, locale || 'fi')) as any;
+    return {
+      props: {
+        locale: locale,
+        title: title?.data?.data?.[0]?.attributes?.text || 'Kerrokantasi',
+      },
+    };
+  } catch (err) {
+    // Fallback if Strapi is down
+    return {
+      props: {
+        locale: 'fi',
+        title: 'Kerrokantasi',
+      },
+    };
+  }
 };
+
 export default Kerrokantasi;
