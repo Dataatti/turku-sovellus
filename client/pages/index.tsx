@@ -41,7 +41,7 @@ const Home = ({
   return (
     <div>
       <Head>
-        <title>{sovellus || 'Turku-sovellus'}</title>
+        <title>{sovellus?.attributes?.text || 'Turku-sovellus'}</title>
         <meta name="description" content={metaDescription[locale]} />
       </Head>
 
