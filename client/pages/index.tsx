@@ -15,18 +15,20 @@ import { Titles } from 'enums/titles';
 const Home = ({
   locale,
   ulkoisetLinkit,
+  nostot,
   titles,
   preview = false,
 }: {
   locale: Lang;
   ulkoisetLinkit: UlkoinenLinkki[];
+  nostot: Nosto[];
   titles: Title[];
   preview: boolean;
 }) => {
   const sovellus = titles?.find((el) => el.attributes.type === Titles.Sovellus);
   const turussaTapahtuu = titles?.find((el) => el.attributes.type === Titles.Tapahtumat);
   const kerrokantasi = titles?.find((el) => el.attributes.type === Titles.Kerrokantasi);
-  const nostot = titles?.find((el) => el.attributes.type === Titles.Nostot);
+  const nostotTitle = titles?.find((el) => el.attributes.type === Titles.Nostot);
   const tiedotteet = titles?.find((el) => el.attributes.type === Titles.Tiedotteet);
   const liikennetiedotteet = titles?.find((el) => el.attributes.type === Titles.Liikennetiedotteet);
 
@@ -51,7 +53,7 @@ const Home = ({
           rowSpacing={2}
         >
           <Grid item md={6} xs={12}>
-            <NostotWidget title={nostot?.attributes?.text || 'Nostot'} />
+            <NostotWidget title={nostotTitle?.attributes?.text || 'Nostot'} nostot={nostot} />
           </Grid>
           <Grid item md={6} xs={12}>
             <UlkoisetLinkitWidget ulkoisetLinkit={ulkoisetLinkit} />
@@ -91,21 +93,19 @@ export const getServerSideProps: GetStaticProps = async (context) => {
   const { locale, preview } = context;
 
   try {
-    const ulkoisetLinkitData = (await strapiClient.ulkoisetLinkit.list(
-      locale || 'fi',
-      preview
-    )) as any;
-    const ulkoisetLinkit = ulkoisetLinkitData?.data?.data || [];
-
-    const titlesData = (await strapiClient.titles.list(locale || 'fi')) as any;
-    const titles = titlesData?.data?.data || [];
+    const [ulkoisetLinkitData, titlesData, nostotData] = await Promise.all([
+      (await strapiClient.ulkoisetLinkit.list(locale || 'fi', preview)) as any,
+      (await strapiClient.titles.list(locale || 'fi')) as any,
+      (await strapiClient.nostot.list(locale || 'fi', preview)) as any,
+    ]);
 
     return {
       props: {
         locale: locale,
         preview: preview || null,
-        ulkoisetLinkit,
-        titles,
+        ulkoisetLinkit: ulkoisetLinkitData?.data?.data || [],
+        titles: titlesData?.data?.data || [],
+        nostot: nostotData?.data?.data || [],
       },
     };
   } catch (err) {
@@ -116,6 +116,7 @@ export const getServerSideProps: GetStaticProps = async (context) => {
         preview: preview || null,
         ulkoisetLinkit: [],
         titles: [],
+        nostot: [],
       },
     };
   }

@@ -6,7 +6,10 @@ interface StrapiClientTypes {
     get: (type: string, locale: string) => Promise<AxiosResponse<StrapiResponse<string>>>;
   };
   nostot: {
-    list: (locale: string) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
+    list: (
+      locale: string,
+      preview?: boolean
+    ) => Promise<AxiosResponse<StrapiResponse<Nosto[]>> | undefined>;
     get: (
       id: string,
       locale: string,
@@ -36,10 +39,18 @@ const strapiClient: StrapiClientTypes = {
     get: (type, locale) => client.get(`/headers`, { params: { locale, 'filters[type]': type } }),
   },
   nostot: {
-    list: (locale) =>
-      client.get('/nostot?populate=header_image', { params: { locale } }).catch((error) => {
-        return undefined;
-      }),
+    list: (locale, preview = false) =>
+      client
+        .get('/nostot', {
+          params: {
+            locale,
+            populate: 'header_image',
+            publicationState: preview ? 'preview' : 'live',
+          },
+        })
+        .catch((error) => {
+          return undefined;
+        }),
     get: (id, locale, preview = false) =>
       client
         .get(`/nostot/${id}`, {
