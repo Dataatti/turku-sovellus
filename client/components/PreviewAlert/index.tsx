@@ -1,6 +1,5 @@
 import { Box, Typography, Link as MUILink } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 const translations: { [key: string]: { text: string; link: string } } = {
@@ -21,13 +20,8 @@ const translations: { [key: string]: { text: string; link: string } } = {
 export const PreviewAlert = () => {
   const router = useRouter();
 
-  const [previewTranslation, setPreviewTranslation] = useState(translations['fi']);
-
-  useEffect(() => {
-    if (router?.query?.locale) {
-      setPreviewTranslation(translations[router.query.locale as string]);
-    }
-  }, [router]);
+  const lang = router.locale as string;
+  const previewTranslation = translations[lang];
 
   return (
     <Box
