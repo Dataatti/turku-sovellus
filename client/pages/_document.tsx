@@ -16,6 +16,8 @@ export default class MyDocument extends Document {
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
           />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="manifest" href="/manifest.json" />
+          <link rel="apple-touch-icon" href="/icon.png"></link>
           <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
         </Head>
         <body>
