@@ -28,7 +28,12 @@ export const ListWidgetItem = ({
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>
       <Grid container spacing={1}>
-        <Grid item xs={hasImage ? 9 : 12} sm={hasImage ? 10 : 12}>
+        <Grid
+          item
+          xs={hasImage ? 9 : 12}
+          sm={hasImage ? 10 : 12}
+          sx={{ paddingRight: hasImage ? '8px' : '0' }}
+        >
           <ListItemText
             sx={{ height: '100%', '& .MuiListItemText-primary': { mb: '5px' } }}
             primary={
@@ -63,7 +68,7 @@ export const ListWidgetItem = ({
           item
           xs={hasImage ? 3 : 0}
           sm={hasImage ? 2 : 0}
-          sx={{ alignItems: 'center', paddingLeft: '0px !important' }}
+          sx={{ display: 'flex', alignItems: 'center', paddingLeft: '0px !important' }}
         >
           {thumbnail.src && (
             <img
