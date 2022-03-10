@@ -14,7 +14,15 @@ export type ListItemType = {
   externalLink?: boolean;
 };
 
-export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
+export const ListWidgetItem = ({
+  item,
+  textColor,
+  divider = true,
+}: {
+  item: ListItemType;
+  textColor: string;
+  divider?: boolean;
+}) => {
   const { href, title, description, thumbnail, externalLink = true } = item;
   const hasImage = Boolean(thumbnail.src);
   return (
@@ -49,7 +57,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
               </Typography>
             }
           />
-          <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
+          {divider && <Divider variant="fullWidth" sx={{ borderColor: textColor }} />}
         </Grid>
         <Grid
           item
