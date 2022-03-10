@@ -11,10 +11,11 @@ export type ListItemType = {
   href?: string;
   thumbnail: { src?: string; alt?: string };
   title?: string;
+  externalLink?: boolean;
 };
 
 export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
-  const { href, title, description, thumbnail } = item;
+  const { href, title, description, thumbnail, externalLink = true } = item;
   const hasImage = Boolean(thumbnail.src);
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>
@@ -35,7 +36,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
                     `}
                   >
                     {title || ''}
-                    <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />
+                    {externalLink && <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />}
                   </a>
                 </Link>
               ) : (

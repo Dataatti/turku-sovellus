@@ -15,6 +15,7 @@ export const NostotCard = ({ nosto, locale }: { nosto: Nosto; locale: Lang }) =>
       }}
       tags={[]}
       title={nosto.attributes.title}
+      externalLink={false}
     />
   );
 };
