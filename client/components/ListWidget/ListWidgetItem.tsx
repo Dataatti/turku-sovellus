@@ -4,6 +4,8 @@ import { Grid, Typography, ListItem, ListItemText, Divider } from '@mui/material
 import LaunchIcon from '@mui/icons-material/Launch';
 import Link from 'next/link';
 import { shortenTextFromEnd } from 'utils/textUtils';
+import theme from 'theme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // A singular list item, thumbnail is the component on the right side (image, icon etc)
 export type ListItemType = {
@@ -25,6 +27,8 @@ export const ListWidgetItem = ({
 }) => {
   const { href, title, description, thumbnail, externalLink = true } = item;
   const hasImage = Boolean(thumbnail.src);
+  const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'));
+
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>
       <Grid container spacing={1}>
@@ -58,7 +62,7 @@ export const ListWidgetItem = ({
             }
             secondary={
               <Typography component="span" variant="body2">
-                {shortenTextFromEnd(description || '', 200)}
+                {shortenTextFromEnd(description || '', breakpointSm ? 200 : 80)}
               </Typography>
             }
           />
