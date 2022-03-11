@@ -4,6 +4,8 @@ import { Grid, Typography, ListItem, ListItemText, Divider } from '@mui/material
 import LaunchIcon from '@mui/icons-material/Launch';
 import Link from 'next/link';
 import { shortenTextFromEnd } from 'utils/textUtils';
+import theme from 'theme';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 // A singular list item, thumbnail is the component on the right side (image, icon etc)
 export type ListItemType = {
@@ -11,15 +13,31 @@ export type ListItemType = {
   href?: string;
   thumbnail: { src?: string; alt?: string };
   title?: string;
+  externalLink?: boolean;
 };
 
-export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textColor: string }) => {
-  const { href, title, description, thumbnail } = item;
+export const ListWidgetItem = ({
+  item,
+  textColor,
+  divider = true,
+}: {
+  item: ListItemType;
+  textColor: string;
+  divider?: boolean;
+}) => {
+  const { href, title, description, thumbnail, externalLink = true } = item;
   const hasImage = Boolean(thumbnail.src);
+  const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'));
+
   return (
     <ListItem alignItems="center" sx={{ px: 0, mb: '10px' }}>
       <Grid container spacing={1}>
-        <Grid item xs={hasImage ? 9 : 12} sm={hasImage ? 10 : 12}>
+        <Grid
+          item
+          xs={hasImage ? 9 : 12}
+          sm={hasImage ? 10 : 12}
+          sx={{ paddingRight: hasImage ? '8px' : '0' }}
+        >
           <ListItemText
             sx={{ height: '100%', '& .MuiListItemText-primary': { mb: '5px' } }}
             primary={
@@ -35,7 +53,7 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
                     `}
                   >
                     {title || ''}
-                    <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />
+                    {externalLink && <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />}
                   </a>
                 </Link>
               ) : (
@@ -44,17 +62,17 @@ export const ListWidgetItem = ({ item, textColor }: { item: ListItemType; textCo
             }
             secondary={
               <Typography component="span" variant="body2">
-                {shortenTextFromEnd(description || '', 200)}
+                {shortenTextFromEnd(description || '', breakpointSm ? 200 : 80)}
               </Typography>
             }
           />
-          <Divider variant="fullWidth" sx={{ borderColor: textColor }} />
+          {divider && <Divider variant="fullWidth" sx={{ borderColor: textColor }} />}
         </Grid>
         <Grid
           item
           xs={hasImage ? 3 : 0}
           sm={hasImage ? 2 : 0}
-          sx={{ alignItems: 'center', paddingLeft: '0px !important' }}
+          sx={{ display: 'flex', alignItems: 'center', paddingLeft: '0px !important' }}
         >
           {thumbnail.src && (
             <img

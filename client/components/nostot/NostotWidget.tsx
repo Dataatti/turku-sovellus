@@ -22,6 +22,7 @@ export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[]
           alt: nosto.attributes.header_image.data?.attributes.alternativeText || '',
         },
         href: `/nostot/${nosto.id}`,
+        externalLink: false,
       };
     });
     return mappedNostot;

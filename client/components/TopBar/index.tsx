@@ -14,13 +14,28 @@ export const TopBar = () => {
 
   return (
     <AppBar position="static">
-      <Container>
+      <Container
+        sx={{ paddingLeft: { xs: '0px', sm: '16px' }, paddingRight: { xs: '0px', sm: '16px' } }}
+      >
         <Toolbar
-          sx={{ justifyContent: 'space-between', py: { xs: '10px', md: '0px' } }}
+          sx={{
+            justifyContent: 'space-between',
+            py: { xs: '10px', md: '0px' },
+            paddingLeft: { xs: '8px', sm: '16px' },
+            paddingRight: { xs: '8px', sm: '16px' },
+          }}
           data-testid="top-bar"
         >
           <TopBarLogo />
-          <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold' }}>
+          <Typography
+            variant="h5"
+            component="h1"
+            sx={{
+              fontWeight: 'bold',
+              fontSize: { xs: '1.25rem', md: '1.5rem' },
+              textAlign: 'center',
+            }}
+          >
             {title}
           </Typography>
           <LanguageSelect />

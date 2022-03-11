@@ -46,8 +46,13 @@ export const ListWidget = ({
       );
     }
 
-    return items?.map((item) => (
-      <ListWidgetItem key={items.indexOf(item)} item={item} textColor={textColor} />
+    return items?.map((item, index) => (
+      <ListWidgetItem
+        key={items.indexOf(item)}
+        item={item}
+        textColor={textColor}
+        divider={index !== items?.length - 1}
+      />
     ));
   }, [error, isLoading, items, textColor]);
 

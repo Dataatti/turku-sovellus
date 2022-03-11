@@ -13,6 +13,7 @@ type ItemCardProps = {
   titleSuffix?: JSX.Element;
   tags?: string[];
   title: string;
+  externalLink?: boolean;
 };
 
 export const ItemCard = ({
@@ -23,6 +24,7 @@ export const ItemCard = ({
   titleSuffix,
   tags = [],
   title,
+  externalLink = true,
 }: ItemCardProps) => {
   const hasImage = Boolean(image.url);
   return (
@@ -41,7 +43,7 @@ export const ItemCard = ({
             <Link href={href} underline="hover">
               <Typography variant="h3" component="h2" sx={{ display: 'flex', fontWeight: 'bold' }}>
                 {title}
-                <Launch fontSize="small" sx={{ marginLeft: '4px' }} />
+                {externalLink && <Launch fontSize="small" sx={{ marginLeft: '4px' }} />}
               </Typography>
             </Link>
           ) : (
