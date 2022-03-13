@@ -20,7 +20,7 @@ const Liikennetiedotteet = ({ locale, title }: { locale: Lang; title: string }) 
           margin-top: 12px;
         `}
       >
-        <IframeLink locale={locale} />
+        <IframeLink initialOptions={{ lang: locale }} />
       </main>
     </div>
   );
