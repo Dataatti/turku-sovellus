@@ -9,7 +9,9 @@ export const LiikenneTiedotteetWidget = ({ locale, title }: { locale: Lang; titl
       title={title}
       readMoreHref="/liikennetiedotteet"
       variant="white"
-      customContent={<IframeLink initialOptions={{ height: '500px', lang: locale }} />}
+      customContent={
+        <IframeLink locale={locale} initialOptions={{ height: '500px', lang: locale }} />
+      }
       isLoading={false}
     />
   );

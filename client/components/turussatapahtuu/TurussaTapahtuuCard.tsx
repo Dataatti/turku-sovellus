@@ -1,5 +1,18 @@
 import ItemCard from 'components/ItemCard';
 
+const translations = {
+  starts: {
+    fi: 'Alkaa',
+    en: 'Starts',
+    sv: 'Börjar',
+  },
+  ends: {
+    fi: 'Päättyy',
+    en: 'ends',
+    sv: 'slutet',
+  },
+};
+
 export const TurussaTapahtuuCard = ({ event, locale }: { event: Event; locale: Lang }) => {
   const startDate = new Date(event.start_time);
   const endDate = new Date(event.end_time);
@@ -22,7 +35,10 @@ export const TurussaTapahtuuCard = ({ event, locale }: { event: Event; locale: L
     <ItemCard
       // Replace possible html tags from abstract
       abstract={event.description[locale]?.replace(/<[^>]*>?/gm, '')}
-      captions={[`Alkaa ${startLocaleDate}`, `Päättyy ${endLocaleDate}`]}
+      captions={[
+        `${translations.starts[locale]} ${startLocaleDate}`,
+        `${translations.ends[locale]} ${endLocaleDate}`,
+      ]}
       href={
         event?.info_url?.[locale] ||
         `https://kalenteri.turku.fi/events/node/${event.id?.replace('turku:', '')}`

@@ -120,7 +120,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     // Fallback if Strapi is down
     return {
       props: {
-        locale: 'fi',
+        locale: locale,
         preview: preview || null,
         ulkoisetLinkit: [],
         titles: [],

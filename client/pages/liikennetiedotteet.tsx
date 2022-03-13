@@ -5,7 +5,6 @@ import { Titles } from 'enums/titles';
 import strapiClient from 'functions/strapi-client';
 import type { GetServerSideProps } from 'next';
 import Head from 'next/head';
-import { useEffect } from 'react';
 
 const Liikennetiedotteet = ({ locale, title }: { locale: Lang; title: string }) => {
   return (
@@ -20,7 +19,7 @@ const Liikennetiedotteet = ({ locale, title }: { locale: Lang; title: string }) 
           margin-top: 12px;
         `}
       >
-        <IframeLink initialOptions={{ lang: locale }} />
+        <IframeLink locale={locale} initialOptions={{ lang: locale }} />
       </main>
     </div>
   );
@@ -41,7 +40,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     // Fallback if Strapi is down
     return {
       props: {
-        locale: 'fi',
+        locale: locale,
         title: 'Liikennetiedotteet',
       },
     };
