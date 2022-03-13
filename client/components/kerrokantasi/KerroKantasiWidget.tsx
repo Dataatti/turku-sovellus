@@ -6,9 +6,12 @@ export const KerroKantasiWidget = ({ locale, title }: { locale: Lang; title: str
 
   const mapData = (data: Hearing[]) => {
     const mappedHearings = data?.map((hearing) => ({
-      title: hearing.title[locale],
-      description: hearing.abstract[locale],
-      thumbnail: { src: hearing.main_image.url, alt: hearing.main_image.alt_text[locale] },
+      title: hearing.title[locale] || hearing.title.fi,
+      description: hearing.abstract[locale] || hearing.abstract?.fi,
+      thumbnail: {
+        src: hearing.main_image.url,
+        alt: hearing.main_image.alt_text[locale] || hearing.main_image.alt_text.fi,
+      },
       href: `https://kerrokantasi.turku.fi/${hearing.slug}`,
     }));
     return mappedHearings;
