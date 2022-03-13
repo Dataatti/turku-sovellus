@@ -8,8 +8,8 @@ const translations = {
   },
   loading: {
     fi: 'Ladataan...',
-    en: 'loading...',
-    sv: 'laddning...',
+    en: 'Loading...',
+    sv: 'Laddning...',
   },
 };
 
@@ -21,14 +21,13 @@ export const IframeLink = ({
   initialOptions: { [key: string]: any };
 }) => {
   const options = Object.assign({}, initialOptions);
-  const init = useRef<boolean>(false);
   const target = useRef<HTMLDivElement>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
     const initTwitter = async () => {
-      if (init.current) return;
+      if (!isLoading) return;
       if (typeof window !== 'undefined') {
         if ((window as any)?.twttr?.init && target.current !== null) {
           try {
@@ -41,7 +40,6 @@ export const IframeLink = ({
               options
             );
 
-            init.current = true;
             setIsLoading(false);
           } catch (err) {
             setIsError(true);

@@ -8,8 +8,8 @@ const translations = {
   },
   ends: {
     fi: 'Päättyy',
-    en: 'ends',
-    sv: 'slutet',
+    en: 'Ends',
+    sv: 'Slutet',
   },
 };
 
