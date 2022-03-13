@@ -1,19 +1,36 @@
-export const IframeLink = ({ locale, height }: { locale: Lang; height?: number }) => {
-  const heightAttribute = height ? { 'data-height': `${height}px` } : {};
+import React, { useEffect, useRef, useState } from 'react';
+
+export const IframeLink = ({ initialOptions }: { initialOptions: { [key: string]: any } }) => {
+  const options = Object.assign({}, initialOptions);
+  const init = useRef<boolean>(false);
+  const target = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const initTwitter = async () => {
+      if (init.current) return;
+      if (typeof window !== 'undefined') {
+        if ((window as any)?.twttr?.init && target.current !== null) {
+          await (window as any)?.twttr?.widgets?.createTimeline(
+            {
+              sourceType: 'profile',
+              url: 'https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw',
+            },
+            target.current,
+            options
+          );
+          init.current = true;
+          setIsLoading(false);
+        }
+      }
+    };
+    initTwitter();
+  }, []);
 
   return (
     <>
-      <a
-        data-testid="liikenne-tiedotteet-twitter"
-        className="twitter-timeline"
-        data-lang={locale}
-        data-theme="light"
-        {...heightAttribute}
-        data-dtn="true"
-        href="https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw"
-      >
-        Loading...
-      </a>
+      {isLoading && <a href="https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw">Loading...</a>}
+      <div ref={target} />
     </>
   );
 };

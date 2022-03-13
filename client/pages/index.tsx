@@ -48,39 +48,47 @@ const Home = ({
       <main>
         <Grid
           container
+          direction="row"
           sx={{ marginBottom: '16px' }}
           columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-          rowSpacing={2}
         >
           <Grid item md={6} xs={12}>
-            <NostotWidget title={nostotTitle?.attributes?.text || 'Nostot'} nostot={nostot} />
+            <Grid container direction="column">
+              <Grid item>
+                <NostotWidget title={nostotTitle?.attributes?.text || 'Nostot'} nostot={nostot} />
+              </Grid>
+              <Grid item>
+                <UlkoisetLinkitWidget ulkoisetLinkit={ulkoisetLinkit} />
+              </Grid>
+              <Grid item>
+                <TurussaTapahtuuWidget
+                  locale={locale}
+                  title={turussaTapahtuu?.attributes?.text || 'Turussa tapahtuu'}
+                />
+              </Grid>
+            </Grid>
           </Grid>
           <Grid item md={6} xs={12}>
-            <UlkoisetLinkitWidget ulkoisetLinkit={ulkoisetLinkit} />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TurussaTapahtuuWidget
-              locale={locale}
-              title={turussaTapahtuu?.attributes?.text || 'Turussa tapahtuu'}
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <TiedotteetWidget
-              locale={locale}
-              title={tiedotteet?.attributes?.text || 'Tiedotteet'}
-            />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <KerroKantasiWidget
-              locale={locale}
-              title={kerrokantasi?.attributes?.text || 'Kerrokantasi'}
-            />
-          </Grid>
-          <Grid item xs={12} md={6}>
-            <LiikenneTiedotteetWidget
-              locale={locale}
-              title={liikennetiedotteet?.attributes?.text || 'Liikennetiedotteet'}
-            />
+            <Grid container direction="column">
+              <Grid item>
+                <TiedotteetWidget
+                  locale={locale}
+                  title={tiedotteet?.attributes?.text || 'Tiedotteet'}
+                />
+              </Grid>
+              <Grid item>
+                <KerroKantasiWidget
+                  locale={locale}
+                  title={kerrokantasi?.attributes?.text || 'Kerrokantasi'}
+                />
+              </Grid>
+              <Grid item>
+                <LiikenneTiedotteetWidget
+                  locale={locale}
+                  title={liikennetiedotteet?.attributes?.text || 'Liikennetiedotteet'}
+                />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         {preview && <PreviewAlert />}
@@ -94,9 +102,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   try {
     const [ulkoisetLinkitData, titlesData, nostotData] = await Promise.all([
-      (await strapiClient.ulkoisetLinkit.list(locale || 'fi', preview)) as any,
-      (await strapiClient.titles.list(locale || 'fi')) as any,
-      (await strapiClient.nostot.list(locale || 'fi', preview)) as any,
+      await strapiClient.ulkoisetLinkit.list(locale || 'fi', preview),
+      await strapiClient.titles.list(locale || 'fi'),
+      await strapiClient.nostot.list(locale || 'fi', preview),
     ]);
 
     return {

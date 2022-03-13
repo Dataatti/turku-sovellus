@@ -8,12 +8,6 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 
 const Liikennetiedotteet = ({ locale, title }: { locale: Lang; title: string }) => {
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      (window as any)?.twttr?.widgets?.load();
-    }
-  }, []);
-
   return (
     <div>
       <Head>
