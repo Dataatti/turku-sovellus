@@ -5,7 +5,7 @@ import theme from '../theme';
 import createCache from '@emotion/cache';
 
 const matomoUrl = 'https://matomo.turku.fi/';
-const matomoSiteId = '123';
+const matomoSiteId = '10';
 export default class MyDocument extends Document {
   render() {
     return (
@@ -25,14 +25,16 @@ export default class MyDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `var _paq = window._paq = window._paq || [];
+                /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
                 _paq.push(['trackPageView']);
                 _paq.push(['enableLinkTracking']);
                 (function() {
-                  var u="//${matomoUrl}/";
+                  var u=${matomoUrl};
                   _paq.push(['setTrackerUrl', u+'matomo.php']);
                   _paq.push(['setSiteId', ${matomoSiteId}]);
+                  _paq.push(['setVisitorCookieTimeout','7776000']);
                   var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                  g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+                  g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
                 })();`,
             }}
           />
