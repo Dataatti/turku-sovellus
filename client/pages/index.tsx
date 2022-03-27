@@ -32,17 +32,10 @@ const Home = ({
   const tiedotteet = titles?.find((el) => el.attributes.type === Titles.Tiedotteet);
   const liikennetiedotteet = titles?.find((el) => el.attributes.type === Titles.Liikennetiedotteet);
 
-  const metaDescription = {
-    fi: 'Turun kaupungin virallinen sovellus',
-    sv: 'Officiell app för staden Åbo',
-    en: 'The official app for the city of Turku',
-  };
-
   return (
     <div>
       <Head>
         <title>{sovellus?.attributes?.text || 'Turku-sovellus'}</title>
-        <meta name="description" content={metaDescription[locale]} />
       </Head>
 
       <main>
