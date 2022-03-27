@@ -4,6 +4,8 @@ import createEmotionServer from '@emotion/server/create-instance';
 import theme from '../theme';
 import createCache from '@emotion/cache';
 
+const matomoUrl = 'https://matomo.turku.fi/';
+const matomoSiteId = '10';
 export default class MyDocument extends Document {
   render() {
     return (
@@ -19,6 +21,23 @@ export default class MyDocument extends Document {
           <link rel="manifest" href="/manifest.json" />
           <link rel="apple-touch-icon" href="/icon.png"></link>
           <script async src="https://platform.twitter.com/widgets.js" charSet="utf-8"></script>
+          {/* <!-- Matomo --> */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `var _paq = window._paq = window._paq || [];
+                /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+                _paq.push(['trackPageView']);
+                _paq.push(['enableLinkTracking']);
+                (function() {
+                  var u="${matomoUrl}";
+                  _paq.push(['setTrackerUrl', u+'matomo.php']);
+                  _paq.push(['setSiteId', ${matomoSiteId}]);
+                  _paq.push(['setVisitorCookieTimeout','7776000']);
+                  var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                  g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+                })();`,
+            }}
+          />
         </Head>
         <body>
           <Main />
