@@ -31,7 +31,7 @@ export const IframeLink = ({
       if (typeof window !== 'undefined') {
         if ((window as any)?.twttr?.init && target.current !== null) {
           try {
-            await (window as any)?.twttr?.widgets?.createTimeline(
+            const iframe = await (window as any)?.twttr?.widgets?.createTimeline(
               {
                 sourceType: 'profile',
                 url: 'https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw',
@@ -39,12 +39,17 @@ export const IframeLink = ({
               target.current,
               options
             );
-
+            console.log(iframe);
             setIsLoading(false);
           } catch (err) {
+            setIsLoading(false);
             setIsError(true);
           }
+        } else {
+          setTimeout(() => initTwitter(), 500);
         }
+      } else {
+        setTimeout(() => initTwitter(), 500);
       }
     };
     initTwitter();
