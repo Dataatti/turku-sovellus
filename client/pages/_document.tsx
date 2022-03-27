@@ -29,7 +29,7 @@ export default class MyDocument extends Document {
                 _paq.push(['trackPageView']);
                 _paq.push(['enableLinkTracking']);
                 (function() {
-                  var u=${matomoUrl};
+                  var u="${matomoUrl}";
                   _paq.push(['setTrackerUrl', u+'matomo.php']);
                   _paq.push(['setSiteId', ${matomoSiteId}]);
                   _paq.push(['setVisitorCookieTimeout','7776000']);
