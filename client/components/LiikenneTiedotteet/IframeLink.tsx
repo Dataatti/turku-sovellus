@@ -26,12 +26,12 @@ export const IframeLink = ({
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const initTwitter = async () => {
+    const initTwitter = async (retries = 0) => {
       if (!isLoading) return;
       if (typeof window !== 'undefined') {
         if ((window as any)?.twttr?.init && target.current !== null) {
           try {
-            const iframe = await (window as any)?.twttr?.widgets?.createTimeline(
+            await (window as any)?.twttr?.widgets?.createTimeline(
               {
                 sourceType: 'profile',
                 url: 'https://twitter.com/Turunliikenne?ref_src=twsrc%5Etfw',
@@ -39,17 +39,22 @@ export const IframeLink = ({
               target.current,
               options
             );
-            console.log(iframe);
             setIsLoading(false);
           } catch (err) {
             setIsLoading(false);
             setIsError(true);
           }
         } else {
-          setTimeout(() => initTwitter(), 500);
+          // Retry timeline creation if twttr is not loaded yet
+          if (retries < 5) {
+            setTimeout(() => initTwitter(retries + 1), 500);
+          }
         }
       } else {
-        setTimeout(() => initTwitter(), 500);
+        // Retry timeline creation if window is not defined
+        if (retries < 5) {
+          setTimeout(() => initTwitter(retries + 1), 500);
+        }
       }
     };
     initTwitter();
