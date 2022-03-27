@@ -20,14 +20,13 @@ const langVars404Page = {
 
 const Custom404 = () => {
   const router = useRouter();
-  const locale = router.locale as Lang ?? 'fi';
+  const locale = (router.locale as Lang) ?? 'fi';
   const { title, button_text } = langVars404Page[locale];
 
   return (
     <div>
       <Head>
-        <title>{title || '404 - Page not found'}</title>
-        <meta name="description" content="Turun kaupungin tiedotteet" />
+        <title>{title}</title>
       </Head>
       <Grid
         container
