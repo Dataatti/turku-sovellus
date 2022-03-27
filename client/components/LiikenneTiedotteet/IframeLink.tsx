@@ -48,12 +48,18 @@ export const IframeLink = ({
           // Retry timeline creation if twttr is not loaded yet
           if (retries < 5) {
             setTimeout(() => initTwitter(retries + 1), 500);
+          } else {
+            setIsLoading(false);
+            setIsError(true);
           }
         }
       } else {
         // Retry timeline creation if window is not defined
         if (retries < 5) {
           setTimeout(() => initTwitter(retries + 1), 500);
+        } else {
+          setIsLoading(false);
+          setIsError(true);
         }
       }
     };
