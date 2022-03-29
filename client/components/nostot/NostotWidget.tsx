@@ -5,11 +5,7 @@ import { useRouter } from 'next/router';
 export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[] }) => {
   const { locale } = useRouter();
 
-  const errorMessages: { fi: string; en: string; sv: string } = {
-    fi: 'Nostoja ei saatavilla',
-    en: 'Highlights not available',
-    sv: '',
-  };
+  if (nostot.length === 0) return null;
 
   const mapData = (data: Nosto[]) => {
     const mappedNostot = data?.map((nosto) => {
@@ -28,16 +24,6 @@ export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[]
     return mappedNostot;
   };
 
-  const errorData = (locale: 'fi' | 'en' | 'sv'): ListItemType | undefined => {
-    if (nostot?.length === 0) {
-      return {
-        title: errorMessages[locale],
-        thumbnail: { src: undefined },
-      };
-    }
-    return undefined;
-  };
-
   return (
     <ListWidget
       data-testid="nostot-widget"
@@ -46,7 +32,6 @@ export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[]
       variant="primary"
       items={nostot && mapData(nostot)}
       isLoading={false}
-      error={errorData((locale || 'fi') as Lang)}
     />
   );
 };
