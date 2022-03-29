@@ -26,7 +26,7 @@ export const IframeLink = ({
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    const initTwitter = async () => {
+    const initTwitter = async (retries = 0) => {
       if (!isLoading) return;
       if (typeof window !== 'undefined') {
         if ((window as any)?.twttr?.init && target.current !== null) {
@@ -39,11 +39,27 @@ export const IframeLink = ({
               target.current,
               options
             );
-
             setIsLoading(false);
           } catch (err) {
+            setIsLoading(false);
             setIsError(true);
           }
+        } else {
+          // Retry timeline creation if twttr is not loaded yet
+          if (retries < 5) {
+            setTimeout(() => initTwitter(retries + 1), 500);
+          } else {
+            setIsLoading(false);
+            setIsError(true);
+          }
+        }
+      } else {
+        // Retry timeline creation if window is not defined
+        if (retries < 5) {
+          setTimeout(() => initTwitter(retries + 1), 500);
+        } else {
+          setIsLoading(false);
+          setIsError(true);
         }
       }
     };
