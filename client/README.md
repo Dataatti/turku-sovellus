@@ -1,3 +1,25 @@
+## Docker
+
+Build docker with 
+```bash
+docker build -t turku-sovellus-client
+```
+Run docker with
+
+```bash
+docker run -d -p 3000:3000 turku-sovellus-client
+```
+
+Stop container with
+
+```bash
+docker ps
+
+// copy container id
+
+docker stop <containerId>
+```
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
