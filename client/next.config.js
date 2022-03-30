@@ -16,4 +16,7 @@ module.exports = withPWA({
     defaultLocale: 'fi',
     localeDetection: false,
   },
+  experimental: {
+    outputStandalone: true,
+  },
 });
