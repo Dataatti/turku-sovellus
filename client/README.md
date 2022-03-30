@@ -2,7 +2,7 @@
 
 Build docker with 
 ```bash
-docker build -t turku-sovellus-client
+docker build -t turku-sovellus-client .
 ```
 Run docker with
 
