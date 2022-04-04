@@ -58,7 +58,7 @@ export const ListWidget = ({
 
   return (
     <Box
-      className={`${className ? className : ''}`}
+      className={`${className ?? ''}`}
       sx={{
         boxShadow: 3,
         marginTop: '12px',
@@ -73,7 +73,13 @@ export const ListWidget = ({
       <Typography variant="h2" sx={{ fontWeight: 'bold' }}>
         {title || ''}
       </Typography>
-      {customContent ? customContent : renderListItems}
+      {customContent ? (
+        customContent
+      ) : (
+        <Box component="ul" sx={{ p: 0, m: 0 }}>
+          {renderListItems}
+        </Box>
+      )}
       {!error && (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Link href={readMoreHref} passHref>
