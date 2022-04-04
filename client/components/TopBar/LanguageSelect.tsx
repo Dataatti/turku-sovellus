@@ -7,18 +7,39 @@ import theme from '../../theme';
 const titleTranslations = {
   fi: 'Valitse kieli',
   en: 'Select language',
-  sv: 'Välj språk'
-}
+  sv: 'Välj språk',
+};
+
+const allLanguageOptions = {
+  fi: {
+    fi: 'Suomi',
+    en: 'Englanti',
+    sv: 'Ruotsi',
+  },
+  en: {
+    fi: 'Finnish',
+    en: 'English',
+    sv: 'Swedish',
+  },
+  sv: {
+    fi: 'Finska',
+    en: 'Engleska',
+    sv: 'Svenska',
+  },
+};
 
 export const LanguageSelect = () => {
   const router = useRouter();
-  const locale = router.locale as Lang ?? 'fi';
+  const locale = (router.locale as Lang) ?? 'fi';
+
+  const languageOptions = allLanguageOptions[locale];
 
   const changeLanguage = (event: ChangeEvent<HTMLInputElement>) => {
     const newLanguage = event.target.value;
     const { pathname, asPath, query } = router;
     router.push({ pathname, query }, asPath, { locale: newLanguage });
   };
+
   return (
     <TextField
       select
@@ -44,9 +65,15 @@ export const LanguageSelect = () => {
           },
       }}
     >
-      <MenuItem value={'fi'}>FI</MenuItem>
-      <MenuItem value={'sv'}>SV</MenuItem>
-      <MenuItem value={'en'}>EN</MenuItem>
+      <MenuItem value={'fi'} aria-label={languageOptions.fi}>
+        FI
+      </MenuItem>
+      <MenuItem value={'sv'} aria-label={languageOptions.sv}>
+        SV
+      </MenuItem>
+      <MenuItem value={'en'} aria-label={languageOptions.en}>
+        EN
+      </MenuItem>
     </TextField>
   );
 };
