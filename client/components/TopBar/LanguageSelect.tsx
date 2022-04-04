@@ -12,6 +12,7 @@ const titleTranslations = {
 
 export const LanguageSelect = () => {
   const router = useRouter();
+  const locale = router.locale as Lang ?? 'fi';
 
   const changeLanguage = (event: ChangeEvent<HTMLInputElement>) => {
     const newLanguage = event.target.value;
@@ -24,12 +25,12 @@ export const LanguageSelect = () => {
       variant="standard"
       id="language-select"
       data-testid="language-select"
-      value={router.locale}
+      value={locale}
       onChange={changeLanguage}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <LanguageIcon titleAccess={titleTranslations[router.locale]} />
+            <LanguageIcon titleAccess={titleTranslations[locale]} />
           </InputAdornment>
         ),
       }}
