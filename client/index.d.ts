@@ -43,7 +43,7 @@ interface EventImage extends EventMetadata {
   id: number;
   last_modified_time: string;
   license: string;
-  name: string;
+  name: MultiLangContent;
   photographer_name?: string;
   publisher: string;
   url: string;

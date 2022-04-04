@@ -45,7 +45,7 @@ export const TurussaTapahtuuCard = ({ event, locale }: { event: Event; locale: L
       }
       image={{
         url: event?.images?.[0]?.url,
-        altText: event?.images?.[0]?.name as string,
+        altText: event?.images?.[0]?.name?.[locale],
       }}
       tags={(event?.keywords?.map((n) => n?.name?.[locale]) as string[]) || []}
       title={event?.name?.[locale] as string}
