@@ -10,7 +10,7 @@ export const KerroKantasiWidget = ({ locale, title }: { locale: Lang; title: str
       description: hearing.abstract[locale] || hearing.abstract?.fi,
       thumbnail: {
         src: hearing.main_image.url,
-        alt: hearing.main_image.alt_text[locale] || hearing.main_image.alt_text.fi,
+        alt: hearing.main_image.caption[locale] || hearing.main_image.caption.fi,
       },
       href: `https://kerrokantasi.turku.fi/${hearing.slug}`,
     }));
