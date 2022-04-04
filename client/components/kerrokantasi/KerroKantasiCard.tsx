@@ -15,9 +15,9 @@ export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale
   const openedDaysAgo = Math.floor((Date.now() - openDate.getTime()) / (1000 * 60 * 60 * 24));
 
   const dateTextTranslations = {
-      fi: [`Avautui ${openedDaysAgo} päivää sitten`, `Sulkeutuu ${closeLocaleDate}`],
-      en: [`Started ${openedDaysAgo} days ago`, `Closes ${closeLocaleDate}`],
-      sv: [`Startade för ${openedDaysAgo} dagar sedan`, `Stänger ${closeLocaleDate}`],
+    fi: [`Avautui ${openedDaysAgo} päivää sitten`, `Sulkeutuu ${closeLocaleDate}`],
+    en: [`Started ${openedDaysAgo} days ago`, `Closes ${closeLocaleDate}`],
+    sv: [`Startade för ${openedDaysAgo} dagar sedan`, `Stänger ${closeLocaleDate}`],
   };
 
   const titleTranslations = {
@@ -33,7 +33,7 @@ export const KerroKantasiCard = ({ hearing, locale }: { hearing: Hearing; locale
       href={`https://kerrokantasi.turku.fi/${hearing.slug}`}
       image={{
         url: hearing.main_image.url,
-        altText: hearing.main_image.caption[locale] || hearing.main_image.caption.fi as string,
+        altText: hearing.main_image.caption[locale] || (hearing.main_image.caption.fi as string),
       }}
       tags={(hearing?.labels?.map((n) => n.label[locale]) as string[]) || []}
       title={hearing.title[locale] as string}

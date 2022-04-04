@@ -21,7 +21,7 @@ const launchIconAltTexts = {
   fi: 'avautuu uuteen välilehteen',
   en: 'opens in a new tab',
   sv: 'öppnas i en ny flik',
-}
+};
 
 export const ListWidgetItem = ({
   item,
@@ -60,11 +60,17 @@ export const ListWidgetItem = ({
                         text-decoration: underline;
                       }
                     `}
-                    target={externalLink ? "_blank" : ""}
-                    rel={externalLink ? "noopener noreferrer" : ""}
+                    target={externalLink ? '_blank' : ''}
+                    rel={externalLink ? 'noopener noreferrer' : ''}
                   >
                     {title || ''}
-                    {externalLink && <LaunchIcon fontSize="inherit" titleAccess={launchIconAltTexts[locale]} sx={{ ml: '4px' }} />}
+                    {externalLink && (
+                      <LaunchIcon
+                        fontSize="inherit"
+                        titleAccess={launchIconAltTexts[locale]}
+                        sx={{ ml: '4px' }}
+                      />
+                    )}
                   </a>
                 </Link>
               ) : (
@@ -77,7 +83,9 @@ export const ListWidgetItem = ({
               </Typography>
             }
           />
-          {divider && <Divider variant="fullWidth" role="presentation" sx={{ borderColor: textColor }} />}
+          {divider && (
+            <Divider variant="fullWidth" role="presentation" sx={{ borderColor: textColor }} />
+          )}
         </Grid>
         <Grid
           item
