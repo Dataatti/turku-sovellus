@@ -16,7 +16,7 @@ export const ListWidgetSkeletonItem = () => {
               </Typography>
             }
           />
-          <Divider variant="fullWidth" sx={{ borderColor: '#eee' }} />
+          <Divider variant="fullWidth" role="presentation" sx={{ borderColor: '#eee' }} />
         </Grid>
         <Grid item sm={2} sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
           <Skeleton

@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { useRouter } from 'next/router';
 import { Grid, Typography, ListItem, ListItemText, Divider } from '@mui/material';
 import LaunchIcon from '@mui/icons-material/Launch';
 import Link from 'next/link';
@@ -16,6 +17,12 @@ export type ListItemType = {
   externalLink?: boolean;
 };
 
+const launchIconAltTexts = {
+  fi: 'avautuu uuteen välilehteen',
+  en: 'opens in a new tab',
+  sv: 'öppnas i en ny flik',
+}
+
 export const ListWidgetItem = ({
   item,
   textColor,
@@ -25,6 +32,8 @@ export const ListWidgetItem = ({
   textColor: string;
   divider?: boolean;
 }) => {
+  const router = useRouter();
+  const locale = (router.locale as Lang) ?? 'fi';
   const { href, title, description, thumbnail, externalLink = true } = item;
   const hasImage = Boolean(thumbnail.src);
   const breakpointSm = useMediaQuery(theme.breakpoints.up('sm'));
@@ -51,9 +60,11 @@ export const ListWidgetItem = ({
                         text-decoration: underline;
                       }
                     `}
+                    target={externalLink ? "_blank" : ""}
+                    rel={externalLink ? "noopener noreferrer" : ""}
                   >
                     {title || ''}
-                    {externalLink && <LaunchIcon fontSize="inherit" sx={{ ml: '4px' }} />}
+                    {externalLink && <LaunchIcon fontSize="inherit" titleAccess={launchIconAltTexts[locale]} sx={{ ml: '4px' }} />}
                   </a>
                 </Link>
               ) : (
@@ -66,7 +77,7 @@ export const ListWidgetItem = ({
               </Typography>
             }
           />
-          {divider && <Divider variant="fullWidth" sx={{ borderColor: textColor }} />}
+          {divider && <Divider variant="fullWidth" role="presentation" sx={{ borderColor: textColor }} />}
         </Grid>
         <Grid
           item
