@@ -4,6 +4,12 @@ import { MenuItem, TextField, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
 import theme from '../../theme';
 
+const titleTranslations = {
+  fi: 'Valitse kieli',
+  en: 'Select language',
+  sv: 'Välj språk'
+}
+
 export const LanguageSelect = () => {
   const router = useRouter();
 
@@ -16,13 +22,14 @@ export const LanguageSelect = () => {
     <TextField
       select
       variant="standard"
+      id="language-select"
       data-testid="language-select"
       value={router.locale}
       onChange={changeLanguage}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <LanguageIcon />
+            <LanguageIcon titleAccess={titleTranslations[router.locale]} />
           </InputAdornment>
         ),
       }}
