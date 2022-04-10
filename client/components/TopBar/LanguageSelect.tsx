@@ -69,7 +69,7 @@ export const LanguageSelect = () => {
       }}
     >
       {locales.map((lang) => (
-        <MenuItem value={lang}>
+        <MenuItem value={lang} key={lang}>
           {lang.toUpperCase()}
           <Typography component="span" sx={visuallyHidden}>
             {' '}
