@@ -8,7 +8,7 @@ type ItemCardProps = {
   href?: string;
   image: {
     url: string;
-    altText: string;
+    altText?: string;
   };
   titleSuffix?: JSX.Element;
   tags?: string[];
@@ -81,7 +81,7 @@ export const ItemCard = ({
           component="img"
           image={image.url}
           sx={{ width: { xs: '100%', md: '400px' }, height: { xs: '200px', sm: '300px' } }}
-          alt={image.altText}
+          alt={image?.altText}
         ></CardMedia>
       )}
     </Card>

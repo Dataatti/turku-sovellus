@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { AppBar, Container, Toolbar, Typography } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
 import LanguageSelect from './LanguageSelect';
 import TopBarLogo from './TopBarLogo';
 
@@ -9,8 +10,8 @@ export const TopBar = () => {
   const [title, setTitle] = useState<string>('');
 
   useEffect(() => {
-    setTitle(router.pathname !== '/' ? document.title : '');
-  }, [router.pathname]);
+    setTitle(document.title);
+  }, [router.pathname, router.locale]);
 
   return (
     <AppBar position="static">
@@ -30,11 +31,15 @@ export const TopBar = () => {
           <Typography
             variant="h5"
             component="h1"
-            sx={{
-              fontWeight: 'bold',
-              fontSize: { xs: '1.25rem', md: '1.5rem' },
-              textAlign: 'center',
-            }}
+            sx={
+              router.pathname === '/'
+                ? visuallyHidden
+                : {
+                    fontWeight: 'bold',
+                    fontSize: { xs: '1.25rem', md: '1.5rem' },
+                    textAlign: 'center',
+                  }
+            }
           >
             {title}
           </Typography>

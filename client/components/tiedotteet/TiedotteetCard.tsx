@@ -17,7 +17,7 @@ export const TiedotteetCard = ({ news, locale }: { news: News; locale: Lang }) =
       href={news?.link}
       image={{
         url: news?.enclosure?.url,
-        altText: news?.contentSnippet,
+        altText: news?.title,
       }}
       title={news.title}
     />

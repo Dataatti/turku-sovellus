@@ -9,7 +9,7 @@ export const TiedotteetWidget = ({ locale, title }: { locale: Lang; title: strin
     const mappedNews = data?.slice(0, 3)?.map((news) => ({
       title: news?.title,
       description: news.content?.replace(/<[^>]*>?/gm, ''),
-      thumbnail: { src: news?.enclosure?.url, alt: news?.contentSnippet },
+      thumbnail: { src: news?.enclosure?.url, alt: news?.title },
       href: news?.link,
     }));
     return mappedNews;

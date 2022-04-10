@@ -2,7 +2,7 @@ import ListWidget from 'components/ListWidget';
 import { ListItemType } from 'components/ListWidget/ListWidgetItem';
 import { useRouter } from 'next/router';
 
-export const NostotWidget = ({ title, nostot }: { title: string, nostot: Nosto[] }) => {
+export const NostotWidget = ({ title, nostot }: { title: string; nostot: Nosto[] }) => {
   const { locale } = useRouter();
 
   if (nostot.length === 0) return null;

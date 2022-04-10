@@ -13,7 +13,7 @@ export const TurussaTapahtuuWidget = ({ locale, title }: { locale: Lang; title: 
       ?.map((event) => ({
         title: event.name[locale],
         description: event.description[locale]?.replace(/<[^>]*>?/gm, ''),
-        thumbnail: { src: event?.images?.[0]?.url, alt: event?.images?.[0]?.name },
+        thumbnail: { src: event?.images?.[0]?.url, alt: event?.images?.[0]?.name?.[locale] },
         href:
           event?.info_url?.[locale] ||
           `https://kalenteri.turku.fi/events/node/${event.id?.replace('turku:', '')}`,
