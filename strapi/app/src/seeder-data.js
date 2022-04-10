@@ -33,6 +33,12 @@ module.exports = {
       type: "nostot",
     },
     {
+      id: 14,
+      locale: "sv",
+      text: "Höjdpunkter",
+      type: "nostot",
+    },
+    {
       id: 3,
       locale: "fi",
       text: "Tiedotteet",
@@ -42,6 +48,12 @@ module.exports = {
       id: 4,
       locale: "en",
       text: "Bulletin",
+      type: "tiedotteet",
+    },
+    {
+      id: 15,
+      locale: "sv",
+      text: "Meddelande",
       type: "tiedotteet",
     },
     {
@@ -57,6 +69,12 @@ module.exports = {
       type: "liikennetiedotteet",
     },
     {
+      id: 16,
+      locale: "sv",
+      text: "Trafikmeddelanden",
+      type: "liikennetiedotteet",
+    },
+    {
       id: 7,
       locale: "fi",
       text: "Turku sovellus",
@@ -66,6 +84,12 @@ module.exports = {
       id: 8,
       locale: "en",
       text: "Turku application",
+      type: "sovellus",
+    },
+    {
+      id: 13,
+      locale: "sv",
+      text: "Åbo applikation",
       type: "sovellus",
     },
     {
@@ -81,6 +105,12 @@ module.exports = {
       type: "kerrokantasi",
     },
     {
+      id: 17,
+      locale: "sv",
+      text: "Säg din åsikt",
+      type: "kerrokantasi",
+    },
+    {
       id: 11,
       locale: "fi",
       text: "Tapahtumat",
@@ -90,6 +120,12 @@ module.exports = {
       id: 12,
       locale: "en",
       text: "What's happening in Turku",
+      type: "tapahtumat",
+    },
+    {
+      id: 18,
+      locale: "sv",
+      text: "Vad händer i Åbo",
       type: "tapahtumat",
     },
   ],
