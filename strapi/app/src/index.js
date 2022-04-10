@@ -1,7 +1,8 @@
 "use strict";
 
-const utils = require("@strapi/utils");
 const { formatLocale } = require("@strapi/plugin-i18n/server/domain/locale.js");
+const { locales, headers } = require("./seeder-data.js");
+
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -19,134 +20,47 @@ module.exports = {
    * run jobs, or perform some special logic.
    */
   async bootstrap({ strapi }) {
-    try {
-      const localesService = strapi.plugin("i18n").service("locales");
+    // Get locale service
+    const { findByCode, create, setDefaultLocale } = strapi
+      .plugin("i18n")
+      .service("locales");
 
-      const locales = [
-        {
-          name: "English (en)",
-          code: "en",
-          isDefault: false,
-        },
-        {
-          name: "Finnish (fi)",
-          code: "fi",
-          isDefault: true,
-        },
-        {
-          name: "Swedish (sv)",
-          code: "sv",
-          isDefault: false,
-        },
-      ];
+    // Get header service
+    const headerService = strapi.api["header"].services.header;
 
-      for (const locale of locales) {
-        try {
-          const existingLocale = await localesService.findByCode(locale.code);
-          if (!existingLocale) {
-            let localeToCreate = locale;
-            localeToCreate = formatLocale(localeToCreate);
-            localeToCreate = utils.setCreatorFields({ user: { id: 1 } })(
-              localeToCreate
-            );
+    for (const locale of locales) {
+      try {
+        const existingLocale = await findByCode(locale.code);
+        if (!existingLocale) {
+          let localeToCreate = locale;
+          localeToCreate = formatLocale(localeToCreate);
 
-            await localesService.create(localeToCreate);
+          await create(localeToCreate);
+          if (locale.isDefault) {
+            console.log(localeToCreate);
+            await setDefaultLocale({ code: locale.code });
           }
-        } catch (err) {
-          console.error(err);
         }
+      } catch (err) {
+        console.error(err);
       }
+    }
 
-      const headers = [
-        {
-          id: 1,
-          locale: "fi",
-          text: "Nostot",
-          type: "nostot",
-        },
-        {
-          id: 2,
-          locale: "en",
-          text: "Highlights",
-          type: "nostot",
-        },
-        {
-          id: 3,
-          locale: "fi",
-          text: "Tiedotteet",
-          type: "tiedotteet",
-        },
-        {
-          id: 4,
-          locale: "en",
-          text: "Bulletin",
-          type: "tiedotteet",
-        },
-        {
-          id: 5,
-          locale: "fi",
-          text: "Liikennetiedotteet",
-          type: "liikennetiedotteet",
-        },
-        {
-          id: 6,
-          locale: "en",
-          text: "Traffic announcements",
-          type: "liikennetiedotteet",
-        },
-        {
-          id: 7,
-          locale: "fi",
-          text: "Turku sovellus",
-          type: "sovellus",
-        },
-        {
-          id: 8,
-          locale: "en",
-          text: "Turku application",
-          type: "sovellus",
-        },
-        {
-          id: 9,
-          locale: "fi",
-          text: "Kerrokantasi",
-          type: "kerrokantasi",
-        },
-        {
-          id: 10,
-          locale: "en",
-          text: "Voice your opinion",
-          type: "kerrokantasi",
-        },
-        {
-          id: 11,
-          locale: "fi",
-          text: "Tapahtumat",
-          type: "tapahtumat",
-        },
-        {
-          id: 12,
-          locale: "en",
-          text: "What's happening in Turku",
-          type: "tapahtumat",
-        },
-      ];
+    for (const header of headers) {
+      try {
+        const found = await headerService.find({
+          filters: {
+            type: header.type,
+          },
+        });
 
-      for (const header of headers) {
-        const h = await strapi
-          .controller("api::header.header")
-          .findOne({ params: header });
-
-        if (!h?.data) {
-          await strapi.controller("api::header.header").create({
-            is: () => false,
-            request: { query: {}, body: { data: header } },
-          });
+        if (!found.results.length) {
+          await headerService.create({ data: { ...header } });
           console.log("CREATED", header.type);
         }
+      } catch (err) {
+        console.error(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   },
 };
