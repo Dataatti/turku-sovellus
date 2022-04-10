@@ -50,7 +50,7 @@ module.exports = {
               localeToCreate
             );
 
-            const l = await localesService.create(localeToCreate);
+            await localesService.create(localeToCreate);
           }
         } catch (err) {
           console.error(err);
