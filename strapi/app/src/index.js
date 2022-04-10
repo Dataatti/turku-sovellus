@@ -1,5 +1,7 @@
 "use strict";
 
+const utils = require("@strapi/utils");
+const { formatLocale } = require("@strapi/plugin-i18n/server/domain/locale.js");
 module.exports = {
   /**
    * An asynchronous register function that runs before
@@ -18,6 +20,43 @@ module.exports = {
    */
   async bootstrap({ strapi }) {
     try {
+      const localesService = strapi.plugin("i18n").service("locales");
+
+      const locales = [
+        {
+          name: "English (en)",
+          code: "en",
+          isDefault: false,
+        },
+        {
+          name: "Finnish (fi)",
+          code: "fi",
+          isDefault: true,
+        },
+        {
+          name: "Swedish (sv)",
+          code: "sv",
+          isDefault: false,
+        },
+      ];
+
+      for (const locale of locales) {
+        try {
+          const existingLocale = await localesService.findByCode(locale.code);
+          if (!existingLocale) {
+            let localeToCreate = locale;
+            localeToCreate = formatLocale(localeToCreate);
+            localeToCreate = utils.setCreatorFields({ user: { id: 1 } })(
+              localeToCreate
+            );
+
+            const l = await localesService.create(localeToCreate);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+
       const headers = [
         {
           id: 1,
@@ -98,8 +137,11 @@ module.exports = {
           .controller("api::header.header")
           .findOne({ params: header });
 
-          if (!h?.data) {
-          await strapi.controller("api::header.header").create({is: () => false, request: {query: {}, body: { data: header }}})
+        if (!h?.data) {
+          await strapi.controller("api::header.header").create({
+            is: () => false,
+            request: { query: {}, body: { data: header } },
+          });
           console.log("CREATED", header.type);
         }
       }
