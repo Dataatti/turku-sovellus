@@ -1,8 +1,14 @@
-import { Box, Typography, Link } from '@mui/material';
+import { Box, Typography, TypographyProps, Link } from '@mui/material';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { ElementType } from 'react';
 
-const TypographyGB = ({ children, bold, sx, ...props }) => (
+interface TypographyGBProps extends Omit<TypographyProps, 'component' | 'gutterBottom' | 'variantMapping'> {
+  bold?: boolean;
+  component?: ElementType;
+}
+
+const TypographyGB = ({ children, bold, sx, ...props }: TypographyGBProps) => (
   <Typography {...props} sx={bold ? { my: '20px', fontWeight: 700, ...sx } : sx} gutterBottom>
     {children}
   </Typography>
@@ -154,7 +160,7 @@ const SaavutettavuusSeloste = () => {
         </TypographyGB>
         <TypographyGB>{t.beforeAuthority}</TypographyGB>
 
-        <TypographyGB compoenent="h3" variant="h3" bold>
+        <TypographyGB component="h3" variant="h3" bold>
           {t.authorityContact}
         </TypographyGB>
 
