@@ -22,7 +22,7 @@ describe('index', () => {
       '[data-testid="liikenne-tiedotteet-widget"] iframe[data-widget-id="profile:Turunliikenne"]'
     ).should('be.visible');
 
-    cy.get('[data-testid=top-bar] h1').should('have.text', '');
+    cy.get('[data-testid=top-bar] h1').should('have.text', 'Turku-sovellus').and('not.be.visible');
     cy.get('[data-testid=top-bar] [alt="Turku logo"]').should('be.visible');
   });
 
