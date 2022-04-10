@@ -72,6 +72,7 @@ export const LanguageSelect = () => {
         <MenuItem value={lang}>
           {lang.toUpperCase()}
           <Typography component="span" sx={visuallyHidden}>
+            {' '}
             {languageOptions[lang]}
           </Typography>
         </MenuItem>
