@@ -1,16 +1,18 @@
 import Head from 'next/head';
 import type { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import KerroKantasiWidget from 'components/kerrokantasi/KerroKantasiWidget';
 import TurussaTapahtuuWidget from 'components/turussatapahtuu/TurussaTapahtuuWidget';
 import LiikenneTiedotteetWidget from 'components/LiikenneTiedotteet/LiikenneTiedotteetWidget';
 import TiedotteetWidget from 'components/tiedotteet/TiedotteetWidget';
 import UlkoisetLinkitWidget from 'components/UlkoisetLinkit/UlkoisetLinkitWidget';
-import { Grid } from '@mui/material';
+import { Grid, Link as MuiLink } from '@mui/material';
 import PreviewAlert from 'components/PreviewAlert';
 
 import strapiClient from 'functions/strapi-client';
 import { NostotWidget } from 'components/nostot/NostotWidget';
 import { Titles } from 'enums/titles';
+import { accessibilityStatementTranslations } from 'pages/saavutettavuus';
 
 const Home = ({
   locale,
@@ -39,12 +41,7 @@ const Home = ({
       </Head>
 
       <main>
-        <Grid
-          container
-          direction="row"
-          sx={{ marginBottom: '16px' }}
-          columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-        >
+        <Grid container direction="row" columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item md={6} xs={12}>
             <Grid container direction="column">
               <Grid item>
@@ -82,6 +79,11 @@ const Home = ({
                 />
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item xs sx={{ my: '10px', textAlign: 'center' }}>
+            <Link href="/saavutettavuus" passHref>
+              <MuiLink>{accessibilityStatementTranslations[locale].title}</MuiLink>
+            </Link>
           </Grid>
         </Grid>
         {preview && <PreviewAlert />}
