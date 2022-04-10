@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent } from 'react';
-import { MenuItem, TextField, InputAdornment } from '@mui/material';
+import { MenuItem, TextField, Typography, InputAdornment } from '@mui/material';
 import LanguageIcon from '@mui/icons-material/Language';
+import { visuallyHidden } from '@mui/utils';
 import theme from '../../theme';
 
 const titleTranslations = {
@@ -31,6 +32,8 @@ const allLanguageOptions = {
 export const LanguageSelect = () => {
   const router = useRouter();
   const locale = (router.locale as Lang) ?? 'fi';
+
+  const locales = (router.locales as Lang[]) ?? ['fi', 'en', 'sv'];
 
   const languageOptions = allLanguageOptions[locale];
 
@@ -65,15 +68,14 @@ export const LanguageSelect = () => {
           },
       }}
     >
-      <MenuItem value={'fi'} aria-label={languageOptions.fi}>
-        FI
-      </MenuItem>
-      <MenuItem value={'sv'} aria-label={languageOptions.sv}>
-        SV
-      </MenuItem>
-      <MenuItem value={'en'} aria-label={languageOptions.en}>
-        EN
-      </MenuItem>
+      {locales.map((lang) => (
+        <MenuItem value={lang}>
+          {lang.toUpperCase()}
+          <Typography component="span" sx={visuallyHidden}>
+            {languageOptions[lang]}
+          </Typography>
+        </MenuItem>
+      ))}
     </TextField>
   );
 };
